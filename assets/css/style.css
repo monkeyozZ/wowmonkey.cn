@@ -1,6 +1,186 @@
+html,
+body {
+  font-family: "Microsoft YaHei", '宋体';
+}
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+fieldset,
+legend,
+input,
+textarea,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 200;
+  font-size: 20px;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+ul,
+li {
+  list-style: none;
+}
+fieldset,
+img {
+  border: none;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+input,
+:focus {
+  outline: none;
+}
+li,a,button{
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+/*旧浏览器html新增的标签无法识别块状显示*/
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+*,
+:hover {
+  transition: background-color 0.25s linear, color 0.05s linear, margin 0.25s linear, opacity 0.25s linear, filter 0.25s linear, visibility 0.25s linear, transform 0.25s linear;
+}
+
 .page-enter-active, .page-leave-active {
   transition: opacity .5s;
 }
 .page-enter, .page-leave-active {
   opacity: 0;
+}
+/* emoji swiper reset */
+.emoji-box .swiper-pagination-bullet{
+    margin: 0 4px;
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    border-radius: 50%;
+    background: #000;
+    opacity: 0.2;
+    cursor: pointer
+}
+
+.emoji-box .swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #007aff
+}
+
+.code-lines li {
+  padding-right: 5px;
+  border-right: 1px solid #ddd;
+}
+pre,code{
+  font-family: Consolas,Inconsolata,Courier,monospace,"PingFang SC","Microsoft YaHei",sans-serif;
+}
+#image-popup {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: all .08s;
+    background-color: transparent;
+}
+#image-popup.display {
+    opacity: 1;
+    visibility: visible;
+    transition: all .08s;
+    background-color: rgba(80,80,80,.5);
+}
+#image-popup.display>img {
+    transform: scale(1);
+    transition: all .08s;
+}
+#image-popup>img {
+    max-width: 90%;
+    max-height: 90%;
+    transform: scale(.8);
+    transition: all .08s;
+    border: .5em solid hsla(0,0%,82%,.5);
+}
+
+blockquote {
+    margin: 1.2em 0;
+    text-indent: 0;
+    background-color: rgba(196, 196, 196, 0.5);
+    border-left: .5em solid #aaa;
+    padding: .5em 1em;
+    padding-left: 1.5em;
+}
+
+/* scroll */
+
+::-webkit-scrollbar {  /* 滚动条整体部分 */
+        width:8px;
+        margin-right:2px;
+        background-color:#eee
+      }
+::-webkit-scrollbar-button { /* 滚动条两端的按钮 */
+  display: none;
+}
+::-webkit-scrollbar:horizontal {
+  height:10px;
+  margin-bottom:2px
+}
+::-webkit-scrollbar-track {  /* 外层轨道 */
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track-piece {  /*内层轨道，滚动条中间部分 */
+  background-color: #eee;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {  /* 滑块 */
+  width:10px;
+  border-radius: 5px;
+  background: #CBCBCB;
+}
+::-webkit-scrollbar-corner { /* 边角 */
+  width: 10px;
+  background-color: #fff;
+}
+::-webkit-scrollbar-thumb:hover { /* 鼠标移入滑块 */
+  background: #909090;
 }

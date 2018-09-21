@@ -1,35 +1,31 @@
 <template>
   <section class="container">
-    <my-swiper></my-swiper>
     <article-list :listArr="listArr"></article-list>
   </section>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import { ArticleList, MySwiper } from '~/components/layout'
+import { ArticleList } from '~/components/layout'
 
 export default {
   // layout: this.ismoible?'mobile':'default',
-  scrollToTop: true,
   components: {
-    MySwiper,
     ArticleList
   },
   fetch({ store, params, error }) {
-      return store.dispatch('getArticleList').catch(err => {
+      return store.dispatch('getArticleList', {tag: params.cate}).catch(err => {
         error({ statusCode: 404 })
       })
+  },
+  computed: {
+    ...mapGetters({
+      listArr: 'article/list'
+    })
   },
   data () {
     return {
     }
-  },
-  computed: {
-    ...mapGetters({
-      ismoible: 'globalStatus/mobileLayout',
-      listArr: 'article/list'
-    })
   }
 }
 </script>

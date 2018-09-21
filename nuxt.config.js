@@ -1,3 +1,5 @@
+const apiConfig = require('./config/api.config')
+// const path = require('path')
 module.exports = {
   /*
   ** Headers of the page
@@ -6,7 +8,8 @@ module.exports = {
     title: 'myapp',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no' },
+      { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
@@ -16,16 +19,30 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
-  loading: { color: '#3B8070' },
+  loading: { color: '#007fff' },
 
   /*
    ** Global Css
    */
-  css: ['~/assets/css/style.css'],
-  /*
-   ** plugins
-   */
-  plugins: [],
+  css: [
+    'swiper/dist/css/swiper.css',
+    '~/assets/css/style.css',
+    'highlight.js/styles/dracula.css',
+    '~/assets/css/iconfont/iconfont.css',
+    '~/assets/css/github-markdown.css'
+  ],
+  dev: Object.is(process.env.NODE_ENV, 'production'),
+  env: {
+    baseUrl: apiConfig.baseUrl
+  },
+  plugins: [
+    { src: '~/plugins/swiper.js', ssr: false },
+    { src: '~/plugins/marked.js' },
+    { src: '~/plugins/image-popup.js', ssr: false },
+    { src: '~/plugins/gravatar.js' },
+    { src: '~/plugins/highlight.js' },
+    { src: '~/plugins/filters.js' }
+  ],
   /*
   ** Build configuration
   */
@@ -33,17 +50,33 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-    vendor: [],
+    loaders: [],
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
-        config.module.rules.push({
+        config.module.rules.push(
+          {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
           exclude: /(node_modules)/
-        })
+        }
+      )
       }
-    }
+    },
+    babel: {
+      presets: ['es2015', 'stage-2'],
+      plugins: [
+        'transform-async-to-generator',
+        'transform-runtime'
+      ],
+      comments: true
+    },
+    vendor: [
+      'axios',
+      'swiper',
+      'marked',
+      'gravatar'
+    ]
   }
 }
 

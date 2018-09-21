@@ -247,7 +247,8 @@
 <style lang="stylus">
   body
     position relative
-    color #555
+    color #333
+    overflow-x: hidden!important
   #particles-js
     position: fixed
     top 0
@@ -256,4 +257,7 @@
     height 100%
     background rgba(85,85,85,0.08)
     z-index -9999
+  @media (max-width: 414px)
+    #particles-js
+      max-width 414px
 </style>
