@@ -13,10 +13,11 @@
 
 <style lang="stylus">
   .footer
-    position: absolute
-    bottom: 0
+    position absolute
+    left 0
+    bottom 0
+    height 58px
     width 100%
-    margin 10px 0 -68px 0
     background rgba(255,255,255,0.6);
     section
       max-width 1050px

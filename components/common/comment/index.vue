@@ -105,6 +105,11 @@ export default {
       default_avt: require('~/assets/img/avt.jpg'),
     }
   },
+  computed: {
+    currentUrl () {
+      return `http://wowmonkey.cn${this.$route.fullPath}#comment`
+    }
+  },
   methods: {
     // 表情
     emojisToggle () {
@@ -203,7 +208,6 @@ export default {
         } else {
           this.$refs.markdown.focus()
           this.lastEditRange.collapse(false)
-          console.log(window.getSelection)
           var hasR = this.lastEditRange.createContextualFragment(emoji)
           var hasRlastChild = hasR.lastChild
           while (hasRlastChild && hasRlastChild.nodeName.toLowerCase() === 'br' && hasRlastChild.previousSibling && hasRlastChild.previousSibling.nodeName.toLowerCase() === 'br') {
@@ -284,13 +288,16 @@ export default {
           if (this.comemntContentText.length !== 0) {
             let obj = {
               aid: this.aid,
+              pid: 0,
               name: this.Form.name,
               email: this.Form.email,
-              content: this.comemntContentText
+              content: this.comemntContentText,
+              currentUrl: this.currentUrl
             }
             commentApi.saveMsg(obj).then((res) => {
               if (res.data.code === 0) {
                 this.$refs.markdown.innerHTML = ''
+                this.comemntContentText = ''
                 this.$store.dispatch('getCommentList',this.aid).then(() =>{
                   this.$refs.commentList.setlikestatus()
                 })

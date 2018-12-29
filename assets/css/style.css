@@ -1,6 +1,8 @@
 html,
 body {
   font-family: "Microsoft YaHei", '宋体';
+  min-height: 100%;
+  height: 100%;
 }
 body,
 h1,
@@ -77,12 +79,20 @@ section {
 :hover {
   transition: background-color 0.25s linear, color 0.05s linear, margin 0.25s linear, opacity 0.25s linear, filter 0.25s linear, visibility 0.25s linear, transform 0.25s linear;
 }
-
+/* 页面过渡 */
 .page-enter-active, .page-leave-active {
   transition: opacity .5s;
 }
 .page-enter, .page-leave-active {
   opacity: 0;
+}
+
+/* 侧边栏过渡 */
+.aside-enter-active,.aside-leave-active {
+  transition: opacity .5s;
+}
+.aside-enter, .aside-leave-active {
+  opacity: 0
 }
 /* emoji swiper reset */
 .emoji-box .swiper-pagination-bullet{
@@ -183,4 +193,8 @@ blockquote {
 }
 ::-webkit-scrollbar-thumb:hover { /* 鼠标移入滑块 */
   background: #909090;
+}
+
+#__nuxt,#__layout{
+  height: 100%;
 }

@@ -246,7 +246,6 @@
 
 <style lang="stylus">
   body
-    position relative
     color #333
     overflow-x: hidden!important
   #particles-js

@@ -104,7 +104,6 @@ export default {
         email: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/,
         url: /^((https|http):\/\/)+[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/
       },
-      comment_list: [{haschildren: false},{haschildren: false}],
       // 编辑器相关
       comemntContentHtml: '',
       comemntContentText: '',
@@ -152,6 +151,9 @@ export default {
         childarr.sort(this.compare('creat_time')) // 数组排序
         this.$store.commit('article/SET_COMMENT_DATA_COMMENTNUM', {i: this.index, num: childarr.length})
       return childarr
+    },
+    currentUrl () {
+      return `http://wowmonkey.cn${this.$route.fullPath}#comment`
     }
   },
   methods: {
@@ -278,7 +280,7 @@ export default {
         this.commentContentChange()
       },
       getreplyfocus(name, pid) {
-        if (name != undefined) {
+        if (name !== undefined) {
           this.replayPid = pid
           this.replayChildComment = true
           this.isReplayChild = true
@@ -307,11 +309,13 @@ export default {
               pid: this.isReplayChild?this.replayPid:this.pid,
               name: this.Form.name,
               email: this.Form.email,
-              content: this.comemntContentText
+              content: this.comemntContentText,
+              currentUrl: this.currentUrl
             }
             commentApi.saveMsg(obj).then((res) => {
               if (res.data.code === 0) {
                 this.$refs.markdown.innerHTML = ''
+                this.comemntContentText = ''
                 this.$store.dispatch('getCommentList',this.aid)
                 this.isReplayChild = false // 重置回复评论里的回复的Pid
               }

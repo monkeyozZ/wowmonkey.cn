@@ -1,7 +1,13 @@
 <template>
   <div>
+    <div v-if="listArr.length === 0">暂无数据</div>
     <ul>
-      <li v-for="(item, index) in listArr" :key="index" v-if="!ismoible"> 
+      <li v-for="(item, index) in listArr" :key="index" v-if="!ismoible">
+        <div class="origin">
+          <div class="center">
+            <p :class="item.origin ? (item.origin ==='0' ? 'default' : (item.origin === '1' ? 'transshipment' : 'mixture')) : 'default'">{{item.origin | transfornOrigin}}</p>
+          </div>
+        </div>
         <i class="blogpic" v-if="!ismoible">
           <nuxt-link :to="`/article/${item.id}`">
             <img :src="baseUrl + item.imageUrl" :alt="item.title">
@@ -9,8 +15,9 @@
         </i>
           <dl>
             <dt>
-              <nuxt-link :to="`/article/${item.id}`" tag="h1">
-                <a>{{item.title}}</a>
+              <nuxt-link :to="`/tag/${item.tag[0].alias}`" class="tag">{{item.tag[0].name}}</nuxt-link>
+              <nuxt-link :to="`/article/${item.id}`" tag="h1" class="title">
+                <a>{{item.title | substring}}</a>
               </nuxt-link>
             </dt>
             <dd>
@@ -27,11 +34,17 @@
             </dd>
           </dl>
       </li>
-      <li v-for="(item, index) in listArr" :key="index" @click="goDetails(item.id)" v-if="ismoible"> 
+      <li v-for="(item, index) in listArr" :key="index" @click="goDetails(item.id)" v-if="ismoible">
+        <div class="origin">
+          <div class="center">
+            <p>{{item.origin | transfornOrigin}}</p>
+          </div>
+        </div>
           <dl>
             <dt>
-              <nuxt-link :to="`/article/${item.id}`" tag="h1">
-                <a>{{item.title}}</a>
+              <nuxt-link :to="`/tag/${item.tag[0].alias}`" class="tag">{{item.tag[0].name}}</nuxt-link>
+              <nuxt-link :to="`/article/${item.id}`" tag="h1" class="title">
+                <a>{{item.title | mobileSubstring}}</a>
               </nuxt-link>
             </dt>
             <dd>
@@ -48,17 +61,12 @@
           </dl>
       </li>
     </ul>
-    <get-more></get-more>
   </div>
 </template>
 
 <script>
-import GetMore from '~/components/common/getmore'
 import { mapGetters } from 'vuex'
 export default {
-  components: {
-    GetMore
-  },
   props: {
     listArr: {
       type: Array,
@@ -86,6 +94,7 @@ export default {
 <style lang="stylus" scoped>
   ul
     li
+      position relative
       overflow hidden
       padding 20px
       box-sizing border-box
@@ -93,8 +102,32 @@ export default {
       background rgba(255, 255, 255, 0.5)
       &:hover
         background rgba(85, 85, 85, 0.1)
-        .blogpic img
-          transform: translateX(-5px)
+        .blogpic
+          img
+            transform: translateX(-5px)
+      .origin
+        position absolute
+        width 55px;
+        height 55px;
+        top -15px
+        left -15px
+        .center
+          position absolute
+          width 100%
+          top 50%
+          left 50%
+          transform translate(-50%, -50%)
+          p
+            transform: rotate(-45deg)
+            text-align center
+            color #fff
+            font-size 13px
+            &.default
+              background #1AAD19
+            &.transshipment
+              background #ff5e3a
+            &.mixture
+              background #af46f8
       i.blogpic
         float left
         width 28%
@@ -103,8 +136,8 @@ export default {
         overflow hidden
         img
           display inline-block
-          max-width 100%
-          width: 100%;
+          max-width 105%
+          width 105%
           height: 150px
           transform: scale(1, 1) rotate(0deg)
           transition: 0.5s linear
@@ -120,28 +153,56 @@ export default {
         -webkit-line-clamp 3
         width 68%
         dt
-          a
+          a.tag
             position relative
-            text-overflow ellipsis
+            display inline-block;
+            padding 3px 6px 3px
+            font-size 12px
+            line-height 14px
+            color #fff
+            vertical-align baseline
             white-space nowrap
-            overflow hidden
-            font-size 20px
-            font-weight normal
-            &::before
-              content: "";
-              position: absolute;
-              width 100%
-              height 2px
-              bottom 0
-              left 0
-              background-color #333
-              visibility hidden
-              transform scaleX(0)
-              transition transform .4s ease-in-out
-            &:hover
+            background-color #00a2ff
+            margin-right 5px
+            position relative
+            top -2px
+            border-radius 3px
+            &::after
+              content ''
+              position absolute
+              width 0
+              height 0
+              vertical-align: top
+              top 6px
+              right -4px
+              border-left 4px solid #00a2ff
+              border-top 4px solid transparent
+              border-bottom 4px solid transparent
+          .title
+            display inline
+            margin-left 5px
+            a
+              position relative
+              text-overflow ellipsis
+              white-space nowrap
+              overflow hidden
+              font-size 20px
+              font-weight normal
               &::before
-                transform: scaleX(1)
-                visibility inherit
+                content: "";
+                position: absolute;
+                width 100%
+                height 2px
+                bottom 0
+                left 0
+                background-color #333
+                visibility hidden
+                transform scaleX(0)
+                transition transform .4s ease-in-out
+              &:hover
+                &::before
+                  transform: scaleX(1)
+                  visibility inherit
         dd
           color #989898
           margin 15px 0
@@ -184,4 +245,22 @@ export default {
                 text-align center
               .date
                 flex 1.5
+  @media (max-width: 375px)
+    ul
+      li
+        dl
+          dt
+            .title
+              a{
+                font-size 16px
+              }
+  @media (max-width: 320px)
+    ul
+      li
+        dl
+          dt
+            .title
+              a{
+                font-size 14px
+              }
 </style>

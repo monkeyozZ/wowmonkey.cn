@@ -1,34 +1,32 @@
 <template>
   <section class="container">
-    <article-list :listArr="articleArr"></article-list>
-    <my-get-more @changeListArr="changeListArr" :category="'learn'"></my-get-more>
+    <article-list :listArr="articleArr" @changeListArr="changeListArr"></article-list>
   </section>
 </template>
 
 <script>
-import { ArticleList, MyGetMore } from '~/components/layout'
 import { mapGetters } from 'vuex'
+import { ArticleList } from '~/components/layout'
+
 export default {
   // layout: this.ismoible?'mobile':'default',
   components: {
-    ArticleList,
-    MyGetMore
+    ArticleList
   },
   fetch({ store, params, error }) {
-      return store.dispatch('getArticleList', {page: 1, limit: 8, cate: 'learn'}).catch(err => {
+      return store.dispatch('getArticleList', {page: 1, limit: 8, tag: params.tag}).catch(err => {
         error({ statusCode: 404 })
       })
+  },
+  computed: {
+    ...mapGetters({
+      listArr: 'article/list'
+    })
   },
   data () {
     return {
       articleArr: []
     }
-  },
-  computed: {
-    ...mapGetters({
-      ismoible: 'globalStatus/mobileLayout',
-      listArr: 'article/list'
-    })
   },
   created() {
     this.articleArr = this.listArr

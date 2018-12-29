@@ -3,31 +3,21 @@
     <h1 class="hot_title"><i class="iconfont icon-hot"></i>热门文章</h1>
     <div class="list_box">
       <ul>
-        <li v-for="(item,index) in 8" :key="item.id"><span>{{index+1}}</span><nuxt-link to="">这是第一个ssr项目哦</nuxt-link></li>
+        <li v-for="(item,index) in arr" :key="item.id"><span>{{index+1}}</span><nuxt-link :to="`/article/${item.id}`">{{item.title}}</nuxt-link></li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
   export default {
     data () {
       return {
-        arr: []
       }
     },
-    methods: {
-      /* getArticleList: function () {
-        var _this = this
-        _this.axios.get('/static/hot.json')
-          .then((response) => {
-            _this.arr = response.data
-            // console.log(response)
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-      } */
+    computed: {
+      ...mapGetters({arr: 'article/hot_list'})
     }
   }
 </script>
@@ -48,8 +38,13 @@
       i
         margin-right 10px
     .list_box ul li
-      margin-bottom 5px
+      width 100%
+      margin-bottom 8px
       overflow hidden
+      text-overflow ellipsis
+      -webkit-box-orient vertical
+      display -webkit-box
+      -webkit-line-clamp 1
       &:first-child
         margin-top 10px
       &:nth-child(1)
@@ -74,8 +69,6 @@
         background-color: hsla(0,0%,77%,.4)
         margin-right 10px
       a
-        display inline-block
-        padding 5px 0
         font-size 14px;
         transform translateX(0px)
         &:hover

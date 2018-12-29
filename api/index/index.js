@@ -1,13 +1,5 @@
 import request from '~/utils/request'
 
-const getArticleList = async (obj) => {
-  return request({
-    url: '/siteArticle/getArticleList',
-    method: 'post',
-    data: obj
-  })
-}
-
 const getTagList = async () => {
   return request({
     url: '/siteArticle/getTagList',
@@ -15,4 +7,4 @@ const getTagList = async () => {
   })
 }
 
-export default { getArticleList, getTagList }
+export default { getTagList }

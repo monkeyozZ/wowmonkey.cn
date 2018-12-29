@@ -3,7 +3,7 @@
     <h1 class="tag_title"><i class="iconfont icon-tag"></i>标签库</h1>
     <ul>
       <li class="tag_item" v-for="(item, index) in listArr" :key="index">
-        <nuxt-link :to="`/category/${item.alias}`" tag="a">
+        <nuxt-link :to="`/tag/${item.alias}`">
           <span>{{item.name}}({{item.article_num}})</span>
         </nuxt-link>
       </li>

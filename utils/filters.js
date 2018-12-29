@@ -46,4 +46,38 @@ const parseTime = (time, cFormat) => {
   return timestr
 }
 
-export default { timefilter, parseTime  }
+const substring = (str) => {
+  if (str) {
+    if (str.length > 22) {
+      return str.substring(0, 22) + '...'
+    } else {
+      return str
+    }
+  }
+}
+
+const mobileSubstring = (str) => {
+  if (str) {
+    if (str.length > 15) {
+      return str.substring(0, 15) + '...'
+    } else {
+      return str
+    }
+  }
+}
+
+const transfornOrigin = (str) => {
+  if (str) {
+    if (str === '0') {
+      return '原创'
+    }
+    if (str === '1') {
+      return '转载'
+    }
+    if (str === '2') {
+      return '混合'
+    }
+  }
+}
+
+export default { timefilter, parseTime, substring, mobileSubstring, transfornOrigin  }

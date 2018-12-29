@@ -17,7 +17,7 @@
             <span v-else>{{item}}</span>
           </span>
           </p>
-        <p>版权声明：原创文章，如需转载，请注明原出处，避免错误及误导，以便溯源</p>
+        <p>版权声明：{{details.origin | transfornOrigin}}文章，如需转载，请注明原出处，避免错误及误导，以便溯源</p>
         <p>本文地址：<a :href="articleUrl">{{articleUrl}}</a></p>
       </div>
       

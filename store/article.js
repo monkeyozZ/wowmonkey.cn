@@ -6,6 +6,9 @@ export const state = () => {
     hot_list: {
       data: []
     },
+    search_list: {
+      data: []
+    },
     details: {
       data: {}
     },
@@ -18,6 +21,7 @@ export const state = () => {
 export const getters = {
   list: state => state.list.data,
   hot_list: state => state.hot_list.data,
+  search_list: state => state.search_list.data,
   details: state => state.details.data,
   comment_list: state => state.commentList.data
 }
@@ -28,6 +32,9 @@ export const mutations = {
   },
   SET_HOST_LIST_DATA(state, action) {
     state.hot_list.data = action
+  },
+  SET_SEARCH_LIST_DATA(state, action) {
+    state.search_list.data = action
   },
   SET_DETAILS_DATA (state, action) {
     state.details.data = action

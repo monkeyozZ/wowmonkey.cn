@@ -30,7 +30,7 @@ export default {
             delay: 3500,
             disableOnInteraction: false
           },
-          height: '250',
+          height: '200',
           pagination: {
             el: '.swiper-pagination',
             clickable: true
@@ -57,9 +57,9 @@ export default {
 
 <style lang="stylus" scoped>
 .swiper-box
-  margin-bottom 20px
+  margin-bottom 10px
   .swiper-slide
-    height 250px
+    height 200px
     overflow hidden
     a.nuxt-link-exact-active.nuxt-link-active
       display block

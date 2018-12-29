@@ -27,16 +27,15 @@ export default {
   methods: {
     clickDay (data) {
         var time = Date.parse(new Date(data))
-        var timestring = time / 1000
-        var timeend = timestring + 86400
+        var timestring = time
+        // var timeend = timestring + 86400
         /* this.axios.post('home/index', {
           params: {
             startime: timestring,
             endtime: timeend
           }
         }) */
-        this.$router.push(`/category/${timestring,timeend}`)
-        console.log(timestring,timeend)
+        this.$router.push(`/date/${timestring}`)
       }
   }
 }

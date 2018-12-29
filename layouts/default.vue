@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow-x:hidden">
+  <div class="wrapper">
     <back-ground
     color="#e5e5e5"
     :particleOpacity="0.7"
@@ -19,13 +19,15 @@
     </back-ground>
     <my-header v-if="!ismoible"></my-header>
     <m-header v-if="ismoible" ref="mobile" @changeopen="changeopen" @searchsildedown="searchsildedown"></m-header>
-    <div :class="{wrapper: true, open: isopen, sildedown: sildedown}" @click="closemobilenav">
-      <main class="main">
+    <div class="wrapper_box" :class="{open: isopen, sildedown: sildedown}" @click="closemobilenav">
+      <main class="main" :class="{full: fullColumn}">
         <nuxt/>
       </main>
-      <aside class="slide" v-if="!ismoible">
-        <my-aside></my-aside>
-      </aside>
+      <transition name="aside">
+        <aside class="slide" v-if="!ismoible && !fullColumn">
+          <my-aside></my-aside>
+        </aside>
+      </transition>
     </div>
     <my-footer></my-footer>
   </div>
@@ -51,7 +53,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      ismoible: 'globalStatus/mobileLayout'
+      ismoible: 'globalStatus/mobileLayout',
+      fullColumn: 'globalStatus/fullColumn',
     })
   },
   methods: {
@@ -73,28 +76,37 @@ export default {
 
 <style lang="stylus" scoped>
 .wrapper
-  max-width 1120px
-  width 100%
-  margin 100px auto 0
-  overflow hidden
-  .main
-    width 70%
-    float left
+  overflow-x hidden
+  position relative
+  min-height 100%
+  padding-bottom 68px
+  box-sizing border-box
+  .wrapper_box
+    max-width 1120px
+    width 100%
+    margin 80px auto 0
     overflow hidden
-  .slide
-    float right
-    width 28%
-    overflow hidden
+    .main
+      width 70%
+      float left
+      overflow hidden
+      &.full
+        width 100%
+    .slide
+      float right
+      width 28%
+      overflow hidden
 @media (max-width: 414px)
   .wrapper
-    margin 70px auto 0
-    .main
-      width 100%
-  .wrapper.open
-    transform translateX(60%)
-    transition: all .35s ease-in-out;
-  .wrapper.sildedown
-    margin 120px auto 0
-    transition: all .25s ease-in-out;
+    .wrapper_box
+      margin 70px auto 0
+      .main
+        width 100%
+    .wrapper_box.open
+      transform translateX(60%)
+      transition: all .35s ease-in-out;
+    .wrapper_box.sildedown
+      margin 120px auto 0
+      transition: all .25s ease-in-out;
 </style>
 

@@ -21,11 +21,6 @@
               </nuxt-link>
             </li>
             <li>
-              <nuxt-link to="/about" exact>
-              关于
-              </nuxt-link>
-            </li>
-            <li>
               <nuxt-link to="/life" exact>
               慢生活
               </nuxt-link>
@@ -33,6 +28,11 @@
             <li>
               <nuxt-link to="/time" exact>
               时间轴
+              </nuxt-link>
+            </li>
+            <li>
+              <nuxt-link to="/about" exact>
+              关于
               </nuxt-link>
             </li>
           </ul>

@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <article-list :listArr="listArr"></article-list>
+    <article-list :listArr="articleArr" @changeListArr="changeListArr"></article-list>
   </section>
 </template>
 
@@ -14,7 +14,7 @@ export default {
     ArticleList
   },
   fetch({ store, params, error }) {
-      return store.dispatch('getArticleList', {tag: params.cate}).catch(err => {
+      return store.dispatch('getArticleList', {page: 1, limit: 8, creat_time: params.time}).catch(err => {
         error({ statusCode: 404 })
       })
   },
@@ -25,6 +25,15 @@ export default {
   },
   data () {
     return {
+      articleArr: []
+    }
+  },
+  created() {
+    this.articleArr = this.listArr
+  },
+  methods: {
+    changeListArr (arr) {
+      this.articleArr = this.articleArr.concat(arr)
     }
   }
 }

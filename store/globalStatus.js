@@ -1,13 +1,15 @@
 export const state = () => {
   return {
     mobileLayout: false,
-    mobileSearch: false
+    mobileSearch: false,
+    fullColumn: false,
   }
 }
 
 export const getters = {
   mobileLayout: state => state.mobileLayout,
-  mobileSearch: state => state.mobileSearch
+  mobileSearch: state => state.mobileSearch,
+  fullColumn: state => state.fullColumn,
 }
 
 export const mutations = {
@@ -17,5 +19,9 @@ export const mutations = {
   },
   SET_MOBILE_SEARCH(state, action) {
     state.mobileSearch = action
+  },
+  // 设置是否需要侧边栏
+  SET_ASIDE_STATUS(state, action) {
+    state.fullColumn = action
   }
 }

@@ -9,13 +9,14 @@ export const actions = {
     const { isMobile, isOpera, isIE, isSafari, isEdge, isFF, isBB, isChrome, isMaxthon, isIos } = uaParse(userAgent)
     store.commit('globalStatus/SET_MOBILE_LAYOUT', isMobile)
     return Promise.all([
-    store.dispatch('getArticleList'),
-    store.dispatch('getTagList')
+      // store.dispatch('getArticleList', { page: 1, limit: 2, cate: null, tag: null}),
+      store.dispatch('getTagList'),
+      store.dispatch('getHotArticleList', { page: 1, limit: 8, hot: true,})
     ])
   },
   // 加载文章列表
   getArticleList({commit}, obj) {
-    return indexApi.getArticleList(obj).then((res) => {
+    return articleApi.getArticleList(obj).then((res) => {
       if (res.data.code === 0) {
         commit('article/SET_LIST_DATA', res.data.articleList)
       }
@@ -38,7 +39,7 @@ export const actions = {
   getArticleDetails({commit}, id) {
     return articleApi.getArticleDetails(id).then((res) => {
       if (res.data.code === 0) {
-        commit('article/SET_DETAILS_DATA', res.data.articleDetails[0])
+        commit('article/SET_DETAILS_DATA', res.data.articleDetails)
       }
     })
   },
@@ -49,6 +50,28 @@ export const actions = {
       if (res.data.code === 0) {
         commit('article/SET_COMMENT_DATA', res.data.commentList)
       }
+    })
+  },
+
+  // 加载热门文章列表
+  getHotArticleList({ commit }, obj) {
+    return articleApi.getArticleList(obj).then((res) => {
+      if (res.data.code === 0) {
+        commit('article/SET_HOST_LIST_DATA', res.data.articleList)
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
+  },
+
+  // 搜索文章列表
+  searchArticleList({ commit }, obj) {
+    return articleApi.getArticleList(obj).then((res) => {
+      if (res.data.code === 0) {
+        commit('article/SET_SEARCH_LIST_DATA', res.data.articleList)
+      }
+    }).catch((err) => {
+      console.log(err)
     })
   }
 }

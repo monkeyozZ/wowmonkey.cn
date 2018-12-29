@@ -1,6 +1,7 @@
 import backgeound from '../common/background'
 import swiper from '../common/swiper'
 import comment from '../common/comment'
+import getmore from '../common/getmore'
 import header from './header'
 import mobileheader from '../mobile/header'
 import aside from './aside'
@@ -23,3 +24,4 @@ export const MyShare = share
 export const MyLike = like
 export const MyComment = comment
 export const MyFooter = footer
+export const MyGetMore = getmore

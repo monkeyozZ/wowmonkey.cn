@@ -24,11 +24,6 @@
               </nuxt-link>
             </li>
             <li>
-              <nuxt-link to="/about" exact>
-              关于
-              </nuxt-link>
-            </li>
-            <li>
               <nuxt-link to="/life" exact>
               慢生活
               </nuxt-link>
@@ -36,6 +31,11 @@
             <li>
               <nuxt-link to="/time" exact>
               时间轴
+              </nuxt-link>
+            </li>
+            <li>
+              <nuxt-link to="/about" exact>
+              关于
               </nuxt-link>
             </li>
           </ul>
@@ -66,7 +66,7 @@ import MySearch  from '../../layout/search'
           this.isopen = !this.isopen
           this.$emit('changeopen', this.isopen)
           this.search = false
-          this.$refs.mysearch.clear()
+          // this.$refs.mysearch.clear()
           this.$emit('searchsildedown', false)
         },
         showsearch() {
@@ -75,7 +75,7 @@ import MySearch  from '../../layout/search'
         },
         closesearch() {
            this.search = !this.search
-           this.$refs.mysearch.clear()
+           // this.$refs.mysearch.clear()
            this.$emit('searchsildedown', this.search)
         },
         closenav() {
@@ -89,6 +89,7 @@ import MySearch  from '../../layout/search'
     watch: {
       '$route'(newVel, oldVel) {
         this.search = false
+        this.$emit('searchsildedown', this.search)
         this.isopen = false
         this.$emit('changeopen', this.isopen)
       }
@@ -102,7 +103,7 @@ import MySearch  from '../../layout/search'
 <style lang="stylus" scoped>
   .header
     position fixed
-    max-width 414px
+    max-width 100%
     width 100%
     top 0
     left 0

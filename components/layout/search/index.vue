@@ -2,13 +2,13 @@
   <div class="search_box" :class="{slidedown: mobileSearch}">
     <div class="search">
       <input type="text" placeholder="搜索..." v-model="searchtext">
-      <button  type="button" class="search_btn" ><i class="iconfont icon-search"></i></button>
+      <button  type="button" class="search_btn" @click="search"><i class="iconfont icon-search"></i></button>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   export default {
     props: {
       mobileSearch: {
@@ -23,17 +23,33 @@
     },
     computed: {
       ...mapGetters({
-        mobileLayout: 'globalStatus/mobileLayout'
+        mobileLayout: 'globalStatus/mobileLayout',
+
       })
     },
     methods: {
+      ...mapActions({
+        searchKeyword: 'searchArticleList'
+      }),
       closesearch() {
         this.$emit('showsearch')
       },
       clear() {
         this.searchtext = ''
+      },
+      search () {
+        const paramsKeyword = this.$route.params.keyword
+        const isSearchPage = Object.is(this.$route.name, 'search-keyword')
+        if (this.searchtext && (isSearchPage ? (paramsKeyword !== this.searchtext) : true)) {
+          this.$router.push({ name: 'search-keyword', params: { keyword: this.searchtext } })
+        }
       }
-    }
+    },
+    mounted () {
+      if (this.$route.name === 'search-keyword') {
+        this.searchtext = this.$route.params.keyword
+      }
+    },
   }
 </script>
 

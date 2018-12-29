@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <article-list :listArr="articleArr"></article-list>
-    <my-get-more @changeListArr="changeListArr" :category="'learn'"></my-get-more>
+    <my-get-more @changeListArr="changeListArr" :keyWord="keyWord"></my-get-more>
   </section>
 </template>
 
@@ -10,14 +10,17 @@ import { ArticleList, MyGetMore } from '~/components/layout'
 import { mapGetters } from 'vuex'
 export default {
   // layout: this.ismoible?'mobile':'default',
+  fetch({ store, params }) {
+    let obj = {
+            page: 1,
+            limit: 8,
+            keyWord : params.keyword
+          }
+      return store.dispatch('searchArticleList', obj)
+    },
   components: {
     ArticleList,
     MyGetMore
-  },
-  fetch({ store, params, error }) {
-      return store.dispatch('getArticleList', {page: 1, limit: 8, cate: 'learn'}).catch(err => {
-        error({ statusCode: 404 })
-      })
   },
   data () {
     return {
@@ -27,16 +30,26 @@ export default {
   computed: {
     ...mapGetters({
       ismoible: 'globalStatus/mobileLayout',
-      listArr: 'article/list'
-    })
-  },
-  created() {
-    this.articleArr = this.listArr
+      listArr: 'article/search_list'
+    }),
+    keyWord () {
+      return this.$route.params.keyword
+    }
   },
   methods: {
     changeListArr (arr) {
       this.articleArr = this.articleArr.concat(arr)
     }
+  },
+  watch: {
+    listArr: {
+      handler () {
+        this.articleArr = this.listArr
+      }
+    }
+  },
+  mounted() {
+    this.articleArr = this.listArr
   }
 }
 </script>

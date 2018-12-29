@@ -43,6 +43,9 @@ module.exports = {
     { src: '~/plugins/highlight.js' },
     { src: '~/plugins/filters.js' }
   ],
+  router: {
+    middleware: 'responsive'
+  },
   /*
   ** Build configuration
   */
