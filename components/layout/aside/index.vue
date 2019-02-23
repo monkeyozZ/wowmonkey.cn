@@ -6,7 +6,7 @@
     @choseDay="clickDay"
     ></my-calendar>
     <my-tag></my-tag>
-    <my-link></my-link>
+    <!-- <my-link></my-link> -->
   </div>
 </template>
 

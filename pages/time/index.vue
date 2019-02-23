@@ -43,9 +43,19 @@ export default {
       "content": "人在长期的只有付出没有回报的状态下，生活状态会处在一个焦灼的境地，如果能够控制自己的情绪，静下来去思考，去积极的思考，让自己依然处在一个充满斗志的状态，这是一种成长",
       "creat_time": "1512369051"
     }
-  ]
+  ],
+  title: '时间轴'
     }
-  }
+  },
+  head () {
+    return {
+      title: this.title,
+      meta: [
+        { hid: 'description', name: 'description', content: '这是一个基于nuxt.js案例，基于nuxt.js服务端渲染项目' },
+        { hid: 'keywords', name: 'keywords', content: 'nuxt.js的个人博客' }
+      ]
+    }
+  },
 }
 </script>
 

@@ -3,7 +3,7 @@
     <ul>
       <li v-for="(item, index) in comment_list" :key="index">
         <div class="gravatar">
-          <img :src="gravatar('1316438321@qq.com')" alt="">
+          <img :src="gravatar(item.email)" alt="">
         </div>
         <div class="list-content">
           <h1>{{item.name}}</h1>

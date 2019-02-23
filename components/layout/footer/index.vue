@@ -16,7 +16,7 @@
     position absolute
     left 0
     bottom 0
-    height 58px
+    height 60px
     width 100%
     background rgba(255,255,255,0.6);
     section

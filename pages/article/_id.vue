@@ -69,12 +69,22 @@ import { setInterval } from 'timers';
             "creat_time":"1512369051"
           }
         ],
-        info: []
+        info: [],
+        baseUrl: 'http://api.wowmonkey.cn'
+      }
+    },
+    head () {
+      return {
+        title: this.details.title,
+        meta: [
+          { hid: 'description', name: 'description', content: this.details.des },
+          { hid: 'keywords', name: 'keywords', content: this.details.keywords }
+        ]
       }
     },
     computed: {
       url() {
-        return `http://172.16.0.90:3000${this.$route.fullPath}`
+        return process.env.host + this.$route.fullPath
       },
       ...mapGetters({
         details: 'article/details'
@@ -83,7 +93,7 @@ import { setInterval } from 'timers';
         return marked(this.details.content, true)
       },
       articleUrl () {
-        return 'http://wowmonkey.cn' + this.$route.fullPath
+        return process.env.host + this.$route.fullPath
       },
     },
     methods: {
@@ -91,9 +101,9 @@ import { setInterval } from 'timers';
         let _this = this
         let infoarr = []
         infoarr.url = encodeURIComponent(_this.url)
-        infoarr.title = encodeURIComponent(_this.arr[0].title)
-        infoarr.content = encodeURIComponent(_this.arr[0].des)
-        infoarr.pic = encodeURIComponent(_this.arr[0].images)
+        infoarr.title = encodeURIComponent(_this.details.title)
+        infoarr.content = encodeURIComponent(_this.details.des)
+        infoarr.pic = encodeURIComponent(_this.baseUrl + _this.details.imageUrl)
         this.info = infoarr
       }
     },

@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div v-if="listArr.length === 0">暂无数据</div>
-    <ul>
-      <li v-for="(item, index) in listArr" :key="index" v-if="!ismoible">
+    <div v-if="listArr.length === 0" class="nomore">暂无数据</div>
+    <ul v-if="!ismoible">
+      <li v-for="(item, index) in listArr" :key="index">
         <div class="origin">
           <div class="center">
             <p :class="item.origin ? (item.origin ==='0' ? 'default' : (item.origin === '1' ? 'transshipment' : 'mixture')) : 'default'">{{item.origin | transfornOrigin}}</p>
           </div>
         </div>
-        <i class="blogpic" v-if="!ismoible">
+        <i class="blogpic">
           <nuxt-link :to="`/article/${item.id}`">
             <img :src="baseUrl + item.imageUrl" :alt="item.title">
           </nuxt-link>
@@ -17,7 +17,7 @@
             <dt>
               <nuxt-link :to="`/tag/${item.tag[0].alias}`" class="tag">{{item.tag[0].name}}</nuxt-link>
               <nuxt-link :to="`/article/${item.id}`" tag="h1" class="title">
-                <a>{{item.title | substring}}</a>
+                <a>{{item.title}}</a>
               </nuxt-link>
             </dt>
             <dd>
@@ -34,7 +34,9 @@
             </dd>
           </dl>
       </li>
-      <li v-for="(item, index) in listArr" :key="index" @click="goDetails(item.id)" v-if="ismoible">
+    </ul>
+    <ul v-if="ismoible">
+      <li v-for="(item, index) in listArr" :key="index" @click="goDetails(item.id)">
         <div class="origin">
           <div class="center">
             <p>{{item.origin | transfornOrigin}}</p>
@@ -44,7 +46,7 @@
             <dt>
               <nuxt-link :to="`/tag/${item.tag[0].alias}`" class="tag">{{item.tag[0].name}}</nuxt-link>
               <nuxt-link :to="`/article/${item.id}`" tag="h1" class="title">
-                <a>{{item.title | mobileSubstring}}</a>
+                <a>{{item.title}}</a>
               </nuxt-link>
             </dt>
             <dd>
@@ -75,7 +77,7 @@ export default {
   },
   data () {
     return {
-      baseUrl: process.env.baseUrl
+      baseUrl: 'http://api.wowmonkey.cn'
     }
   },
   computed: {
@@ -92,6 +94,12 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+  .nomore
+    text-align center
+    padding 20px
+    background rgba(0,0,0,.1)
+    border-radius 6px
+    margin 10px auto
   ul
     li
       position relative
@@ -155,7 +163,7 @@ export default {
         dt
           a.tag
             position relative
-            display inline-block;
+            float left
             padding 3px 6px 3px
             font-size 12px
             line-height 14px
@@ -164,8 +172,7 @@ export default {
             white-space nowrap
             background-color #00a2ff
             margin-right 5px
-            position relative
-            top -2px
+            top 4px
             border-radius 3px
             &::after
               content ''
@@ -179,7 +186,9 @@ export default {
               border-top 4px solid transparent
               border-bottom 4px solid transparent
           .title
-            display inline
+            text-overflow ellipsis
+            white-space nowrap
+            overflow hidden
             margin-left 5px
             a
               position relative

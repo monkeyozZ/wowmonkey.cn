@@ -423,7 +423,7 @@
 .markdown-body blockquote {
   padding: 0 1em;
   color: #6a737d;
-  border-left: 0.25em solid #dfe2e5;
+  border-left: 0.25em solid #6a737d;
 }
 
 .markdown-body blockquote>:first-child {
@@ -701,7 +701,7 @@
   word-wrap: normal;
   margin-bottom: 10px;
 }
-.markdown-body pre::before{
+/* .markdown-body pre::before{
   color: #fff;
   content: attr(data-lang) " CODE";
   height: 28px;
@@ -716,4 +716,4 @@
   display: block;
   text-transform: uppercase;
   text-align: center;
-}
+} */

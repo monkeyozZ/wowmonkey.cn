@@ -33,7 +33,8 @@ module.exports = {
   ],
   dev: Object.is(process.env.NODE_ENV, 'production'),
   env: {
-    baseUrl: apiConfig.baseUrl
+    baseUrl: apiConfig.baseUrl,
+    host: 'http://wowmonkey.cn'
   },
   plugins: [
     { src: '~/plugins/swiper.js', ssr: false },

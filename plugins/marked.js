@@ -40,7 +40,7 @@ const linkParse = (href, title, text) => {
 
 // 对图片进行弹窗处理
 const imageParse = (src, title, alt) => {
-  src = src.replace(/^http:\/\//ig, "/proxy/")
+  // src = src.replace(/^http:\/\//ig, "/proxy/")
   return `<img src="${src}" 
                title="${title || alt || 'surmon.me'}" 
                alt="${alt || title || src}" 
@@ -62,7 +62,7 @@ const codeParse = function (code, lang, escaped) {
 
   return `<pre class="hljs" data-lang="${lang}" style="position: relative;padding-left: 30px;overflow-y: hidden">
           <ul class="code-lines" style="position: absolute;left: 0;width: 30px;text-align:center">${lineNums}</ul>
-          <code class="site-code" style="float: left">${(escaped ? code : escape(code, true))}\n</code>
+          <code class="site-code" style="margin-left:-80px;">${(escaped ? code : escape(code, true))}\n</code>
         </pre>`.replace('\n', '')
 }
 

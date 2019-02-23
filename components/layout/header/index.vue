@@ -53,9 +53,9 @@
     methods: {
       sliderHeader () {
         let bodyHeight = document.documentElement.clientHeight
-        let containerHeight = document.getElementsByClassName('wrapper')[0].clientHeight
-        //console.log(bodyHeight, containerHeight)
-        if (containerHeight + 100 > bodyHeight) {
+        let containerHeight = document.getElementsByClassName('wrapper_box')[0].clientHeight
+        // console.log(bodyHeight, containerHeight)
+        if (containerHeight > bodyHeight) {
           let e = e || window.event;
             if(e.wheelDelta){//IE/Opera/Chrome
             	//自定义事件：编写具体的实现逻辑

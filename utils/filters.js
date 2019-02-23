@@ -48,8 +48,8 @@ const parseTime = (time, cFormat) => {
 
 const substring = (str) => {
   if (str) {
-    if (str.length > 22) {
-      return str.substring(0, 22) + '...'
+    if (str.length > 18) {
+      return str.substring(0, 18) + '...'
     } else {
       return str
     }
