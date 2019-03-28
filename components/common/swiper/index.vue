@@ -1,10 +1,10 @@
 <template>
-  <div class="swiper-box">
+  <div class="swiper-box" v-if="listArr.length !==0">
     <div class="swiper" v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
-          <div class="swiper-slide item" v-for="(item, index) in 5" :key="index">
-            <nuxt-link to="/" class="title">
-              <img src="http://www.yangqq.com/skin/886/images/1.jpg" alt="">
+          <div class="swiper-slide item" v-for="(item, index) in listArr" :key="index">
+            <nuxt-link :to="`/article/${item.id}`" class="title">
+              <img :src="baseUrl + item.imageUrl" :alt="item.title">
             </nuxt-link>
           </div>
         </div>
@@ -16,8 +16,15 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  props:{
+    listArr: {
+      type: Array,
+      default: () => []
+    }
+  },
   data () {
     return {
+      baseUrl: 'http://api.wowmonkey.cn'
     }
   },
     computed: {
@@ -26,10 +33,10 @@ export default {
     }),
     swiperOption() {
       return {
-        autoplay: {
+        /* autoplay: {
             delay: 3500,
             disableOnInteraction: false
-          },
+          }, */
           height: '200',
           pagination: {
             el: '.swiper-pagination',
@@ -40,7 +47,7 @@ export default {
           setWrapperSize: true,
           loop: true
       }
-    }
+    },
   },
   methods: {
     change() {
@@ -61,14 +68,14 @@ export default {
   .swiper-slide
     height 200px
     overflow hidden
-    a.nuxt-link-exact-active.nuxt-link-active
+    a.title
       display block
       overflow hidden
       img
         display inline-block
         max-width 100%
         width 100%
-        height auto
+        height 200px
       span
         display block
         width 100%

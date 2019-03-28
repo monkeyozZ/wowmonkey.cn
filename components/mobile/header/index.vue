@@ -54,7 +54,7 @@ import MySearch  from '../../layout/search'
     },
     data () {
       return {
-        logotext: 'alert(monkey)',
+        logotext: 'Alert(monkey)',
         sliderup: false,
         sliderdown: false,
         search: false,

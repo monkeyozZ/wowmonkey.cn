@@ -3,7 +3,7 @@
   <div class="container" ref="scroll">
     <div>
       <div class="article">
-        <h1>{{details.title}}</h1>
+        <h1 class="title">{{details.title}}</h1>
         <div class="markdown-body" v-html="articleContent">
         </div>
       </div>
@@ -131,7 +131,7 @@ import { setInterval } from 'timers';
     .article
       padding 20px 10px
       background rgba(255,255,255,0.5)
-      h1,h2,h3,h4,h5,h6
+      .title
         text-align center
         color inherit
         font-weight 700
@@ -139,8 +139,6 @@ import { setInterval } from 'timers';
         margin 10px 0 20px 0
       .markdown-body
         padding 10px 15px
-        p
-          text-indent 2em
       img
         display inline-block
         max-width 100%
@@ -150,7 +148,12 @@ import { setInterval } from 'timers';
         font-size 14px;
         line-height 26px;
         color inherit
-        text-indent 2em
+      pre
+        display block
+        overflow-x: auto
+        padding 0.5em
+        background: #282a36
+        color #fff
     .attr_box
       margin 10px 0
       padding 15px 10px

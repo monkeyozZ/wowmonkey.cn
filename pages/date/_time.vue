@@ -1,17 +1,19 @@
 <template>
   <section class="container">
     <article-list :listArr="articleArr" @changeListArr="changeListArr"></article-list>
+    <my-get-more @changeListArr="changeListArr" :category="'learn'" :type="'article'"></my-get-more>
   </section>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import { ArticleList } from '~/components/layout'
+import { ArticleList, MyGetMore } from '~/components/layout'
 
 export default {
   // layout: this.ismoible?'mobile':'default',
   components: {
-    ArticleList
+    ArticleList,
+    MyGetMore
   },
   fetch({ store, params, error }) {
       return store.dispatch('getArticleList', {page: 1, limit: 8, creat_time: params.time}).catch(err => {
@@ -25,7 +27,17 @@ export default {
   },
   data () {
     return {
-      articleArr: []
+      articleArr: [],
+      title: '日期列表'
+    }
+  },
+  head () {
+    return {
+      title: this.title,
+      meta: [
+        { hid: 'description', name: 'description', content: 'monkey，monkey的个人博客，基于的nuxt.js个人博客，vue的ssr框架，vue服务端渲染，日期列表' },
+        { hid: 'keywords', name: 'keywords', content: 'monkey的个人博客，个人博客，nuxt.js项目，日期列表' }
+      ]
     }
   },
   created() {

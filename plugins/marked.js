@@ -17,8 +17,12 @@ marked.setOptions({
   sanitize: false,
   smartLists: true,
   smartypants: false,
-  highlight(code) {
-    return Hljs.highlightAuto(code).value
+  highlight(code, lang) {
+    if(lang && hljs.getLanguage(lang)) {
+      return Hljs.highlight(lang, code, true).value;
+    } else {
+      return Hljs.highlightAuto(code).value;
+    }
   }
 })
 
@@ -29,7 +33,7 @@ const paragraphParse = text => `<p>${text}</p>`
 
 // 对连接进行权重防流和新窗处理
 const linkParse = (href, title, text) => {
-  const isSelf = href.includes('surmon.me')
+  const isSelf = href.includes('wowmonkey.cn')
   const textIsImage = text.includes('<img')
   return `<a href="${href}" 
              target="_blank" 
@@ -42,13 +46,13 @@ const linkParse = (href, title, text) => {
 const imageParse = (src, title, alt) => {
   // src = src.replace(/^http:\/\//ig, "/proxy/")
   return `<img src="${src}" 
-               title="${title || alt || 'surmon.me'}" 
+               title="${title || alt || 'wowmonkey.cn'}" 
                alt="${alt || title || src}" 
                onclick="if(window.utils) window.utils.openImgPopup('${src}')"/>`.replace(/\s+/g, ' ').replace('\n', '')
 }
 
 // 代码解析器（行号处理）
-const codeParse = function (code, lang, escaped) {
+/* const codeParse = function (code, lang, escaped) {
   if (this.options.highlight) {
     const out = this.options.highlight(code, lang)
     if (out != null && out !== code) {
@@ -60,14 +64,13 @@ const codeParse = function (code, lang, escaped) {
     return `<li class="code-line-number">${i + 1}</li>`.replace(/\s+/g, ' ')
   }).join('')
 
-  return `<pre class="hljs" data-lang="${lang}" style="position: relative;padding-left: 30px;overflow-y: hidden">
-          <ul class="code-lines" style="position: absolute;left: 0;width: 30px;text-align:center">${lineNums}</ul>
-          <code class="site-code" style="margin-left:-80px;">${(escaped ? code : escape(code, true))}\n</code>
-        </pre>`.replace('\n', '')
-}
+  return `<pre class="hljs" data-lang="${lang ? lang: ''}">
+          <code class="site-code">${(escaped ? code : escape(code, true))}\n</code>
+          </pre>`.replace('\n', '')
+} */
 
 renderer.link = linkParse
-renderer.code = codeParse
+// renderer.code = codeParse
 renderer.image = imageParse
 renderer.paragraph = paragraphParse
 

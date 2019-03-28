@@ -39,7 +39,7 @@
       <li v-for="(item, index) in listArr" :key="index" @click="goDetails(item.id)">
         <div class="origin">
           <div class="center">
-            <p>{{item.origin | transfornOrigin}}</p>
+            <p :class="item.origin ? (item.origin ==='0' ? 'default' : (item.origin === '1' ? 'transshipment' : 'mixture')) : 'default'">{{item.origin | transfornOrigin}}</p>
           </div>
         </div>
           <dl>

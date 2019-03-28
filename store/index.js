@@ -2,6 +2,7 @@ import uaParse from '~/utils/device-test.js'
 import indexApi from '~/api/index'
 import articleApi from '~/api/article'
 import commentApi from '~/api/comment'
+import timeApi from '~/api/time'
 
 export const actions = {
   nuxtServerInit (store, {req}) {
@@ -73,5 +74,15 @@ export const actions = {
     }).catch((err) => {
       console.log(err)
     })
-  }
+  },
+
+    // 加载时间轴列表
+  getTimeList ({ commit }) {
+    return timeApi.getTimeList().then((res) => {
+      if (res.data.code === 0) {
+        // console.log(res.data.tagList)
+        commit('time/SET_LIST_DATA', res.data.timeLineList)
+      }
+    })
+  },
 }

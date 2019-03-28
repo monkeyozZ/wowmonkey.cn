@@ -45,7 +45,7 @@
   export default {
     data () {
       return {
-        logotext: 'alert(monkey)',
+        logotext: 'Alert(monkey)',
         sliderup: false,
         sliderdown: false
       }

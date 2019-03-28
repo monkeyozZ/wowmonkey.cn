@@ -3,12 +3,13 @@
     <ul class="time_box">
       <transition appear appearClass="rotate-enter" appearActiveClass="rotate-leave-active" v-for="item in list" :key="item.id">
         <li class="time_list">
-          <div class="date_box">{{item.creat_time|getLocaltime}}</div>
+          <div class="date_box">{{item.creat_time|parseTimeSub}}</div>
           <div class="text_box">
             <div class="avt_tit">
               <img src="./avt.jpg">
-              <h2>{{item.title}}</h2>
+              <h2>Monkey</h2>
             </div>
+            <img :src="baseUrl + item.imageUrl" alt="" v-if="item.imageUrl">
             <p class="a_con">{{item.content}}</p>
           </div>
           <div style="clear:both"></div>
@@ -21,12 +22,9 @@
 <script>
   export default {
     props: ['list'],
-    filters: {
-      getLocaltime: function (nS) {
-        var d = new Date(parseInt(nS) * 1000)
-        var date = (d.getFullYear()) + '/' + (d.getMonth() + 1) + '/' + (d.getDate())
-        return date
-
+    data () {
+      return {
+        baseUrl: 'http://api.wowmonkey.cn'
       }
     }
   }
@@ -44,7 +42,7 @@
         padding 20px 20px 0 0
         .date_box
           float left
-          width 80px
+          width 90px
           font-size 14px
           color #fff
           background #007fff
@@ -72,6 +70,11 @@
               line-height 60px
               padding-left 30px
               color #333
+          img
+            display inline-block
+            max-width 100%
+            width 100%
+            height auto
           .a_con
             font-size 14px
             line-height 22px

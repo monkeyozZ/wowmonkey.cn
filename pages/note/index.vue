@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <article-list :listArr="articleArr"></article-list>
-    <my-get-more @changeListArr="changeListArr" :category="'learn'"></my-get-more>
+    <my-get-more @changeListArr="changeListArr" :category="'note'" :type="'article'"></my-get-more>
   </section>
 </template>
 
@@ -29,8 +29,8 @@ export default {
     return {
       title: this.title,
       meta: [
-        { hid: 'description', name: 'description', content: '这是一个基于nuxt.js案例，基于nuxt.js服务端渲染项目' },
-        { hid: 'keywords', name: 'keywords', content: 'nuxt.js的个人博客' }
+        { hid: 'description', name: 'description', content: 'monkey，monkey的个人博客，基于的nuxt.js个人博客，vue的ssr框架，vue服务端渲染，个人归档' },
+        { hid: 'keywords', name: 'keywords', content: 'monkey的个人博客，个人博客，nuxt.js项目，个人归档' }
       ]
     }
   },

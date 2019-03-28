@@ -14,8 +14,8 @@ export default {
     return {
       title: this.title,
       meta: [
-        { hid: 'description', name: 'description', content: '这是一个基于nuxt.js案例，基于nuxt.js服务端渲染项目' },
-        { hid: 'keywords', name: 'keywords', content: 'nuxt.js的个人博客' }
+        { hid: 'description', name: 'description', content: 'monkey，monkey的个人博客，基于的nuxt.js个人博客，vue的ssr框架，vue服务端渲染' },
+        { hid: 'keywords', name: 'keywords', content: 'monkey的个人博客，个人博客，nuxt.js项目' }
       ]
     }
   },
