@@ -1,16 +1,17 @@
 <template>
-  <div class="VueStar"> 
+  <div class="VueStar">
     <div class="VueStar__ground">
-      <div class="VueStar__icon" :class="AnimateClass" :style='{color:ColorValue}'>
-        <slot name="icon"></slot>
+      <div class="VueStar__icon" :class="AnimateClass" :style="{color:ColorValue}">
+        <slot name="icon" />
       </div>
-      <div class="VueStar__decoration" :class="{'VueStar__decoration--active':active}"></div>
+      <div class="VueStar__decoration" :class="{'VueStar__decoration--active':active}" />
     </div>
   </div>
 </template>
 
 <script>
 import { isColors } from '~/utils/colorRE'
+/* eslint-disable vue/require-default-prop */
 export default {
   name: 'VueStar',
   props: {
@@ -23,13 +24,6 @@ export default {
     istoggleColor: {
       type: Boolean,
       default: false
-    }
-  },
-  methods: {
-    toggle () {
-      this.active = true
-      // this.toggleAnimate = !this.toggleAnimate
-      this.toggleColor = true
     }
   },
   data () {
@@ -49,13 +43,13 @@ export default {
   },
   watch: {
     isactive: {
-      handler() {
+      handler () {
         this.active = this.isactive
       },
       immediate: true
     },
     istoggleColor: {
-      handler() {
+      handler () {
         this.toggleColor = this.istoggleColor
       },
       immediate: true
@@ -65,12 +59,19 @@ export default {
   mounted () {
     if (this.color) {
       if (isColors(this.color)) {
-        return
+
       } else {
         console.error('this color must be hexcolor or rgbcolor  ---VueStar')
       }
     } else {
-      return
+
+    }
+  },
+  methods: {
+    toggle () {
+      this.active = true
+      // this.toggleAnimate = !this.toggleAnimate
+      this.toggleColor = true
     }
   }
 }
@@ -92,7 +93,7 @@ export default {
     justify-content: center;
   }
 .VueStar__icon {
-  z-index: 888; 
+  z-index: 888;
 }
 .VueStar__decoration {
   width: 50px;

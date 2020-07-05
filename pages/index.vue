@@ -1,8 +1,8 @@
 <template>
   <section class="container">
-    <my-swiper :listArr="articleArr"></my-swiper>
-    <article-list :listArr="articleArr"></article-list>
-    <my-get-more @changeListArr="changeListArr" :type="'article'"></my-get-more>
+    <my-swiper :list-arr="articleArr" />
+    <article-list :list-arr="articleArr" />
+    <my-get-more :type="'article'" @changeListArr="changeListArr" />
   </section>
 </template>
 
@@ -17,15 +17,30 @@ export default {
     ArticleList,
     MyGetMore
   },
-  fetch({ store, params, error }) {
-      return store.dispatch('getArticleList', {page: 1, limit: 8}).catch(err => {
-        error({ statusCode: 404 })
-      })
+  fetch ({ store, params, error }) {
+    // eslint-disable-next-line handle-callback-err
+    return store.dispatch('getArticleList', { page: 1, limit: 8 }).catch((err) => {
+      error({ statusCode: 404 })
+    })
   },
   data () {
     return {
       articleArr: [],
       title: '首页'
+    }
+  },
+  computed: {
+    ...mapGetters({
+      ismoible: 'globalStatus/mobileLayout',
+      listArr: 'article/list'
+    })
+  },
+  created () {
+    this.articleArr = this.listArr
+  },
+  methods: {
+    changeListArr (arr) {
+      this.articleArr = this.articleArr.concat(arr)
     }
   },
   head () {
@@ -36,20 +51,6 @@ export default {
         { hid: 'keywords', name: 'keywords', content: 'monkey的个人博客，个人博客，nuxt.js项目' }
       ]
     }
-  },
-  computed: {
-    ...mapGetters({
-      ismoible: 'globalStatus/mobileLayout',
-      listArr: 'article/list'
-    })
-  },
-  created() {
-    this.articleArr = this.listArr
-  },
-  methods: {
-    changeListArr (arr) {
-      this.articleArr = this.articleArr.concat(arr)
-    }
   }
 }
 </script>
@@ -57,4 +58,3 @@ export default {
 <style lang="stylus" scoped>
 
 </style>
-

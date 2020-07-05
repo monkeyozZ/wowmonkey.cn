@@ -1,6 +1,6 @@
 import request from '~/utils/request'
 
-const getArticleList = async (obj) => {
+const getArticleList = (obj) => {
   return request({
     url: '/siteArticle/getArticleList',
     method: 'post',
@@ -8,15 +8,15 @@ const getArticleList = async (obj) => {
   })
 }
 
-const getArticleDetails = async (id) => {
+const getArticleDetails = (id) => {
   return request({
     url: '/siteArticle/getArticleDetails',
     method: 'post',
-    data: {id: id}
+    data: { id }
   })
 }
 
-const like = async (obj) => {
+const like = (obj) => {
   return request({
     url: '/siteArticle/likeArticle',
     method: 'post',

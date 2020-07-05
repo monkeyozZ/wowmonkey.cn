@@ -1,10 +1,12 @@
 <template>
   <div class="tag_box">
-    <h1 class="tag_title"><i class="iconfont icon-tag"></i>标签库</h1>
+    <h1 class="tag_title">
+      <i class="iconfont icon-tag" />标签库
+    </h1>
     <ul>
-      <li class="tag_item" v-for="(item, index) in listArr" :key="index">
+      <li v-for="(item, index) in listArr" :key="index" class="tag_item">
         <nuxt-link :to="`/tag/${item.alias}`">
-          <span>{{item.name}}({{item.article_num}})</span>
+          <span>{{ item.name }}({{ item.article_num }})</span>
         </nuxt-link>
       </li>
     </ul>
@@ -13,19 +15,19 @@
 
 <script>
 import { mapGetters } from 'vuex'
-  export default {
-    name: 'tag',
-    data () {
-      return {
-      }
-    },
-    computed: {
+export default {
+  name: 'Tag',
+  data () {
+    return {
+    }
+  },
+  computed: {
     ...mapGetters({
       listArr: 'tag/list'
     })
   },
-    methods: {
-      /* getalltag: function () {
+  methods: {
+    /* getalltag: function () {
         this.axios.get('/static/tag.json')
           .then(res => {
             this.arr = res.data.taglist
@@ -37,11 +39,11 @@ import { mapGetters } from 'vuex'
             console.log(err)
           })
       } */
-    },
-    /* beforeMount: function () {
+  }
+  /* beforeMount: function () {
       this.getalltag()
     } */
-  }
+}
 </script>
 
 <style lang="stylus">

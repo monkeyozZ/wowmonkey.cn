@@ -1,14 +1,14 @@
 <template>
-  <div class="swiper-box" v-if="listArr.length !==0">
-    <div class="swiper" v-swiper:mySwiper="swiperOption">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide item" v-for="(item, index) in listArr" :key="index">
-            <nuxt-link :to="`/article/${item.id}`" class="title">
-              <img :src="baseUrl + item.imageUrl" :alt="item.title">
-            </nuxt-link>
-          </div>
+  <div v-if="listArr.length !==0" class="swiper-box">
+    <div v-swiper:mySwiper="swiperOption" class="swiper">
+      <div class="swiper-wrapper">
+        <div v-for="(item, index) in listArr" :key="index" class="swiper-slide item">
+          <nuxt-link :to="`/article/${item.id}`" class="title">
+            <img :src="baseUrl + item.imageUrl" :alt="item.title">
+          </nuxt-link>
         </div>
-        <div class="swiper-pagination"></div>
+      </div>
+      <div class="swiper-pagination" />
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  props:{
+  props: {
     listArr: {
       type: Array,
       default: () => []
@@ -27,38 +27,38 @@ export default {
       baseUrl: 'http://api.wowmonkey.cn'
     }
   },
-    computed: {
+  computed: {
     ...mapGetters({
       ismoible: 'globalStatus/mobileLayout'
     }),
-    swiperOption() {
+    swiperOption () {
       return {
         /* autoplay: {
             delay: 3500,
             disableOnInteraction: false
           }, */
-          height: '200',
-          pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-          },
-          effect: 'coverflow',
-          slidesPerView:this.ismoible?1:3,
-          setWrapperSize: true,
-          loop: true
-      }
-    },
-  },
-  methods: {
-    change() {
-      if (this.ismoible){
-        //this.swiperOption.slidesPerView = 1
+        height: '200',
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+        effect: 'coverflow',
+        slidesPerView: this.ismoible ? 1 : 3,
+        setWrapperSize: true,
+        loop: true
       }
     }
   },
-  mounted() {
+  mounted () {
     this.change()
   },
+  methods: {
+    change () {
+      if (this.ismoible) {
+        // this.swiperOption.slidesPerView = 1
+      }
+    }
+  }
 }
 </script>
 

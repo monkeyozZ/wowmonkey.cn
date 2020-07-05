@@ -1,6 +1,6 @@
 import request from '~/utils/request'
 
-const saveMsg = async (obj) => {
+const saveMsg = (obj) => {
   return request({
     url: '/siteComment/saveMsg',
     method: 'post',
@@ -8,14 +8,14 @@ const saveMsg = async (obj) => {
   })
 }
 
-const getCommentList = async (obj) => {
+const getCommentList = (obj) => {
   return request({
     url: '/siteComment/getCommentList',
     method: 'post',
     data: obj
   })
 }
-const like = async (obj) => {
+const like = (obj) => {
   return request({
     url: '/siteComment/like',
     method: 'post',

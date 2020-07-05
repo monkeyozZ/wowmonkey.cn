@@ -1,7 +1,7 @@
 <template>
   <section class="container">
-    <article-list :listArr="articleArr" @changeListArr="changeListArr"></article-list>
-    <my-get-more @changeListArr="changeListArr" :category="'learn'" :type="'article'"></my-get-more>
+    <article-list :list-arr="articleArr" @changeListArr="changeListArr" />
+    <my-get-more :category="'learn'" :type="'article'" @changeListArr="changeListArr" />
   </section>
 </template>
 
@@ -15,10 +15,11 @@ export default {
     ArticleList,
     MyGetMore
   },
-  fetch({ store, params, error }) {
-      return store.dispatch('getArticleList', {page: 1, limit: 8, creat_time: params.time}).catch(err => {
-        error({ statusCode: 404 })
-      })
+  fetch ({ store, params, error }) {
+    // eslint-disable-next-line handle-callback-err
+    return store.dispatch('getArticleList', { page: 1, limit: 8, creat_time: params.time }).catch((err) => {
+      error({ statusCode: 404 })
+    })
   },
   computed: {
     ...mapGetters({
@@ -31,6 +32,14 @@ export default {
       title: '日期列表'
     }
   },
+  created () {
+    this.articleArr = this.listArr
+  },
+  methods: {
+    changeListArr (arr) {
+      this.articleArr = this.articleArr.concat(arr)
+    }
+  },
   head () {
     return {
       title: this.title,
@@ -39,18 +48,9 @@ export default {
         { hid: 'keywords', name: 'keywords', content: 'monkey的个人博客，个人博客，nuxt.js项目，日期列表' }
       ]
     }
-  },
-  created() {
-    this.articleArr = this.listArr
-  },
-  methods: {
-    changeListArr (arr) {
-      this.articleArr = this.articleArr.concat(arr)
-    }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
 </style>
-

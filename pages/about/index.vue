@@ -18,7 +18,7 @@ export default {
         { hid: 'keywords', name: 'keywords', content: 'monkey的个人博客，个人博客，nuxt.js项目' }
       ]
     }
-  },
+  }
 }
 </script>
 <style lang="stylus" scoped>

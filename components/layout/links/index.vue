@@ -1,105 +1,107 @@
 <template>
   <div class="link_box">
-    <h1 class="tag_title"><i class="iconfont icon-link"></i>友情链接</h1>
+    <h1 class="tag_title">
+      <i class="iconfont icon-link" />友情链接
+    </h1>
     <ul>
-      <li class="tag_item" v-for="(item, index) in arr" :key="index">
-          <a href="">{{item.tag_cate}}</a>
+      <li v-for="(item, index) in arr" :key="index" class="tag_item">
+        <a href="">{{ item.tag_cate }}</a>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'tag',
-    data () {
-      return {
-        arr: [
-    {
-      "id": "1",
-      "icon": "fa fa-desktop",
-      "tag_cate": "aaad的博客",
-      "tag_name": "computer",
-      "count": "6",
-      "creat_time": "1512369051"
-    },
-    {
-      "id": "2",
-      "icon": "fa fa-desktop",
-      "tag_cate": "bbb的博客",
-      "tag_name": "js",
-      "count": "6",
-      "creat_time": "1512369051"
-    },
-    {
-      "id": "3",
-      "icon": "fa fa-desktop",
-      "tag_cate": "生活",
-      "tag_name": "life",
-      "count": "6",
-      "creat_time": "1512369051"
-    },
-    {
-      "id": "4",
-      "icon": "fa fa-desktop",
-      "tag_cate": "css",
-      "tag_name": "css",
-      "count": "6",
-      "creat_time": "1512369051"
-    },
-    {
-      "id": "5",
-      "icon": "fa fa-desktop",
-      "tag_cate": "jquery",
-      "tag_name": "jq",
-      "count": "5",
-      "creat_time": "1512369051"
-    },
-    {
-      "id": "1",
-      "icon": "fa fa-desktop",
-      "tag_cate": "计算机",
-      "tag_name": "computer",
-      "count": "6",
-      "creat_time": "1512369051"
-    },
-    {
-      "id": "2",
-      "icon": "fa fa-desktop",
-      "tag_cate": "javascript",
-      "tag_name": "js",
-      "count": "6",
-      "creat_time": "1512369051"
-    },
-    {
-      "id": "3",
-      "icon": "fa fa-desktop",
-      "tag_cate": "生活",
-      "tag_name": "life",
-      "count": "6",
-      "creat_time": "1512369051"
-    },
-    {
-      "id": "4",
-      "icon": "fa fa-desktop",
-      "tag_cate": "css",
-      "tag_name": "css",
-      "count": "6",
-      "creat_time": "1512369051"
-    },
-    {
-      "id": "5",
-      "icon": "fa fa-desktop",
-      "tag_cate": "jquery",
-      "tag_name": "jq",
-      "count": "5",
-      "creat_time": "1512369051"
+export default {
+  name: 'Tag',
+  data () {
+    return {
+      arr: [
+        {
+          id: '1',
+          icon: 'fa fa-desktop',
+          tag_cate: 'aaad的博客',
+          tag_name: 'computer',
+          count: '6',
+          creat_time: '1512369051'
+        },
+        {
+          id: '2',
+          icon: 'fa fa-desktop',
+          tag_cate: 'bbb的博客',
+          tag_name: 'js',
+          count: '6',
+          creat_time: '1512369051'
+        },
+        {
+          id: '3',
+          icon: 'fa fa-desktop',
+          tag_cate: '生活',
+          tag_name: 'life',
+          count: '6',
+          creat_time: '1512369051'
+        },
+        {
+          id: '4',
+          icon: 'fa fa-desktop',
+          tag_cate: 'css',
+          tag_name: 'css',
+          count: '6',
+          creat_time: '1512369051'
+        },
+        {
+          id: '5',
+          icon: 'fa fa-desktop',
+          tag_cate: 'jquery',
+          tag_name: 'jq',
+          count: '5',
+          creat_time: '1512369051'
+        },
+        {
+          id: '1',
+          icon: 'fa fa-desktop',
+          tag_cate: '计算机',
+          tag_name: 'computer',
+          count: '6',
+          creat_time: '1512369051'
+        },
+        {
+          id: '2',
+          icon: 'fa fa-desktop',
+          tag_cate: 'javascript',
+          tag_name: 'js',
+          count: '6',
+          creat_time: '1512369051'
+        },
+        {
+          id: '3',
+          icon: 'fa fa-desktop',
+          tag_cate: '生活',
+          tag_name: 'life',
+          count: '6',
+          creat_time: '1512369051'
+        },
+        {
+          id: '4',
+          icon: 'fa fa-desktop',
+          tag_cate: 'css',
+          tag_name: 'css',
+          count: '6',
+          creat_time: '1512369051'
+        },
+        {
+          id: '5',
+          icon: 'fa fa-desktop',
+          tag_cate: 'jquery',
+          tag_name: 'jq',
+          count: '5',
+          creat_time: '1512369051'
+        }
+      ]
     }
-  ]
-      }
-    },
-    methods: {
-      /* getalltag: function () {
+  },
+  methods: {
+    /* getalltag: function () {
         this.axios.get('/static/tag.json')
           .then(res => {
             this.arr = res.data.taglist
@@ -111,11 +113,11 @@
             console.log(err)
           })
       } */
-    },
-    /* beforeMount: function () {
+  }
+  /* beforeMount: function () {
       this.getalltag()
     } */
-  }
+}
 </script>
 
 <style lang="stylus">

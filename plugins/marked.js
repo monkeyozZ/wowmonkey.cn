@@ -17,11 +17,12 @@ marked.setOptions({
   sanitize: false,
   smartLists: true,
   smartypants: false,
-  highlight(code, lang) {
-    if(lang && hljs.getLanguage(lang)) {
-      return Hljs.highlight(lang, code, true).value;
+  highlight (code, lang) {
+    // eslint-disable-next-line no-undef
+    if (lang && hljs.getLanguage(lang)) {
+      return Hljs.highlight(lang, code, true).value
     } else {
-      return Hljs.highlightAuto(code).value;
+      return Hljs.highlightAuto(code).value
     }
   }
 })
@@ -75,9 +76,8 @@ renderer.image = imageParse
 renderer.paragraph = paragraphParse
 
 export default (content, parseHtml = false) => {
-
   // 所有非链接的关键字进行内链处理
-/*   if (tags && tags.length) {
+  /*   if (tags && tags.length) {
     renderer.text = text => buildTagLink(text, tags)
   } else {
     renderer.text = text => text
@@ -87,7 +87,7 @@ export default (content, parseHtml = false) => {
   marked.setOptions({ sanitize: !parseHtml })
 
   // console.log('content', content)
-  if (typeof content != 'string') {
+  if (typeof content !== 'string') {
     return ''
   }
 

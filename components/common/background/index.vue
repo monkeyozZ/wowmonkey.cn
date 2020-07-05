@@ -16,10 +16,10 @@
     :hoverMode="hoverMode"
     :clickEffect="clickEffect"
     :clickMode="clickMode"
-  ></div>
+  />
 </template>
 <script>
-  /* eslint-disable */
+/* eslint-disable */
   export default {
     name: 'vue-particles',
     props: {
@@ -246,7 +246,6 @@
 
 <style lang="stylus">
   body
-    color #333
     overflow-x: hidden!important
   #particles-js
     position: fixed

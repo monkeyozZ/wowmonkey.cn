@@ -1,6 +1,6 @@
 import request from '~/utils/request'
 
-const getTimeList = async (obj) => {
+const getTimeList = (obj) => {
   return request({
     url: '/siteTime/getTimeList',
     method: 'post',

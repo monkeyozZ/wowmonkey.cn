@@ -1,6 +1,6 @@
 import request from '~/utils/request'
 
-const getTagList = async () => {
+const getTagList = () => {
   return request({
     url: '/siteArticle/getTagList',
     method: 'post'

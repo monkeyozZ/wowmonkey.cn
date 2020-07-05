@@ -1,6 +1,8 @@
 <template>
   <div class="get_box">
-    <button type="button" @click="getMore" :disabled="isdisabled"><i class="iconfont icon-monkey"></i>{{getMoreBtn}}</button>
+    <button type="button" :disabled="isdisabled" @click="getMore">
+      <i class="iconfont icon-monkey" />{{ getMoreBtn }}
+    </button>
   </div>
 </template>
 
@@ -28,89 +30,88 @@ export default {
   },
   data () {
     return {
-      limitQuery:{
+      limitQuery: {
         page: 1,
-        limit: 8,
+        limit: 8
       },
       getMoreBtn: '哼，我要加载更多...',
       isdisabled: false
     }
   },
   methods: {
-    getMore() {
+    getMore () {
       this.limitQuery.page += 1
       let obj = {}
       if (this.type === 'article') {
-      if (this.keyWord) {
-        obj = {
-          page: this.limitQuery.page,
-          limit: this.limitQuery.limit,
-          keyWord: this.keyWord
-        }
-      } else {
-        obj = {
-          page: this.limitQuery.page,
-          limit: this.limitQuery.limit,
-          cate: this.category ? this.category : null,
-        }
-      }
-
-      if (this.tag) {
-        obj = {
-          page: this.limitQuery.page,
-          limit: this.limitQuery.limit,
-          tag: this.tag ? this.tag : null,
-        }
-      }
-      articleApi.getArticleList(obj).then((res) => {
-        this.isdisabled = true
-        if (res.data.code === 0) {
-          this.isdisabled = false
-          let l = res.data.articleList.length
-          if ( l !== 0 ) {
-            this.$emit('changeListArr', res.data.articleList)
-            if (l < this.limitQuery.limit) {
-              this.isdisabled = true
-              this.getMoreBtn = '吖，没有更多了'
-            }
-          } else {
-            this.isdisabled = true
-            this.getMoreBtn = '吖，没有更多了'
-            this.limitQuery.page -= 1
+        if (this.keyWord) {
+          obj = {
+            page: this.limitQuery.page,
+            limit: this.limitQuery.limit,
+            keyWord: this.keyWord
+          }
+        } else {
+          obj = {
+            page: this.limitQuery.page,
+            limit: this.limitQuery.limit,
+            cate: this.category ? this.category : null
           }
         }
-      }).catch((error) => {
-        console.log(error)
-      })
-    }
 
-    if (this.type === 'timeLine') {
-      obj = {
+        if (this.tag) {
+          obj = {
+            page: this.limitQuery.page,
+            limit: this.limitQuery.limit,
+            tag: this.tag ? this.tag : null
+          }
+        }
+        articleApi.getArticleList(obj).then((res) => {
+          this.isdisabled = true
+          if (res.data.code === 0) {
+            this.isdisabled = false
+            const l = res.data.articleList.length
+            if (l !== 0) {
+              this.$emit('changeListArr', res.data.articleList)
+              if (l < this.limitQuery.limit) {
+                this.isdisabled = true
+                this.getMoreBtn = '吖，没有更多了'
+              }
+            } else {
+              this.isdisabled = true
+              this.getMoreBtn = '吖，没有更多了'
+              this.limitQuery.page -= 1
+            }
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
+
+      if (this.type === 'timeLine') {
+        obj = {
           page: this.limitQuery.page,
           limit: this.limitQuery.limit
         }
         timeApi.getTimeList(obj).then((res) => {
-        this.isdisabled = true
-        if (res.data.code === 0) {
-          this.isdisabled = false
-          let l = res.data.timeLineList.length
-          if ( l !== 0 ) {
-            this.$emit('changeListArr', res.data.timeLineList)
-            if (l < this.limitQuery.limit) {
+          this.isdisabled = true
+          if (res.data.code === 0) {
+            this.isdisabled = false
+            const l = res.data.timeLineList.length
+            if (l !== 0) {
+              this.$emit('changeListArr', res.data.timeLineList)
+              if (l < this.limitQuery.limit) {
+                this.isdisabled = true
+                this.getMoreBtn = '吖，没有更多了'
+              }
+            } else {
               this.isdisabled = true
               this.getMoreBtn = '吖，没有更多了'
+              this.limitQuery.page -= 1
             }
-          } else {
-            this.isdisabled = true
-            this.getMoreBtn = '吖，没有更多了'
-            this.limitQuery.page -= 1
           }
-        }
-      }).catch((error) => {
-        console.log(error)
-      })
+        }).catch((error) => {
+          console.log(error)
+        })
       }
-
     }
   }
 }

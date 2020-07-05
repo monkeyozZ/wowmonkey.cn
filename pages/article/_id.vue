@@ -1,118 +1,120 @@
 <template>
   <transition name="list">
-  <div class="container" ref="scroll">
-    <div>
-      <div class="article">
-        <h1 class="title">{{details.title}}</h1>
-        <div class="markdown-body" v-html="articleContent">
+    <div ref="scroll" class="container">
+      <div>
+        <div class="article">
+          <h1 class="title">
+            {{ details.title }}
+          </h1>
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <div class="markdown-body" v-html="articleContent" />
         </div>
-      </div>
-      <my-like :obj="details"></my-like>
-      <my-share :info="info"></my-share>
-      <div class="attr_box">
-        <p>本文发布于：{{details.creat_time|parseTime}}</p>
-        <p>文章标签：
-          <span v-for="(item, index) in details.tag" :key="index">
-            <span v-if="index !== details.tag.length - 1">{{item + ','}}</span>
-            <span v-else>{{item}}</span>
-          </span>
+        <my-like :obj="details" />
+        <my-share :info="info" />
+        <div class="attr_box">
+          <p>本文发布于：{{ details.creat_time|parseTime }}</p>
+          <p>
+            文章标签：
+            <span v-for="(item, index) in details.tag" :key="index">
+              <span v-if="index !== details.tag.length - 1">{{ item + ',' }}</span>
+              <span v-else>{{ item }}</span>
+            </span>
           </p>
-        <p>版权声明：{{details.origin | transfornOrigin}}文章，如需转载，请注明原出处，避免错误及误导，以便溯源</p>
-        <p>本文地址：<a :href="articleUrl">{{articleUrl}}</a></p>
+          <p>版权声明：{{ details.origin | transfornOrigin }}文章，如需转载，请注明原出处，避免错误及误导，以便溯源</p>
+          <p>本文地址：<a :href="articleUrl">{{ articleUrl }}</a></p>
+        </div>
+
+        <my-comment id="comment" :aid="details.id" />
       </div>
-      
-      <my-comment id="comment" :aid="details.id"></my-comment>
     </div>
-  </div>
   </transition>
 </template>
 
 <script>
-import { MyShare, MyComment, MyLike} from '~/components/layout'
 import { mapGetters } from 'vuex'
+import { MyShare, MyComment, MyLike } from '~/components/layout'
 import marked from '~/plugins/marked'
-import { setInterval } from 'timers';
-  export default {
-    name: 'articledetails',
-    scrollToTop: true,
-    components: {
-      MyShare,
-      MyComment,
-      MyLike
-    },
-    validate ({ params }) {
-        // Must be a number
-        return /^\d+$/.test(params.id)
-    },
-    fetch({ store, params, error }) {
-      return Promise.all([
-        store.dispatch('getArticleDetails', params.id).catch(err => {
+export default {
+  name: 'Articledetails',
+  scrollToTop: true,
+  components: {
+    MyShare,
+    MyComment,
+    MyLike
+  },
+  validate ({ params }) {
+    // Must be a number
+    return /^\d+$/.test(params.id)
+  },
+  fetch ({ store, params, error }) {
+    return Promise.all([
+      store.dispatch('getArticleDetails', params.id).catch((err) => {
         error({ statusCode: 404 })
         console.log(err)
       }),
-        store.dispatch('getCommentList', params.id)
-      ])
+      store.dispatch('getCommentList', params.id)
+    ])
+  },
+  data () {
+    return {
+      arr: [
+        {
+          id: '1',
+          title: '这是第一个ssr项目哦',
+          des: '这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦',
+          images: '~/assets/img/alone.jpg',
+          content: '这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦',
+          category: '杂谈',
+          tag: '生活',
+          like: '666',
+          comment_num: '888',
+          creat_time: '1512369051'
+        }
+      ],
+      info: {},
+      baseUrl: 'http://api.wowmonkey.cn'
+    }
+  },
+  computed: {
+    url () {
+      return process.env.host + this.$route.fullPath
     },
-    data () {
-      return {
-        arr: [
-          {
-            "id":"1",
-            "title":"这是第一个ssr项目哦",
-            "des":"这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦",
-            "images":"~/assets/img/alone.jpg",
-            "content":"这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦这是第一个ssr项目哦",
-            "category":"杂谈",
-            "tag":"生活",
-            "like": "666",
-            "comment_num": "888",
-            "creat_time":"1512369051"
-          }
-        ],
-        info: [],
-        baseUrl: 'http://api.wowmonkey.cn'
-      }
+    ...mapGetters({
+      details: 'article/details'
+    }),
+    articleContent (content) {
+      return marked(this.details.content, true)
     },
-    head () {
-      return {
-        title: this.details.title,
-        meta: [
-          { hid: 'description', name: 'description', content: this.details.des },
-          { hid: 'keywords', name: 'keywords', content: this.details.keywords }
-        ]
-      }
-    },
-    computed: {
-      url() {
-        return process.env.host + this.$route.fullPath
-      },
-      ...mapGetters({
-        details: 'article/details'
-      }),
-      articleContent (content) {
-        return marked(this.details.content, true)
-      },
-      articleUrl () {
-        return process.env.host + this.$route.fullPath
-      },
-    },
-    methods: {
-      setinfo: function () {
-        let _this = this
-        let infoarr = []
-        infoarr.url = encodeURIComponent(_this.url)
-        infoarr.title = encodeURIComponent(_this.details.title)
-        infoarr.content = encodeURIComponent(_this.details.des)
-        infoarr.pic = encodeURIComponent(_this.baseUrl + _this.details.imageUrl)
-        this.info = infoarr
-      }
-    },
-    mounted() {
-      this.setinfo()
-      // Api.getlist()
-    },
+    articleUrl () {
+      return process.env.host + this.$route.fullPath
+    }
+  },
+  mounted () {
+    this.setinfo()
+    // Api.getlist()
+  },
+  methods: {
+    setinfo () {
+      const _this = this
+      const infoObj = {}
+      infoObj.url = encodeURIComponent(_this.url)
+      infoObj.title = encodeURIComponent(_this.details.title)
+      infoObj.content = encodeURIComponent(_this.details.des)
+      infoObj.pic = encodeURIComponent(_this.baseUrl + _this.details.imageUrl)
+      this.info = infoObj
+    }
+  },
+  head () {
+    return {
+      title: this.details.title,
+      meta: [
+        { hid: 'description', name: 'description', content: this.details.des },
+        { hid: 'keywords', name: 'keywords', content: this.details.keywords }
+      ]
+    }
   }
-  // https://github.com/yujiangshui/simple-share.js
+}
+// https://github.com/yujiangshui/simple-share.js
 </script>
 
 <style lang="stylus">

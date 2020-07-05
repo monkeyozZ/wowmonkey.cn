@@ -1,11 +1,15 @@
 <template>
   <div>
-    <div v-if="listArr.length === 0" class="nomore">暂无数据</div>
+    <div v-if="listArr.length === 0" class="nomore">
+      暂无数据
+    </div>
     <ul v-if="!ismoible">
       <li v-for="(item, index) in listArr" :key="index">
         <div class="origin">
           <div class="center">
-            <p :class="item.origin ? (item.origin ==='0' ? 'default' : (item.origin === '1' ? 'transshipment' : 'mixture')) : 'default'">{{item.origin | transfornOrigin}}</p>
+            <p :class="item.origin ? (item.origin ==='0' ? 'default' : (item.origin === '1' ? 'transshipment' : 'mixture')) : 'default'">
+              {{ item.origin | transfornOrigin }}
+            </p>
           </div>
         </div>
         <i class="blogpic">
@@ -13,54 +17,62 @@
             <img :src="baseUrl + item.imageUrl" :alt="item.title">
           </nuxt-link>
         </i>
-          <dl>
-            <dt>
-              <nuxt-link :to="`/tag/${item.tag[0].alias}`" class="tag">{{item.tag[0].name}}</nuxt-link>
-              <nuxt-link :to="`/article/${item.id}`" tag="h1" class="title">
-                <a>{{item.title}}</a>
-              </nuxt-link>
-            </dt>
-            <dd>
-              <span class="bloginfo">
-                {{item.des}}
-              </span>
-              <p class="tab-bottom">
-                <span class="date"><i class="iconfont icon-time"></i>{{item.creat_time|parseTime}}</span>
-                <span><i class="iconfont icon-eye"></i>{{item.view}}</span>
-                <span><i class="iconfont icon-comment"></i>{{item.comment_num}}</span>
-                <span><i class="iconfont icon-heart"></i>{{item.like}}</span>
-              </p>
-              <nuxt-link :to="`/article/${item.id}`" class="ready" v-if="!ismoible">查看详情</nuxt-link>
-            </dd>
-          </dl>
+        <dl>
+          <dt>
+            <nuxt-link :to="`/tag/${item.tag[0].alias}`" class="tag">
+              {{ item.tag[0].name }}
+            </nuxt-link>
+            <nuxt-link :to="`/article/${item.id}`" tag="h1" class="title">
+              <a>{{ item.title }}</a>
+            </nuxt-link>
+          </dt>
+          <dd>
+            <span class="bloginfo">
+              {{ item.des }}
+            </span>
+            <p class="tab-bottom">
+              <span class="date"><i class="iconfont icon-time" />{{ item.creat_time|parseTime }}</span>
+              <span><i class="iconfont icon-eye" />{{ item.view }}</span>
+              <span><i class="iconfont icon-comment" />{{ item.comment_num }}</span>
+              <span><i class="iconfont icon-heart" />{{ item.like }}</span>
+            </p>
+            <nuxt-link v-if="!ismoible" :to="`/article/${item.id}`" class="ready">
+              查看详情
+            </nuxt-link>
+          </dd>
+        </dl>
       </li>
     </ul>
     <ul v-if="ismoible">
       <li v-for="(item, index) in listArr" :key="index" @click="goDetails(item.id)">
         <div class="origin">
           <div class="center">
-            <p :class="item.origin ? (item.origin ==='0' ? 'default' : (item.origin === '1' ? 'transshipment' : 'mixture')) : 'default'">{{item.origin | transfornOrigin}}</p>
+            <p :class="item.origin ? (item.origin ==='0' ? 'default' : (item.origin === '1' ? 'transshipment' : 'mixture')) : 'default'">
+              {{ item.origin | transfornOrigin }}
+            </p>
           </div>
         </div>
-          <dl>
-            <dt>
-              <nuxt-link :to="`/tag/${item.tag[0].alias}`" class="tag">{{item.tag[0].name}}</nuxt-link>
-              <nuxt-link :to="`/article/${item.id}`" tag="h1" class="title">
-                <a>{{item.title}}</a>
-              </nuxt-link>
-            </dt>
-            <dd>
-              <span class="bloginfo">
-                {{item.des}}
-              </span>
-              <p class="tab-bottom">
-                <span class="date"><i class="iconfont icon-time"></i>{{item.creat_time|parseTime('{y}-{m}-{d}')}}</span>
-                <span><i class="iconfont icon-eye"></i>{{item.view}}</span>
-                <span><i class="iconfont icon-comment"></i>{{item.comment_num}}</span>
-                <span><i class="iconfont icon-heart"></i>{{item.like}}</span>
-              </p>
-            </dd>
-          </dl>
+        <dl>
+          <dt>
+            <nuxt-link :to="`/tag/${item.tag[0].alias}`" class="tag">
+              {{ item.tag[0].name }}
+            </nuxt-link>
+            <nuxt-link :to="`/article/${item.id}`" tag="h1" class="title">
+              <a>{{ item.title }}</a>
+            </nuxt-link>
+          </dt>
+          <dd>
+            <span class="bloginfo">
+              {{ item.des }}
+            </span>
+            <p class="tab-bottom">
+              <span class="date"><i class="iconfont icon-time" />{{ item.creat_time|parseTime('{y}-{m}-{d}') }}</span>
+              <span><i class="iconfont icon-eye" />{{ item.view }}</span>
+              <span><i class="iconfont icon-comment" />{{ item.comment_num }}</span>
+              <span><i class="iconfont icon-heart" />{{ item.like }}</span>
+            </p>
+          </dd>
+        </dl>
       </li>
     </ul>
   </div>
@@ -86,7 +98,7 @@ export default {
     })
   },
   methods: {
-    goDetails(url) {
+    goDetails (url) {
       this.$router.push('/article/' + url)
     }
   }

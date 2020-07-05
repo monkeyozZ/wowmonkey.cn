@@ -1,9 +1,15 @@
 <template>
   <div class="hot_article">
-    <h1 class="hot_title"><i class="iconfont icon-hot"></i>热门文章</h1>
+    <h1 class="hot_title">
+      <i class="iconfont icon-hot" />热门文章
+    </h1>
     <div class="list_box">
       <ul>
-        <li v-for="(item,index) in arr" :key="item.id"><span>{{index+1}}</span><nuxt-link :to="`/article/${item.id}`">{{item.title}}</nuxt-link></li>
+        <li v-for="(item,index) in arr" :key="item.id">
+          <span>{{ index+1 }}</span><nuxt-link :to="`/article/${item.id}`">
+            {{ item.title }}
+          </nuxt-link>
+        </li>
       </ul>
     </div>
   </div>
@@ -11,15 +17,15 @@
 
 <script>
 import { mapGetters } from 'vuex'
-  export default {
-    data () {
-      return {
-      }
-    },
-    computed: {
-      ...mapGetters({arr: 'article/hot_list'})
+export default {
+  data () {
+    return {
     }
+  },
+  computed: {
+    ...mapGetters({ arr: 'article/hot_list' })
   }
+}
 </script>
 
 <style lang="stylus">

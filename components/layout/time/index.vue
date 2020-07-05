@@ -1,18 +1,22 @@
 <template>
   <div class="time_container">
     <ul class="time_box">
-      <transition appear appearClass="rotate-enter" appearActiveClass="rotate-leave-active" v-for="item in list" :key="item.id">
+      <transition v-for="item in list" :key="item.id" appear appear-class="rotate-enter" appear-active-class="rotate-leave-active">
         <li class="time_list">
-          <div class="date_box">{{item.creat_time|parseTimeSub}}</div>
+          <div class="date_box">
+            {{ item.creat_time|parseTimeSub }}
+          </div>
           <div class="text_box">
             <div class="avt_tit">
               <img src="./avt.jpg">
               <h2>Monkey</h2>
             </div>
-            <img :src="baseUrl + item.imageUrl" alt="" v-if="item.imageUrl">
-            <p class="a_con">{{item.content}}</p>
+            <img v-if="item.imageUrl" :src="baseUrl + item.imageUrl" alt="">
+            <p class="a_con">
+              {{ item.content }}
+            </p>
           </div>
-          <div style="clear:both"></div>
+          <div style="clear:both" />
         </li>
       </transition>
     </ul>
@@ -20,14 +24,19 @@
 </template>
 
 <script>
-  export default {
-    props: ['list'],
-    data () {
-      return {
-        baseUrl: 'http://api.wowmonkey.cn'
-      }
+export default {
+  props: {
+    list: {
+      type: Array,
+      default: () => []
+    }
+  },
+  data () {
+    return {
+      baseUrl: 'http://api.wowmonkey.cn'
     }
   }
+}
 </script>
 
 <style lang="stylus">

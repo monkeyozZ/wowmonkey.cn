@@ -1,15 +1,21 @@
 <template>
   <div class="errPage-container">
     <div class="left">
-      <h1 class="text-jumbo text-ginormous">404</h1>
-        <h2>该页面找不到噢！</h2>
-        <ul class="list-unstyled">
-          <li>或者你可以去:</li>
-          <li class="link-type">
-            <nuxt-link to="/">回首页</nuxt-link>
-          </li>
-          <li class="link-type"><a href="https://www.taobao.com/">随便看看</a></li>
-        </ul>
+      <h1 class="text-jumbo text-ginormous">
+        404
+      </h1>
+      <h2>该页面找不到噢！</h2>
+      <ul class="list-unstyled">
+        <li>或者你可以去:</li>
+        <li class="link-type">
+          <nuxt-link to="/">
+            回首页
+          </nuxt-link>
+        </li>
+        <li class="link-type">
+          <a href="https://www.taobao.com/">随便看看</a>
+        </li>
+      </ul>
     </div>
     <img :src="errGif" width="313" height="428">
   </div>

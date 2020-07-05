@@ -1,41 +1,42 @@
 {
-  "name": "myapp",
+  "name": "wowmonkey.cn",
   "version": "1.0.0",
-  "description": "Nuxt.js project",
-  "author": "'monkeyozZ' <'1316438321@qq.com'>",
   "private": true,
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "export": "nuxt export",
+    "serve": "nuxt serve",
+    "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lint": "npm run lint:js"
   },
   "config": {
     "nuxt": {
-      "host": "192.168.2.133",
-      "port": "8888"
+      "host": "192.168.0.105",
+      "port": "80"
     }
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "@nuxtjs/axios": "^5.11.0",
+    "nuxt": "^2.13.0",
     "gravatar": "^1.6.0",
     "highlight.js": "^9.12.0",
     "marked": "^0.5.0",
-    "nuxt": "^1.0.0",
     "particles.js": "^2.0.0",
     "vue-awesome-swiper": "^3.1.3"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "eslint": "^4.15.0",
-    "eslint-friendly-formatter": "^3.0.0",
-    "eslint-loader": "^1.7.1",
-    "eslint-plugin-vue": "^4.0.0",
+    "@nuxtjs/eslint-config": "^3.0.0",
+    "@nuxtjs/eslint-module": "^2.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.2.0",
+    "eslint-plugin-nuxt": "^1.0.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^9.0.1",
+    "scss-loader": "0.0.1",
     "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2"
+    "stylus-loader": "^3.0.2",
+    "svg-sprite-loader": "^5.0.0"
   }
 }

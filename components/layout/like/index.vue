@@ -1,12 +1,12 @@
 <template>
   <div class="aside-box">
     <a href="javascript:;" @click="like(obj.id)">
-      <vue-star color="#f05654" :isactive="haslike" :istoggleColor="haslike" ref="like">
-      <i slot="icon" class="iconfont icon-heart" :data-num="obj.like" :class="{active: likeactive,rest_bg: obj.like?false:true}"></i>
+      <vue-star ref="like" color="#f05654" :isactive="haslike" :istoggle-color="haslike">
+        <i slot="icon" class="iconfont icon-heart" :data-num="obj.like" :class="{active: likeactive,rest_bg: obj.like?false:true}" />
       </vue-star>
     </a>
     <a href="#comment">
-      <i class="iconfont icon-comment" :data-num="obj.comment_num" :class="{rest_bg: obj.comment_num?false:true}"></i>
+      <i class="iconfont icon-comment" :data-num="obj.comment_num" :class="{rest_bg: obj.comment_num?false:true}" />
     </a>
   </div>
 </template>
@@ -15,6 +15,9 @@
 import VueStar from '~/components/common/vuestar'
 import articleApi from '@/api/article'
 export default {
+  components: {
+    VueStar
+  },
   props: {
     obj: {
       type: Object,
@@ -23,20 +26,29 @@ export default {
       }
     }
   },
-  components: {
-    VueStar
-  },
   data () {
     return {
       likeactive: false,
       haslike: false
     }
   },
+  watch: {
+    obj: {
+      handler () {
+        // this.likeactive = this.arr
+      },
+      immediate: true
+    },
+    deep: true
+  },
+  mounted () {
+    this.setlikestatus()
+  },
   methods: {
-    like(id) {
+    like (id) {
       this.$refs.like.toggle()
-      if(!this.haslike) {
-        let data = {
+      if (!this.haslike) {
+        const data = {
           id: this.obj.id,
           like: parseInt(this.obj.like) + 1
         }
@@ -46,39 +58,27 @@ export default {
             this.haslike = true
             console.log(this.$store)
             this.$store.commit('article/SET_DETAILS_DATA_LIKE', parseInt(this.obj.like) + 1)
-            let like_history = JSON.parse(localStorage.getItem('article_like_history'))
-            if (like_history) {
-              like_history.push(id)
-              localStorage.setItem('article_like_history',JSON.stringify(like_history))
+            const likeHistory = JSON.parse(localStorage.getItem('article_like_history'))
+            if (likeHistory) {
+              likeHistory.push(id)
+              localStorage.setItem('article_like_history', JSON.stringify(likeHistory))
             } else {
-              localStorage.setItem('article_like_history',JSON.stringify([id]))
+              localStorage.setItem('article_like_history', JSON.stringify([id]))
             }
           }
         })
       }
     },
-    setlikestatus() {
-      let like_history = JSON.parse(localStorage.getItem('article_like_history'))
-      if (like_history) {
-        like_history.map((item)=> {
-        if (item === this.obj.id) {
-          this.haslike = true
+    setlikestatus () {
+      const likeHistory = JSON.parse(localStorage.getItem('article_like_history'))
+      if (likeHistory) {
+        likeHistory.map((item) => {
+          if (item === this.obj.id) {
+            this.haslike = true
           }
         })
       }
     }
-  },
-  watch: {
-    obj: {
-      handler() {
-        // this.likeactive = this.arr
-      },
-      immediate: true
-    },
-    deep: true
-  },
-  mounted() {
-    this.setlikestatus()
   }
 }
 </script>

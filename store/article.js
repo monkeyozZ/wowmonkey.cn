@@ -27,13 +27,13 @@ export const getters = {
 }
 
 export const mutations = {
-  SET_LIST_DATA(state, action) {
+  SET_LIST_DATA (state, action) {
     state.list.data = action
   },
-  SET_HOST_LIST_DATA(state, action) {
+  SET_HOST_LIST_DATA (state, action) {
     state.hot_list.data = action
   },
-  SET_SEARCH_LIST_DATA(state, action) {
+  SET_SEARCH_LIST_DATA (state, action) {
     state.search_list.data = action
   },
   SET_DETAILS_DATA (state, action) {
@@ -42,19 +42,19 @@ export const mutations = {
   SET_DETAILS_DATA_LIKE (state, num) {
     state.details.data.like = num
   },
-  SET_COMMENT_DATA(state, action) {
+  SET_COMMENT_DATA (state, action) {
     state.commentList.data = action
   },
-  SET_COMMENT_DATA_LIKE(state, obj) {
+  SET_COMMENT_DATA_LIKE (state, obj) {
     state.commentList.data[obj.i].like = obj.num
   },
-  SET_COMMENT_DATA_COMMENTNUM(state, obj) {
+  SET_COMMENT_DATA_COMMENTNUM (state, obj) {
     state.commentList.data[obj.i].comment_num = obj.num
   },
-  SET_COMMENT_DATA_LIKESTATUS(state, obj) {
+  SET_COMMENT_DATA_LIKESTATUS (state, obj) {
     state.commentList.data[obj.i].userlike = obj.status
   },
-  SET_COMMENT_DATA_HASCHILDREN(state, obj) {
+  SET_COMMENT_DATA_HASCHILDREN (state, obj) {
     state.commentList.data[obj.i].haschildren = obj.status
   }
 }

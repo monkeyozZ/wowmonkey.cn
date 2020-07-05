@@ -1,48 +1,47 @@
 <template>
   <div class="wrapper">
     <back-ground
-    color="#e5e5e5"
-    :particleOpacity="0.7"
-    :particlesNumber="80"
-    shapeType="circle"
-    :particleSize="15"
-    linesColor="#dedede"
-    :linesWidth="1"
-    :lineLinked="true"
-    :lineOpacity="0.5"
-    :linesDistance="150"
-    :moveSpeed="3"
-    :hoverEffect="true"
-    hoverMode="grab"
-    :clickEffect="false"
-    clickMode="push">
-    </back-ground>
-    <my-header v-if="!ismoible"></my-header>
-    <m-header v-if="ismoible" ref="mobile" @changeopen="changeopen" @searchsildedown="searchsildedown"></m-header>
+      color="#e5e5e5"
+      :particle-opacity="0.7"
+      :particles-number="80"
+      shape-type="circle"
+      :particle-size="15"
+      lines-color="#dedede"
+      :lines-width="1"
+      :line-linked="true"
+      :line-opacity="0.5"
+      :lines-distance="150"
+      :move-speed="3"
+      :hover-effect="true"
+      hover-mode="grab"
+      :click-effect="false"
+      click-mode="push"
+    />
+    <my-header v-if="!ismoible" />
+    <m-header v-if="ismoible" ref="mobile" @changeopen="changeopen" @searchsildedown="searchsildedown" />
     <div class="wrapper_box" :class="{open: isopen, sildedown: sildedown}" @click="closemobilenav">
       <main class="main" :class="{full: fullColumn}">
-        <nuxt/>
+        <nuxt />
       </main>
       <transition name="aside">
-        <aside class="slide" v-if="!ismoible && !fullColumn">
-          <my-aside></my-aside>
+        <aside v-if="!ismoible && !fullColumn" class="slide">
+          <my-aside />
         </aside>
       </transition>
     </div>
-    <my-footer></my-footer>
+    <my-footer />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import { BackGround, MyHeader, MHeader, MyAside, MySwiper, MyFooter }from '~/components/layout'
+import { BackGround, MyHeader, MHeader, MyAside, MyFooter } from '~/components/layout'
 export default {
   components: {
     BackGround,
     MyHeader,
     MHeader,
     MyAside,
-    MySwiper,
     MyFooter
   },
   data () {
@@ -54,18 +53,18 @@ export default {
   computed: {
     ...mapGetters({
       ismoible: 'globalStatus/mobileLayout',
-      fullColumn: 'globalStatus/fullColumn',
+      fullColumn: 'globalStatus/fullColumn'
     })
   },
   methods: {
-    changeopen(params) {
+    changeopen (params) {
       this.isopen = params
     },
-    searchsildedown(params) {
+    searchsildedown (params) {
       this.sildedown = params
     },
-    closemobilenav() {
-      let status = this.$refs.mobile
+    closemobilenav () {
+      const status = this.$refs.mobile
       if (status) {
         status.closenav()
       }
@@ -82,7 +81,7 @@ export default {
   padding-bottom 68px
   box-sizing border-box
   .wrapper_box
-    max-width 1120px
+    max-width 1200px
     width 100%
     margin 80px auto 0
     overflow hidden
@@ -109,4 +108,3 @@ export default {
       margin 120px auto 0
       transition: all .25s ease-in-out;
 </style>
-

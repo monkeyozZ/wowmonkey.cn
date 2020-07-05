@@ -1,11 +1,11 @@
 <template>
-<div>
-  <div :class="{header: true, open: isopen}">
+  <div>
+    <div :class="{header: true, open: isopen}">
       <section class="nav-box">
-        <i class="navbar iconfont icon-menu" @click="changeopen()"></i>
-        <nuxt-link to="/" v-text="logotext" class="logo"></nuxt-link>
-        <i class="search iconfont icon-search" v-if="!search" @click="showsearch"></i>
-        <i class="search iconfont icon-close" v-if="search" @click="closesearch"></i>
+        <i class="navbar iconfont icon-menu" @click="changeopen()" />
+        <nuxt-link to="/" class="logo" v-text="logotext" />
+        <i v-if="!search" class="search iconfont icon-search" @click="showsearch" />
+        <i v-if="search" class="search iconfont icon-close" @click="closesearch" />
         <div class="nav">
           <ul>
             <li>
@@ -15,89 +15,89 @@
             </li>
             <li>
               <nuxt-link to="/learn" exact>
-              学无止境
+                学无止境
               </nuxt-link>
             </li>
             <li>
               <nuxt-link to="/note" exact>
-              个人归档
+                个人归档
               </nuxt-link>
             </li>
             <li>
               <nuxt-link to="/life" exact>
-              慢生活
+                慢生活
               </nuxt-link>
             </li>
             <li>
               <nuxt-link to="/time" exact>
-              时间轴
+                时间轴
               </nuxt-link>
             </li>
             <li>
               <nuxt-link to="/about" exact>
-              关于
+                关于
               </nuxt-link>
             </li>
           </ul>
         </div>
       </section>
     </div>
-  <my-search ref="mysearch" :mobileSearch="search" @showsearch="showsearch"></my-search>
-</div>
+    <my-search ref="mysearch" :mobile-search="search" @showsearch="showsearch" />
+  </div>
 </template>
 
 <script>
-import MySearch  from '../../layout/search'
-  export default {
-    components: {
-      MySearch
+import MySearch from '@/components/common/search'
+export default {
+  components: {
+    MySearch
+  },
+  data () {
+    return {
+      logotext: 'Alert(monkey)',
+      sliderup: false,
+      sliderdown: false,
+      search: false,
+      isopen: false
+    }
+  },
+  watch: {
+    '$route' (newVel, oldVel) {
+      this.search = false
+      this.$emit('searchsildedown', this.search)
+      this.isopen = false
+      this.$emit('changeopen', this.isopen)
+    }
+  },
+  mounted () {
+    // this.watchscroll()
+  },
+  methods: {
+    changeopen () {
+      this.isopen = !this.isopen
+      this.$emit('changeopen', this.isopen)
+      this.search = false
+      // this.$refs.mysearch.clear()
+      this.$emit('searchsildedown', false)
     },
-    data () {
-      return {
-        logotext: 'Alert(monkey)',
-        sliderup: false,
-        sliderdown: false,
-        search: false,
-        isopen: false
-      }
+    showsearch () {
+      this.search = !this.search
+      this.$emit('searchsildedown', this.search)
     },
-    methods: {
-        changeopen() {
-          this.isopen = !this.isopen
-          this.$emit('changeopen', this.isopen)
-          this.search = false
-          // this.$refs.mysearch.clear()
-          this.$emit('searchsildedown', false)
-        },
-        showsearch() {
-          this.search = !this.search
-          this.$emit('searchsildedown', this.search)
-        },
-        closesearch() {
-           this.search = !this.search
-           // this.$refs.mysearch.clear()
-           this.$emit('searchsildedown', this.search)
-        },
-        closenav() {
-          this.isopen = false
-          this.$emit('changeopen', this.isopen)
-          this.search = false
-          this.$refs.mysearch.clear()
-          this.$emit('searchsildedown', false)
-        }
+    closesearch () {
+      this.search = !this.search
+      // this.$refs.mysearch.clear()
+      this.$emit('searchsildedown', this.search)
     },
-    watch: {
-      '$route'(newVel, oldVel) {
-        this.search = false
-        this.$emit('searchsildedown', this.search)
-        this.isopen = false
-        this.$emit('changeopen', this.isopen)
-      }
-    },
-    mounted() {
-      // this.watchscroll()
+    closenav () {
+      this.isopen = false
+      this.$emit('changeopen', this.isopen)
+      this.search = false
+      this.$refs.mysearch.clear()
+      this.$emit('searchsildedown', false)
     }
   }
+}
 </script>
 
 <style lang="stylus" scoped>

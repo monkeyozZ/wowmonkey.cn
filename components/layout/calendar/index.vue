@@ -3,48 +3,40 @@
     <div class="wh_content_all">
       <div class="wh_top_changge">
         <li @click="PreMonth(myDate,false)">
-          <div class="wh_jiantou1"></div>
+          <div class="wh_jiantou1" />
         </li>
-        <li class="wh_content_li">{{dateTop}}</li>
+        <li class="wh_content_li">
+          {{ dateTop }}
+        </li>
         <li @click="NextMonth(myDate,false)">
-          <div class="wh_jiantou2"></div>
+          <div class="wh_jiantou2" />
         </li>
       </div>
       <div class="wh_content">
-        <div class="wh_content_item" v-for="(tag, index) in textTop" :key="index">
+        <div v-for="(tag, index) in textTop" :key="index" class="wh_content_item">
           <div class="wh_top_tag">
-            {{tag}}
+            {{ tag }}
           </div>
         </div>
       </div>
       <div class="wh_content">
-        <div class="wh_content_item" v-for="(item,index) in list" @click="clickDay(item,index)" :key="index">
-          <div class="wh_item_date" v-bind:class="[{ wh_isMark: item.isMark},{wh_other_dayhide:item.otherMonth!=='nowMonth'},{wh_want_dayhide:item.dayHide},{wh_isToday:item.isToday},{wh_chose_day:item.chooseDay},setClass(item)]">
-            {{item.id}}
+        <div v-for="(item,index) in list" :key="index" class="wh_content_item" @click="clickDay(item,index)">
+          <div class="wh_item_date" :class="[{ wh_isMark: item.isMark},{wh_other_dayhide:item.otherMonth!=='nowMonth'},{wh_want_dayhide:item.dayHide},{wh_isToday:item.isToday},{wh_chose_day:item.chooseDay},setClass(item)]">
+            {{ item.id }}
           </div>
         </div>
       </div>
     </div>
-    <div class="loading-container" v-if="loading">
+    <div v-if="loading" class="loading-container">
       <div class="box">
-        <div class="spinner"></div>
+        <div class="spinner" />
       </div>
     </div>
   </section>
 </template>
 <script>
-import timeUtil from './calendar';
+import timeUtil from './calendar'
 export default {
-  data() {
-    return {
-      loading: false,
-      textTop: ['一', '二', '三', '四', '五', '六', '日'],
-      myDate: [],
-      list: [],
-      historyChose: [],
-      dateTop: ''
-    };
-  },
   props: {
     markDate: {
       type: Array,
@@ -58,143 +50,153 @@ export default {
       type: Boolean,
       default: () => false
     },
-    agoDayHide: { type: String, default: `0` },
-    futureDayHide: { type: String, default: `2554387200` }
+    agoDayHide: { type: String, default: '0' },
+    futureDayHide: { type: String, default: '2554387200' }
   },
-  created() {
-    this.intStart();
-    this.myDate = new Date();
+  data () {
+    return {
+      loading: false,
+      textTop: ['一', '二', '三', '四', '五', '六', '日'],
+      myDate: [],
+      list: [],
+      historyChose: [],
+      dateTop: ''
+    }
+  },
+  watch: {
+    markDate (val, oldVal) {
+      this.getList(this.myDate)
+    },
+    markDateMore (val, oldVal) {
+      this.getList(this.myDate)
+    },
+    agoDayHide (val, oldVal) {
+      this.agoDayHide = parseInt(val)
+      this.getList(this.myDate)
+    },
+    futureDayHide (val, oldVal) {
+      this.futureDayHide = parseInt(val)
+      this.getList(this.myDate)
+    },
+    sundayStart (val, oldVal) {
+      this.intStart()
+      this.getList(this.myDate)
+    }
+  },
+  created () {
+    this.intStart()
+    this.myDate = new Date()
+  },
+  mounted () {
+    this.getList(this.myDate)
   },
   methods: {
-    intStart() {
+    intStart () {
       if (this.sundayStart) {
-        this.textTop = ['日', '一', '二', '三', '四', '五', '六'];
+        this.textTop = ['日', '一', '二', '三', '四', '五', '六']
       } else {
-        this.textTop = ['一', '二', '三', '四', '五', '六', '日'];
+        this.textTop = ['一', '二', '三', '四', '五', '六', '日']
       }
-      timeUtil.sundayStart = this.sundayStart;
+      timeUtil.sundayStart = this.sundayStart
     },
-    setClass(data) {
-      let obj = {};
-      obj[data.markClassName] = data.markClassName;
-      return obj;
+    setClass (data) {
+      const obj = {}
+      obj[data.markClassName] = data.markClassName
+      return obj
     },
-    clickDay: function (item, index) {
+    clickDay (item, index) {
       if (item.otherMonth === 'nowMonth' && !item.dayHide) {
-        this.getList(this.myDate, item.date);
+        this.getList(this.myDate, item.date)
       }
       if (item.otherMonth !== 'nowMonth') {
         item.otherMonth === 'preMonth'
           ? this.PreMonth(item.date)
-          : this.NextMonth(item.date);
+          : this.NextMonth(item.date)
       }
     },
-    ChoseMonth: function (date, isChosedDay = true) {
-      date = timeUtil.dateFormat(date);
-      this.myDate = new Date(date);
-      this.$emit('changeMonth', timeUtil.dateFormat(this.myDate));
+    ChoseMonth (date, isChosedDay = true) {
+      date = timeUtil.dateFormat(date)
+      this.myDate = new Date(date)
+      this.$emit('changeMonth', timeUtil.dateFormat(this.myDate))
       if (isChosedDay) {
-        this.getList(this.myDate, date, isChosedDay);
+        this.getList(this.myDate, date, isChosedDay)
       } else {
-        this.getList(this.myDate);
+        this.getList(this.myDate)
       }
     },
-    PreMonth: function (date, isChosedDay = true) {
-      date = timeUtil.dateFormat(date);
-      this.myDate = timeUtil.getOtherMonth(this.myDate, 'preMonth');
-      this.$emit('changeMonth', timeUtil.dateFormat(this.myDate));
+    PreMonth (date, isChosedDay = true) {
+      date = timeUtil.dateFormat(date)
+      this.myDate = timeUtil.getOtherMonth(this.myDate, 'preMonth')
+      this.$emit('changeMonth', timeUtil.dateFormat(this.myDate))
       if (isChosedDay) {
-        this.getList(this.myDate, date, isChosedDay);
+        this.getList(this.myDate, date, isChosedDay)
       } else {
-        this.getList(this.myDate);
+        this.getList(this.myDate)
       }
     },
-    NextMonth: function (date, isChosedDay = true) {
-      date = timeUtil.dateFormat(date);
-      this.myDate = timeUtil.getOtherMonth(this.myDate, 'nextMonth');
-      this.$emit('changeMonth', timeUtil.dateFormat(this.myDate));
+    NextMonth (date, isChosedDay = true) {
+      date = timeUtil.dateFormat(date)
+      this.myDate = timeUtil.getOtherMonth(this.myDate, 'nextMonth')
+      this.$emit('changeMonth', timeUtil.dateFormat(this.myDate))
       if (isChosedDay) {
-        this.getList(this.myDate, date, isChosedDay);
+        this.getList(this.myDate, date, isChosedDay)
       } else {
-        this.getList(this.myDate);
+        this.getList(this.myDate)
       }
     },
-    forMatArgs: function () {
-      let markDate = this.markDate;
-      let markDateMore = this.markDateMore;
+    forMatArgs () {
+      let markDate = this.markDate
+      let markDateMore = this.markDateMore
       markDate = markDate.map((k) => {
-        return timeUtil.dateFormat(k);
+        return timeUtil.dateFormat(k)
       })
       markDateMore = markDateMore.map((k) => {
         k.date = timeUtil.dateFormat(k.date)
-        return k;
+        return k
       })
-      return [markDate, markDateMore];
+      return [markDate, markDateMore]
     },
-    getList: function (date, chooseDay, isChosedDay = true) {
+    getList (date, chooseDay, isChosedDay = true) {
       this.loading = true
-      const [markDate, markDateMore] = this.forMatArgs();
-      this.dateTop = `${date.getFullYear()}年${date.getMonth() + 1}月`;
-      let arr = timeUtil.getMonthList(this.myDate);
+      const [markDate, markDateMore] = this.forMatArgs()
+      this.dateTop = `${date.getFullYear()}年${date.getMonth() + 1}月`
+      const arr = timeUtil.getMonthList(this.myDate)
       for (let i = 0; i < arr.length; i++) {
-        let markClassName = '';
-        let k = arr[i];
-        k.chooseDay = false;
-        const nowTime = k.date;
-        const t = new Date(nowTime).getTime() / 1000;
-        //看每一天的class
+        let markClassName = ''
+        const k = arr[i]
+        k.chooseDay = false
+        const nowTime = k.date
+        const t = new Date(nowTime).getTime() / 1000
+        // 看每一天的class
         for (const c of markDateMore) {
           if (c.date === nowTime) {
-            markClassName = c.className || '';
+            markClassName = c.className || ''
           }
         }
-        //标记选中某些天 设置class
-        k.markClassName = markClassName;
-        k.isMark = markDate.indexOf(nowTime) > -1;
-        //无法选中某天
-        k.dayHide = t < this.agoDayHide || t > this.futureDayHide;
+        // 标记选中某些天 设置class
+        k.markClassName = markClassName
+        k.isMark = markDate.includes(nowTime)
+        // 无法选中某天
+        k.dayHide = t < this.agoDayHide || t > this.futureDayHide
         if (k.isToday) {
-          this.$emit('isToday', nowTime);
+          this.$emit('isToday', nowTime)
         }
-        let flag = !k.dayHide && k.otherMonth === 'nowMonth';
+        const flag = !k.dayHide && k.otherMonth === 'nowMonth'
         if (chooseDay && chooseDay === nowTime && flag) {
-          this.$emit('choseDay', nowTime);
-          this.historyChose.push(nowTime);
-          k.chooseDay = true;
+          this.$emit('choseDay', nowTime)
+          this.historyChose.push(nowTime)
+          k.chooseDay = true
         } else if (
           this.historyChose[this.historyChose.length - 1] === nowTime && !chooseDay && flag
         ) {
-          k.chooseDay = true;
+          k.chooseDay = true
         }
       }
-      this.list = arr;
+      this.list = arr
       this.loading = false
     }
-  },
-  mounted() {
-    this.getList(this.myDate);
-  },
-  watch: {
-    markDate(val, oldVal) {
-      this.getList(this.myDate);
-    },
-    markDateMore(val, oldVal) {
-      this.getList(this.myDate);
-    },
-    agoDayHide(val, oldVal) {
-      this.agoDayHide = parseInt(val);
-      this.getList(this.myDate);
-    },
-    futureDayHide(val, oldVal) {
-      this.futureDayHide = parseInt(val);
-      this.getList(this.myDate);
-    },
-    sundayStart(val, oldVal) {
-      this.intStart();
-      this.getList(this.myDate);
-    }
   }
-};
+}
 </script>
 <style>
 @media screen and (min-width: 460px) {
@@ -362,11 +364,11 @@ wh_content_item_tag {
   width: 100%;
   height: 100%;
   background-color: #007fff;
-  border-radius: 100%; 
+  border-radius: 100%;
   -webkit-animation: scaleout 1.0s infinite ease-in-out;
   animation: scaleout 1.0s infinite ease-in-out;
 }
- 
+
 @-webkit-keyframes scaleout {
   0% { -webkit-transform: scale(0.0) }
   100% {
@@ -374,7 +376,7 @@ wh_content_item_tag {
     opacity: 0;
   }
 }
- 
+
 @keyframes scaleout {
   0% {
     transform: scale(0.0);

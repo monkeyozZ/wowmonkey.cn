@@ -5,7 +5,6 @@
 */
 
 if (process.browser) {
-
   // 销毁图片弹窗
   const closeImgPopup = () => {
     const mask = document.getElementById('image-popup')
@@ -22,14 +21,14 @@ if (process.browser) {
 
   // 打开图片弹窗
   const openImgPopup = (src, className) => {
-    if (!src) return false
+    if (!src) { return false }
     const image = document.createElement('img')
     image.src = src
     if (className) {
       image.setAttribute('class', className)
     }
     const oldMask = document.getElementById('image-popup')
-    if (oldMask) document.body.removeChild(oldMask)
+    if (oldMask) { document.body.removeChild(oldMask) }
     const mask = document.createElement('div')
     mask.setAttribute('id', 'image-popup')
     mask.appendChild(image)
@@ -39,7 +38,7 @@ if (process.browser) {
     }, 100)
     // 监听滚动和点击事件
     window.onscroll = closeImgPopup
-    mask.onclick = e => {
+    mask.onclick = (e) => {
       if (!Object.is(e.target.tagName, 'IMG')) {
         closeImgPopup()
       }
