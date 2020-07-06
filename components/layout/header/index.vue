@@ -101,6 +101,7 @@ export default {
     left: 0;
     z-index: 998;
     background-color: hsla(0,0%,100%,.6);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.04), 0 0 0 1px rgba(0,0,0,.03);
     .header-box{
       display: flex;
       align-items: center;

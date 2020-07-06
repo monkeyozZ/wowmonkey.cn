@@ -110,20 +110,15 @@ const transfornOrigin = (str) => {
 }
 
 const formatTime = (time) => {
-  let hours = Math.floor(time / 3600)
+  if (time === 0) { return '00:00' }
   let minute = Math.floor(Math.floor(time % 3600) / 60)
   let second = parseInt(time % 60)
-  hours = hours.toString().length === 1 ? `0${hours}` : hours
   minute = minute.toString().length === 1 ? `0${minute}` : minute
   second = second.toString().length === 1 ? `0${second}` : second
-  if (hours !== '00') {
-    return `${hours}:${minute}:${second}`
-  }
   if (minute !== '00') {
     return `${minute}:${second}`
-  }
-  if (second !== '00') {
-    return `${second}`
+  } else {
+    return `00:${second}`
   }
 }
 

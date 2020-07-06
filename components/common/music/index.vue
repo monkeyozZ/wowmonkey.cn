@@ -16,7 +16,7 @@
         这是名字啊
       </p>
       <p class="time">
-        {{ duration | formatTime }}
+        {{durationed | formatTime}} / {{ duration | formatTime }}
       </p>
     </div>
   </div>
@@ -28,21 +28,22 @@ export default {
     return {
       stopStatus: true,
       timeInterval: null,
-      duration: 0
+      duration: 0,
+      durationed: 0
     }
   },
   mounted () {
-    const music = document.getElementById('music')
-    this.duration = music.duration
   },
   methods: {
     play () {
       const music = document.getElementById('music')
       if (this.stopStatus) {
         music.play()
+        this.duration = music.duration
         this.timeInterval = setInterval(() => {
-          console.log(music.currentTime, music.duration)
-        }, 20)
+          this.durationed = music.currentTime
+          // console.log(music.currentTime, music.duration)
+        }, 1000)
       } else {
         clearInterval(this.timeInterval)
         music.pause()
@@ -57,19 +58,19 @@ export default {
 @import '~assets/scss/mixins.scss';
   .music-box{
     display: flex;
-    flex: 0.7;
     flex-direction: column;
     .panel{
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
       .disc{
         width: 30px;
         height: 30px;
+        margin-right: 25px;
         position: relative;
         overflow: hidden;
         border-radius: 50%;
-        box-shadow: 0 0.3em 0.7em rgba(0, 0, 0, 0.25);
+        box-shadow: 0 0px 10px rgba(0, 0, 0, 0.45);
         &::before{
           content: '';
           position: absolute;
@@ -119,9 +120,12 @@ export default {
     .music-name{
       display: flex;
       font-size: 12px;
-      justify-content: space-around;
+      justify-content: space-between;
       .name{
         width: 130px;
+        padding: 0 12px;
+        box-sizing: border-box;
+        text-align: left;
         @include ellipsis()
       }
     }
