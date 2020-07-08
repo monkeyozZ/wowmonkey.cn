@@ -42,6 +42,10 @@ export default {
         this.duration = music.duration
         this.timeInterval = setInterval(() => {
           this.durationed = music.currentTime
+          const stopStatus = music.paused
+          if (stopStatus) {
+            this.stopStatus = stopStatus
+          }
           // console.log(music.currentTime, music.duration)
         }, 1000)
       } else {

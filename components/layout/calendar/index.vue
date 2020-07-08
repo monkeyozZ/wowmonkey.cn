@@ -12,7 +12,7 @@
           <div class="wh_jiantou2" />
         </li>
       </div>
-      <div class="wh_content">
+      <div class="wh_content week">
         <div v-for="(tag, index) in textTop" :key="index" class="wh_content_item">
           <div class="wh_top_tag">
             {{ tag }}
@@ -198,7 +198,7 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 @media screen and (min-width: 460px) {
   .wh_item_date:hover {
     background-color: rgba(196, 196, 196, .4);
@@ -256,9 +256,14 @@ li {
 
 .wh_content {
   display: flex;
+  max-width: 288px;
   flex-wrap: wrap;
-  padding: 0 3% 0 3%;
+  box-sizing: border-box;
   width: 100%;
+  margin: 0 auto;
+  &.week{
+    /* justify-content: space-around; */
+  }
 }
 
 .wh_content:first-child .wh_content_item_tag,
@@ -276,18 +281,18 @@ wh_content_item_tag {
   position: relative;
 }
 .wh_content_item {
-  height: 37px;
   cursor: pointer;
   color: #333;
   width: 37px;
   height: 37px;
   line-height: 37px;
+  margin: 0 2px;
 }
 
 .wh_top_tag {
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  width: 37px;
+  height: 37px;
+  line-height: 35px;
   margin: auto;
   display: flex;
   justify-content: center;

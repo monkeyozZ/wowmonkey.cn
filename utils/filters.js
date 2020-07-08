@@ -122,4 +122,8 @@ const formatTime = (time) => {
   }
 }
 
-export default { timefilter, parseTime, substring, mobileSubstring, transfornOrigin, parseTimeSub, formatTime }
+const tagName = (arr) => {
+  return arr.map(item => item.name).join()
+}
+
+export default { timefilter, parseTime, substring, mobileSubstring, transfornOrigin, parseTimeSub, formatTime, tagName }
