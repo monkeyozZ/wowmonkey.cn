@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div v-if="loading" class="loading-container">
+    <div v-if="list.length == 0" class="loading-container">
       <div class="box">
         <div class="spinner" />
       </div>
@@ -212,6 +212,8 @@ export default {
   max-width: 410px;
   margin: auto;
   margin-top: 10px;
+  border-radius: 2px;
+  background-color: rgba(255,255,255,0.6);
 }
 .loading-container{
   position: absolute;
@@ -248,7 +250,6 @@ li {
 .wh_content_all {
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
     "Helvetica Neue", STHeiti, "Microsoft Yahei", Tahoma, Simsun, sans-serif;
-  background-color: rgba(255,255,255,0.3);
   width: 100%;
   overflow: hidden;
   padding-bottom: 8px;

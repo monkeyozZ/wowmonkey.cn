@@ -73,38 +73,49 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-.wrapper
-  overflow-x hidden
-  position relative
-  min-height 100%
-  padding-bottom 68px
-  box-sizing border-box
-  .wrapper_box
-    max-width 1200px
-    width 100%
-    margin 80px auto 0
-    overflow hidden
-    .main
-      width 70%
-      float left
-      overflow hidden
-      &.full
-        width 100%
-    .slide
-      float right
-      width 28%
-      overflow hidden
-@media (max-width: 414px)
-  .wrapper
-    .wrapper_box
-      margin 70px auto 0
-      .main
-        width 100%
-    .wrapper_box.open
-      transform translateX(60%)
-      transition: all .35s ease-in-out;
-    .wrapper_box.sildedown
-      margin 120px auto 0
-      transition: all .25s ease-in-out;
+<style lang="scss" scoped>
+.wrapper{
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 68px;
+  box-sizing: border-box;
+  .wrapper_box{
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    margin: 80px auto 0;
+    overflow: hidden;
+    .main{
+      flex: 7;
+      overflow: hidden;
+      &.full{
+        width: 100%;
+      }
+    }
+    .slide{
+      flex: 3;
+      margin-left: 20px;
+      overflow: hidden;
+    }
+  }
+}
+@media (max-width: 414px){
+  .wrapper{
+    .wrapper_box{
+      margin: 70px auto 0;
+      .main{
+        width: 100%;
+      }
+      &.open{
+        transform: translateX(60%);
+        transition: all .35s ease-in-out;
+      }
+      &.sildedown{
+        margin: 120px auto 0;
+        transition: all .25s ease-in-out;
+      }
+    }
+  }
+}
 </style>

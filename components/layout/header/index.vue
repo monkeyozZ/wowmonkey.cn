@@ -1,5 +1,5 @@
 <template>
-  <div :class="{header: true, sliderup: sliderup, sliderdown: sliderdown}">
+  <div class="header" :class="{ sliderup: sliderup, sliderdown: sliderdown , fillBg: fillColor}">
     <section class="header-box">
       <nuxt-link to="/" class="logo" v-text="logotext" />
       <ul class="nav">
@@ -55,6 +55,7 @@ export default {
       logotext: 'Monkey',
       sliderup: false,
       sliderdown: false,
+      fillColor: false,
       scrollTop: 0
     }
   },
@@ -63,6 +64,7 @@ export default {
       handler () {
         this.sliderup = false
         this.sliderdown = true
+        this.fillColor = false
       }
     }
   },
@@ -85,6 +87,11 @@ export default {
           this.sliderdown = true
         }
       }
+      if (this.scrollTop > 60) {
+        this.fillColor = true
+      } else {
+        this.fillColor = false
+      }
     },
     watchscroll () {
       document.addEventListener('scroll', this.sliderHeader, false)
@@ -102,6 +109,9 @@ export default {
     z-index: 998;
     background-color: hsla(0,0%,100%,.6);
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.04), 0 0 0 1px rgba(0,0,0,.03);
+    &.fillBg{
+      background-color: hsla(0,0%,100%,.8);
+    }
     .header-box{
       display: flex;
       align-items: center;

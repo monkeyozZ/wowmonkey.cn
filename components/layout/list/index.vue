@@ -124,23 +124,25 @@ export default {
         display: flex;
         flex-direction: column;;
         margin-left: 16px;
+        overflow: hidden;
         .title{
+          @include ellipsis();
           a{
             padding: 2px 0;
             box-sizing: border-box;
             font-size: 18px;
             font-weight: 700;
-            @include ellipsis()
           }
         }
         .desc{
           flex: 1;
           margin-top: 6px;
-          line-height: 21px;
           font-size: 14px;
-          @include ellipsis(3);
           a{
+            line-height: 21px;
+            height: 63px;
             color: #a8abb3;
+            @include ellipsis(3);
           }
         }
         .bottom-panel{
@@ -166,6 +168,7 @@ export default {
               .icon{
                 font-size: 13px;
                 margin-right: 2px;
+                color: #b2bac2;
               }
             }
           }
