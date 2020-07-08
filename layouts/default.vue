@@ -75,16 +75,19 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper{
+  display: flex;
+  min-height: 100vh;;
+  flex-direction: column;
   overflow-x: hidden;
   position: relative;
-  min-height: 100%;
-  padding-bottom: 68px;
-  box-sizing: border-box;
   .wrapper_box{
     display: flex;
+    flex: 1;
     max-width: 1200px;
     width: 100%;
-    margin: 80px auto 0;
+    margin: 0 auto;
+    padding-top: 80px;
+    box-sizing: border-box;
     overflow: hidden;
     .main{
       flex: 7;

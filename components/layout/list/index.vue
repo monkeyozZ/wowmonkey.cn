@@ -131,7 +131,7 @@ export default {
             padding: 2px 0;
             box-sizing: border-box;
             font-size: 18px;
-            font-weight: 700;
+            font-weight: 500;
           }
         }
         .desc{

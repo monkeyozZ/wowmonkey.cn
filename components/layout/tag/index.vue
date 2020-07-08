@@ -1,12 +1,12 @@
 <template>
   <div class="tag_box">
     <h1 class="tag_title">
-      <i class="iconfont icon-tag" />标签库
+      <svg-icon icon-class="tag" class-name="tag-icon" />标签库
     </h1>
     <ul>
       <li v-for="(item, index) in listArr" :key="index" class="tag_item">
         <nuxt-link :to="`/tag/${item.alias}`">
-          <span>{{ item.name }}({{ item.article_num }})</span>
+          <span>{{ item.name }}<i v-if="item.article_num !== 0">({{ item.article_num }})</i></span>
         </nuxt-link>
       </li>
     </ul>
@@ -46,35 +46,49 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-.tag_box
-  max-width 100%
-  width 100%
-  overflow hidden
-  margin-top 10px
-  padding 0 10px 5px
-  box-sizing border-box
-  background-color rgba(255,255,255,.3)
-  .tag_title
-    font-size 16px
-    line-height 40px
-    border-bottom 1px solid #eee
-    i
-      margin-right 10px
-      font-size 18px
-  ul
-    .tag_item
-      float left
-      margin 0 10px
-      font-size 14px
-      margin-top 8px
-      text-align center
-      span
-        display inline-block
-        background-color rgba(0,0,0,.1)
-        padding 3px 7px
-        cursor pointer
-        &:hover
-          background-color rgba(0,0,0,.2)
+<style lang="scss" scoped>
+.tag_box{
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 10px;
+  padding: 0 10px 5px;
+  box-sizing: border-box;
+  background-color: rgba(255,255,255,.6);
+  border-radius: 2px;
+  .tag_title{
+    font-size: 16px;
+    line-height: 40px;
+    border-bottom: 1px solid #eee;
+    .tag-icon{
+      margin-right: 10px;
+      font-size: 18px;
+    }
+  }
+  ul{
+    display: flex;
+    flex-wrap: wrap;
+    .tag_item{
+      margin: 0 5px;
+      margin-top: 8px;
+      border-radius: 2px;
+      overflow: hidden;
+      text-align: center;
+      span{
+        display: inline-block;
+        font-size: 14px;
+        background-color: rgba(0,0,0,.1);
+        padding: 3px 7px;
+        i{
+          font-style: normal;
+        }
+        cursor: pointer;
+        &:hover{
+          background-color: rgba(0,0,0,.2);
+        }
+      }
+    }
+  }
+}
 
 </style>

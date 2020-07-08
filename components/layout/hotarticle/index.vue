@@ -1,7 +1,7 @@
 <template>
   <div class="hot_article">
     <h1 class="hot_title">
-      <svg-icon icon-class="hot" class-name="hot-icon"/>热门文章
+      <svg-icon icon-class="hot" class-name="hot-icon" />热门文章
     </h1>
     <div class="list_box">
       <ul>
