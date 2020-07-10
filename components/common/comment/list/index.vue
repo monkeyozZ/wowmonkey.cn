@@ -2,27 +2,29 @@
   <div v-if="comment_list.length" class="list-box">
     <ul>
       <li v-for="(item, index) in comment_list" :key="index">
-        <div class="gravatar">
-          <img :src="gravatar(item.email)" alt="">
-        </div>
-        <div class="list-content">
-          <h1>{{ item.name }}</h1>
-          <!-- eslint-disable-next-line vue/no-v-html -->
-          <div class="comment-text markdown-body" v-html="commentContent(item.content)" />
-          <div class="list-footer">
-            <span @click="like(item.id, index)">
-              <vue-star ref="like" color="#f05654" :isactive="item.userlike" :istoggle-color="item.userlike">
-                <i slot="icon" class="iconfont icon-dianzan">&nbsp;({{ item.like }})</i>
-              </vue-star>
-            </span>
-            <span @click="showChildren(index, item.id)">
-              <i class="iconfont icon-comment" />
-              ({{ item.comment_num }})
-            </span>
-            <span>
-              <i class="iconfont icon-time" />
-              {{ item.creat_time | timefilter }}
-            </span>
+        <div class="comment-content">
+          <div class="gravatar">
+            <img :src="gravatar(item.email)" alt="">
+          </div>
+          <div class="list-content">
+            <h1>{{ item.name }}</h1>
+            <!-- eslint-disable-next-line vue/no-v-html -->
+            <div class="comment-text markdown-body" v-html="commentContent(item.content)" />
+            <div class="list-footer">
+              <span @click="like(item.id, index)">
+                <vue-star ref="like" color="#f05654" :isactive="item.userlike" :istoggle-color="item.userlike">
+                  <i slot="icon" class="iconfont icon-dianzan">&nbsp;({{ item.like }})</i>
+                </vue-star>
+              </span>
+              <span @click="showChildren(index, item.id)">
+                <i class="iconfont icon-comment" />
+                ({{ item.comment_num }})
+              </span>
+              <span>
+                <i class="iconfont icon-time" />
+                {{ item.creat_time | timefilter }}
+              </span>
+            </div>
           </div>
         </div>
         <div v-show="item.haschildren" class="comment-children">
@@ -136,61 +138,90 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-  .list-box
-    background rgba(255,255,255,.5)
-    overflow hidden
+<style lang="scss" scoped>
+  .list-box{
+    background: rgba(255,255,255,.6);
+    overflow: hidden;
     border-top: 1px dashed #666;
-    ul
-      width 80%;
-      overflow hidden
-      margin 0 auto
-      li:not(:last-child)
-        border-bottom 1px solid #ddd
-      li
-        padding 10px 0
-        overflow hidden
-        .gravatar
-          float left
-          margin-right 15px
-          img
-            width 60px
-        .list-content
-          width 88%
-          overflow hidden
-          padding-bottom 5px
-          h1
-            padding 8px 0
-            font-size 16px
-            color #333
-            font-weight 600
-          .comment-text
-           margin 10px 0
-          .list-footer
-            text-align right
-            font-size 14px
-            color #909090
-            span
-              position relative
-              cursor default
-              margin-right 10px
-              line-height 19px
-              &:first-child
-                margin-right 40px
-              i
-                cursor pointer
-                font-size 14px
-        .comment-children
-          overflow hidden
-  @media (max-width 414px)
-    .list-box
-      ul
-        width 95%
-        li
-          .gravatar
-            img
-              width 30px
-          .list-content
-            width 85%
+    ul{
+      width: 80%;
+      overflow: hidden;
+      margin: 0 auto;
+      li{
+        padding: 10px 0;
+        overflow: hidden;
+        &:not(:last-child){
+          border-bottom: 1px solid #ebebed;
+        }
+        .comment-content{
+          display: flex;
+          .gravatar{
+            margin-right: 15px;
+            img{
+              width: 36px;
+              border-radius: 4px;
+            }
+          }
+          .list-content{
+            flex: 1;
+            overflow: hidden;
+            padding-bottom: 5px;
+            h1{
+              padding: 8px 0;
+              font-size: 16px;
+              color: #333;
+              font-weight: 600;
+            }
+            .comment-text{
+              margin: 10px 0;
+            }
+            .list-footer{
+              text-align: right;
+              font-size: 14px;
+              color: #909090;
+              span{
+                position: relative;
+                cursor: default;
+                margin-right: 10px;
+                line-height: 19px;
+                &:first-child{
+                  margin-right: 40px;
+                }
+                i{
+                  cursor: pointer;
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+        }
+        .comment-children{
+          padding-left: 51px;
+          box-sizing: border-box;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+  @media (max-width: 414px){
+    .list-box{
+      ul{
+        width: 95%;
+        li{
+          .comment-content{
+            display: flex;
+            .gravatar{
+              img{
+                width: 30px;
+              }
+            }
+            .list-content{
+              width: 85%;
+            }
+          }
+        }
+      }
+    }
+  }
 
 </style>

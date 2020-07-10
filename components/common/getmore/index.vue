@@ -1,8 +1,6 @@
 <template>
-  <div class="get_box">
-    <button type="button" :disabled="isdisabled" @click="getMore">
-      <i class="iconfont icon-monkey" />{{ getMoreBtn }}
-    </button>
+  <div class="loading-text">
+    <span v-if="loadingText">--{{ loadingText }}--</span>
   </div>
 </template>
 
@@ -34,11 +32,25 @@ export default {
         page: 1,
         limit: 8
       },
-      getMoreBtn: '哼，我要加载更多...',
-      isdisabled: false
+      loadingText: '',
+      loading: true
     }
   },
+  mounted () {
+    document.addEventListener('scroll', this.scroll, false)
+  },
   methods: {
+    scroll () {
+      const clientHeight = document.documentElement.clientHeight
+      const scrollHeight = document.body.scrollHeight
+      const scrollTop = document.documentElement.scrollTop
+      const triggerDistance = 80
+      console.log((scrollTop + clientHeight) >= (scrollHeight - triggerDistance) && this.loading)
+      if ((scrollTop + clientHeight) >= (scrollHeight - triggerDistance) && this.loading) {
+        this.loading = false
+        this.getMore()
+      }
+    },
     getMore () {
       this.limitQuery.page += 1
       let obj = {}
@@ -65,19 +77,18 @@ export default {
           }
         }
         articleApi.getArticleList(obj).then((res) => {
-          this.isdisabled = true
           if (res.data.code === 0) {
-            this.isdisabled = false
+            this.loading = false
             const l = res.data.articleList.length
             if (l !== 0) {
               this.$emit('changeListArr', res.data.articleList)
               if (l < this.limitQuery.limit) {
-                this.isdisabled = true
-                this.getMoreBtn = '吖，没有更多了'
+                this.loading = true
+                this.loadingText = '吖，没有更多了'
               }
             } else {
-              this.isdisabled = true
-              this.getMoreBtn = '吖，没有更多了'
+              this.loading = false
+              this.loadingText = '吖，没有更多了'
               this.limitQuery.page -= 1
             }
           }
@@ -92,19 +103,17 @@ export default {
           limit: this.limitQuery.limit
         }
         timeApi.getTimeList(obj).then((res) => {
-          this.isdisabled = true
           if (res.data.code === 0) {
-            this.isdisabled = false
             const l = res.data.timeLineList.length
             if (l !== 0) {
               this.$emit('changeListArr', res.data.timeLineList)
               if (l < this.limitQuery.limit) {
-                this.isdisabled = true
-                this.getMoreBtn = '吖，没有更多了'
+                this.loading = false
+                this.loadingText = '吖，没有更多了'
               }
             } else {
-              this.isdisabled = true
-              this.getMoreBtn = '吖，没有更多了'
+              this.loading = false
+              this.loadingText = '吖，没有更多了'
               this.limitQuery.page -= 1
             }
           }
@@ -117,23 +126,12 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-.get_box
-  max-width 100%
-  width 100%
-  overflow hidden
-  button
-    max-width 100%
-    width 100%
-    border none
-    outline none
-    text-align center
-    padding 8px 0
-    background rgba(255,255,255,0.5)
-    cursor pointer
-    font-size 14px
-    &:hover
-      background rgba(85,85,85,0.1)
-    &:disabled
-      cursor not-allowed
+<style lang="scss" scoped>
+  .loading-text{
+    max-width: 100%;
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+    overflow: hidden;
+  }
 </style>

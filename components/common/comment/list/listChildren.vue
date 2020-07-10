@@ -2,24 +2,26 @@
   <div class="list-children-box">
     <ul v-if="childList.length !=0 ">
       <li v-for="(item, listIndex) in list" :key="listIndex">
-        <div class="gravatar">
-          <img :src="gravatar('1316438321@qq.com')" alt="">
-        </div>
-        <div class="list-children-content">
-          <h1>{{ item.name }}</h1>
-          <div class="comment-text">
-            <span v-if="item.replay_name">回复<b style="margin:0 4px">{{ item.replay_name }}</b>:</span>
-            <!-- eslint-disable-next-line vue/no-v-html -->
-            <div class="markdown-body" v-html="marked(item.content)" />
+        <div class="child-comment-content">
+          <div class="gravatar">
+            <img :src="gravatar('1316438321@qq.com')" alt="">
           </div>
-          <p class="list-children-footer">
-            <span>
-              <i class="iconfont icon-time">&nbsp;{{ item.creat_time | timefilter }}</i>
-            </span>
-            <span @click="getreplyfocus(item.name, item.id)">
-              <i class="iconfont icon-huifu">&nbsp;回复</i>
-            </span>
-          </p>
+          <div class="list-children-content">
+            <h1>{{ item.name }}</h1>
+            <div class="comment-text">
+              <span v-if="item.replay_name">回复<b style="margin:0 4px">{{ item.replay_name }}</b>:</span>
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <div class="markdown-body" v-html="marked(item.content)" />
+            </div>
+            <p class="list-children-footer">
+              <span>
+                <i class="iconfont icon-time">&nbsp;{{ item.creat_time | timefilter }}</i>
+              </span>
+              <span @click="getreplyfocus(item.name, item.id)">
+                <i class="iconfont icon-huifu">&nbsp;回复</i>
+              </span>
+            </p>
+          </div>
         </div>
       </li>
     </ul>
@@ -381,137 +383,154 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-  .list-children-box
-    position relative
-    float right
-    margin-top 10px
-    background #ddd
-    width 88%
-    &::before
-      content ""
-      position absolute
-      right 20%
-      top -8px
-      display block
-      width 15px
-      height 15px
-      border-top 1px solid #ddd
-      border-left 1px solid #ddd
-      background #ddd
-      transform rotate(45deg)
-    >ul
-      width 95%;
-      overflow hidden
-      margin 0 auto
-      li:not(:last-child)
-        border-bottom 1px solid #999
-      li
-        padding 15px 0
-        overflow hidden
-        .gravatar
-          float left
-          margin-right 15px
-          img
-            width 30px
-        .list-children-content
-          h1
-            padding 8px 0
-            font-size 16px
-            color #333
-            font-weight 600
-          .comment-text
-            margin 5px 0
-          .list-children-footer
-            text-align right
-            color: #909090;
-            span
-              cursor default
-              margin-right 10px
-              font-size 14px
-              i
-                cursor pointer
-                font-size 14px
-    .empty
-      text-align center
-      margin 15px
-      .icon-null
-        font-size 40px
-      .empty-text
-        font-size 14px
-        padding 8px 0
-    .children-comment-box
+<style lang="scss" scoped>
+  .list-children-box{
+    position: relative;
+    margin-top: 10px;
+    background: #ddd;
+    ul{
+      width: 95%;
+      overflow: hidden;
+      margin: 0 auto;
+      li{
+        padding: 15px 0;
+        overflow: hidden;
+        &:not(:last-child){
+          border-bottom: 1px solid #999;
+        }
+        .child-comment-content{
+          display: flex;
+          .gravatar{
+            margin-right: 15px;
+            img{
+              width: 36px;
+              border-radius: 4px;
+            }
+          }
+          .list-children-content{
+            flex: 1;
+            h1{
+              padding: 8px 0;
+              font-size: 16px;
+              color: #333;
+              font-weight: 600;
+            }
+            .comment-text{
+              margin: 5px 0;
+            }
+            .list-children-footer{
+              text-align: right;
+              color: #909090;
+              span{
+                cursor: default;
+                margin-right: 10px;
+                font-size: 14px;
+                i{
+                  cursor: pointer;
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .empty{
+      text-align: center;
+      margin: 15px;
+      .icon-null{
+        font-size: 40px;
+      }
+      .empty-text{
+        font-size: 14px;
+        padding: 8px 0;
+      }
+    }
+    .children-comment-box{
       overflow: hidden;
       border-top: 1px dashed #666;
-      .markdown
-        margin-top 20px
-        position relative
-        .markdown-editor
-          width 80%
-          margin 0 auto
-          min-height 80px
-          padding 5px
-          background-color rgba(171,171,171,0.4)
-          &:empty::before
-            content: attr(placeholder)
-            font-size 14px
-            color #999
-        .markdown-preview
-          width 80%
-          position absolute
-          top 0
-          left 50%
-          transform translate(-50%,0)
-          display none
-          background #fff
-        .markdown-preview.actived
-          display block
-      .editor-tools
-        position relative
-        width 80%
-        height 22px
+      .markdown{
+        margin-top: 20px;
+        position: relative;
+        .markdown-editor{
+          width: 80%;
+          margin: 0 auto;
+          min-height: 80px;
+          padding: 5px;
+          background-color: rgba(171,171,171,0.4);
+          &:empty::before{
+            content: attr(placeholder);
+            font-size: 14px;
+            color: #999;
+          }
+        }
+        .markdown-preview{
+          width: 80%;
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translate(-50%,0);
+          display: none;
+          background: #fff;
+        }
+        .markdown-preview.actived{
+          display: block;
+        }
+      }
+      .editor-tools{
+        position: relative;
+        width: 80%;
+        height: 22px;
         padding: 5px;
-        margin 0 auto
-        background-color rgba(171,171,171,0.4)
+        margin: 0 auto;
+        background-color: rgba(171,171,171,0.4);
         border-top: 1px dashed #666;
-        a
-          float left
-          margin 0 5px
-      .emoji-box
-        position relative
-        float left
-        width 182px
-        margin-top 5px
-        margin-left 10%
-        background #fff
-        border 1px solid #ddd
-        &::before
-          content ""
-          position absolute
-          left 5px
-          top -9px
-          display block
-          width 15px
-          height 15px
-          border-top 1px solid #ddd
-          border-left 1px solid #ddd
-          background #fff
-          transform rotate(45deg)
-        .swiper-slide
-          height 90px
-          ul
-            li
-              float left
-              margin 2px
-              cursor pointer
-        .swiper-pagination
-          bottom 0
-          width 100%
-      .submit
-        float right
-        margin-right 10%
-        margin-top 40px
-        margin-bottom 40px
+        a{
+          float: left;
+          margin: 0 5px;
+        }
+      }
+      .emoji-box{
+        position: relative;
+        float: left;
+        width: 182px;
+        margin-top: 5px;
+        margin-left: 10%;
+        background: #fff;
+        border: 1px solid #ddd;
+        &::before{
+          content: "";
+          position: absolute;
+          left: 5px;
+          top: -9px;
+          display: block;
+          width: 15px;
+          height: 15px;
+          border-top: 1px solid #ddd;
+          border-left: 1px solid #ddd;
+          background: #fff;
+          transform: rotate(45deg);
+        }
+        .swiper-slide{
+          height: 90px;
+          ul{
+            li{
+              float: left;
+              margin: 2px;
+              cursor: pointer;
+            }
+          }
+        }
+        .swiper-pagination{
+          bottom: 0;
+          width: 100%;
+        }
+      }
+      .submit{
+        float: right;
+        margin-right: 10%;
+        margin-top: 40px;
+        margin-bottom: 40px;
         appearance: none;
         background-color: #007fff;
         color: #fff;
@@ -521,20 +540,7 @@ export default {
         outline: none;
         transition: background-color .3s,color .3s;
         cursor: pointer;
-  @media (max-width 414px)
-    .list-children-box
-      &::before
-        right 35%
-  @media (max-width 411px)
-    .list-children-box
-      &::before
-        right 34%
-  @media (max-width 375px)
-    .list-children-box
-      &::before
-        right 35%
-  @media (max-width 320px)
-    .list-children-box
-      &::before
-        right 38%
+      }
+    }
+  }
 </style>

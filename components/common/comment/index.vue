@@ -333,111 +333,132 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-.comment-box
-  background rgba(255,255,255,0.5)
-  overflow hidden
-  .user
-    position relative;
-    width 80%;
-    min-height 28px;
-    margin 10px auto;
-    padding 5px
-    input
-      width 35%
-      height 28px
-      padding 4px 0 4px 10px
-      background-color: hsla(0,0%,67%,.4);
-      border none
-      box-sizing border-box
-      margin-right 8px
-    .name-box
-      line-height 28px
-      text-align right
-      padding-right 65px
-    .islogin
-      position absolute
-      top 50%
-      right 10px
-      transform translate(0,-50%)
-      border none
-      outline none
-      line-height 28px
-      padding 0 10px
-      cursor pointer
-  .markdown
-    position relative
-    .gravatar
-      position absolute
-      left 1%
-      img
-        width 60px
-    .markdown-editor
-      width 80%
-      margin 0 auto
-      min-height 80px
-      padding 5px
-      background-color rgba(171,171,171,0.4)
-      &:empty::before
-        content: attr(placeholder)
-        font-size 14px
-        color #999
-    .markdown-preview
-      width 80%
-      position absolute
-      top 0
-      left 50%
-      transform translate(-50%,0)
-      display none
-      background #fff
-    .markdown-preview.actived
-      display block
-  .editor-tools
-    position relative
-    width 80%
-    height 22px
+<style lang="scss" scoped>
+.comment-box{
+  background: rgba(255,255,255,0.6);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  overflow: hidden;
+  .user{
+    position: relative;
+    width: 80%;
+    min-height: 28px;
+    margin: 10px auto;
     padding: 5px;
-    margin 0 auto
-    background-color rgba(171,171,171,0.4)
+    input{
+      width: 35%;
+      height: 28px;
+      padding: 4px 0 4px 10px;
+      background-color: hsla(0,0%,67%,.4);
+      border: none;
+      box-sizing: border-box;
+      margin-right: 8px;
+    }
+    .name-box{
+      line-height: 28px;
+      text-align: right;
+      padding-right: 65px;
+    }
+    .islogin{
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translate(0,-50%);
+      border: none;
+      outline: none;
+      line-height: 28px;
+      padding:0 10px;
+      cursor: pointer;
+    }
+  }
+  .markdown{
+    position: relative;
+    .gravatar{
+      position: absolute;
+      left: 1%;
+      img{
+        width: 60px;
+      }
+    }
+    .markdown-editor{
+      width: 80%;
+      margin: 0 auto;
+      min-height: 80px;
+      padding: 5px;
+      background-color: rgba(171,171,171,0.4);
+      &:empty::before{
+        content: attr(placeholder);
+        font-size: 14px;
+        color: #999;
+      }
+    }
+    .markdown-preview{
+      width: 80%;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%,0);
+      display: none;
+      background: #fff;
+      &.actived{
+        display: block;
+      }
+    }
+  }
+  .editor-tools{
+    position: relative;
+    width: 80%;
+    height: 22px;
+    padding: 5px;
+    margin: 0 auto;
+    background-color: rgba(171,171,171,0.4);
     border-top: 1px dashed #666;
-    a
-      float left
-      margin 0 5px
-  .emoji-box
-    position relative
-    float left
-    width 182px
-    margin-top 5px
-    margin-left 10%
-    background #fff
-    border 1px solid #ddd
-    &::before
-      content ""
-      position absolute
-      left 5px
-      top -9px
-      display block
-      width 15px
-      height 15px
-      border-top 1px solid #ddd
-      border-left 1px solid #ddd
-      background #fff
-      transform rotate(45deg)
-    .swiper-slide
-      height 90px
-      ul
-        li
-          float left
-          margin 2px
-          cursor pointer
-    .swiper-pagination
-      bottom 0
-      width 100%
-  .submit
-    float right
-    margin-right 10%
-    margin-top 40px
-    margin-bottom 40px
+    a{
+      float: left;
+      margin: 0 5px;
+    }
+  }
+  .emoji-box{
+    position: relative;
+    float: left;
+    width: 182px;
+    margin-top: 5px;
+    margin-left: 10%;
+    background: #fff;
+    border: 1px solid #ddd;
+    &::before{
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: -9px;
+      display: block;
+      width: 15px;
+      height: 15px;
+      border-top: 1px solid #ddd;
+      border-left: 1px solid #ddd;
+      background: #fff;
+      transform: rotate(45deg);
+    }
+    .swiper-slide{
+      height: 90px;
+      ul{
+        li{
+          float: left;
+          margin: 2px;
+          cursor: pointer;
+        }
+      }
+    }
+    .swiper-pagination{
+      bottom: 0;
+      width: 100%;
+    }
+  }
+  .submit{
+    float: right;
+    margin-right: 10%;
+    margin-top: 40px;
+    margin-bottom: 40px;
     appearance: none;
     background-color: #007fff;
     color: #fff;
@@ -447,15 +468,24 @@ export default {
     outline: none;
     transition: background-color .3s,color .3s;
     cursor: pointer;
-@media (max-width: 414px)
-  .comment-box
-    .user
-      input
-        width 70%
-        margin-bottom 10px
-    .markdown
-      .gravatar
-        img
-          width 20px
+  }
+}
+@media (max-width: 414px){
+  .comment-box{
+    .user{
+      input{
+        width: 70%;
+        margin-bottom: 10px;
+      }
+    }
+    .markdown{
+      .gravatar{
+        img{
+          width: 20px;
+        }
+      }
+    }
+  }
+}
 
 </style>

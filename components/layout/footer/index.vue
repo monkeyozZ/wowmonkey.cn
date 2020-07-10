@@ -19,6 +19,7 @@ export default {
 <style lang="scss" scoped>
   .footer{
     width: 100%;
+    margin-top: 20px;
     background: rgba(255,255,255,0.6);
     section{
       display: flex;
