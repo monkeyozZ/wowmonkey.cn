@@ -132,7 +132,7 @@ export default {
     overflow hidden
     .article
       padding 20px 10px
-      background rgba(255,255,255,0.5)
+      background rgba(255,255,255,0.6)
       .title
         text-align center
         color inherit

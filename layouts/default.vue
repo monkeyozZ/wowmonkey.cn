@@ -84,7 +84,7 @@ export default {
     display: flex;
     flex: 1;
     max-width: 1200px;
-    width: 100%;
+    width: 80%;
     margin: 0 auto;
     padding-top: 80px;
     box-sizing: border-box;

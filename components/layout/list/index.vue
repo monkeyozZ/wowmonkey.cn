@@ -168,7 +168,7 @@ export default {
               .icon{
                 font-size: 13px;
                 margin-right: 2px;
-                color: #b2bac2;
+                fill: #707070;
               }
             }
           }
