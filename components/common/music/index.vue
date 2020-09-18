@@ -16,7 +16,7 @@
         这是名字啊
       </p>
       <p class="time">
-        {{durationed | formatTime}} / {{ duration | formatTime }}
+        {{ durationed | formatTime }} / {{ duration | formatTime }}
       </p>
     </div>
   </div>
@@ -111,13 +111,14 @@ export default {
         width: 100%;
         height: auto;
         animation-name: spin;
-        animation-duration: 0s;
+        animation-duration: 3s;
         animation-timing-function: linear;
         animation-delay: 0s;
         animation-iteration-count: infinite;
         border-radius: 50%;
+        animation-play-state: paused;
         &.run{
-          animation-duration: 3s;
+          animation-play-state: running;
         }
       }
     }

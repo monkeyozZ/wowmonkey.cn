@@ -1,11 +1,12 @@
 <template>
   <div>
+    <my-weather />
     <my-hotarticle />
     <my-calendar
       @choseDay="clickDay"
     />
     <my-tag />
-    <!-- <my-link></my-link> -->
+    <my-link />
   </div>
 </template>
 
@@ -13,13 +14,15 @@
 import MyCalendar from '../calendar'
 import MyHotarticle from '../hotarticle'
 import MyTag from '../tag'
-// import MyLink from '../links'
+import MyWeather from '../weather'
+import MyLink from '../links'
 export default {
   components: {
     MyCalendar,
     MyHotarticle,
-    MyTag
-    /* MyLink */
+    MyTag,
+    MyWeather,
+    MyLink
   },
   methods: {
     clickDay (data) {
