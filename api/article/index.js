@@ -1,18 +1,18 @@
 import request from '~/utils/request'
 
-const getArticleList = (obj) => {
+const getArticleList = (params) => {
   return request({
-    url: '/siteArticle/getArticleList',
-    method: 'post',
-    data: obj
+    url: '/webArticle/list',
+    method: 'get',
+    params
   })
 }
 
-const getArticleDetails = (id) => {
+const getArticleDetails = (params) => {
   return request({
-    url: '/siteArticle/getArticleDetails',
-    method: 'post',
-    data: { id }
+    url: '/webArticle/detail',
+    method: 'get',
+    params
   })
 }
 

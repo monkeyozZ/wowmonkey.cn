@@ -2,8 +2,8 @@ import request from '~/utils/request'
 
 const getTagList = () => {
   return request({
-    url: '/siteArticle/getTagList',
-    method: 'post'
+    url: '/webTag/list',
+    method: 'get'
   })
 }
 

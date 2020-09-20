@@ -6,7 +6,7 @@
     <ul>
       <li v-for="(item, index) in listArr" :key="index" class="tag_item">
         <nuxt-link :to="`/tag/${item.alias}`">
-          <span>{{ item.name }}<i v-if="item.article_num !== 0">({{ item.article_num }})</i></span>
+          <span>{{ item.name }}<i v-if="item.article_count !== 0">({{ item.article_count }})</i></span>
         </nuxt-link>
       </li>
     </ul>

@@ -34,7 +34,7 @@ export default {
   css: [
     'swiper/dist/css/swiper.css',
     '~/assets/css/style.css',
-    'highlight.js/styles/dracula.css',
+    // 'highlight.js/styles/dracula.css',
     '~/assets/css/iconfont/iconfont.css',
     '~/assets/css/github-markdown.css'
   ],

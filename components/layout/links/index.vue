@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'Tag',
+  name: 'Links',
   data () {
     return {
       arr: [

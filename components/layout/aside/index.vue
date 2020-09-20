@@ -7,6 +7,7 @@
     />
     <my-tag />
     <my-link />
+    <cata-log v-if="showCata" />
   </div>
 </template>
 
@@ -16,13 +17,32 @@ import MyHotarticle from '../hotarticle'
 import MyTag from '../tag'
 import MyWeather from '../weather'
 import MyLink from '../links'
+import CataLog from '../../common/catalog'
 export default {
   components: {
     MyCalendar,
     MyHotarticle,
     MyTag,
     MyWeather,
-    MyLink
+    MyLink,
+    CataLog
+  },
+  data () {
+    return {
+      showCata: false
+    }
+  },
+  watch: {
+    $route: {
+      handler (n, l) {
+        if (n.name === 'article-id') {
+          this.showCata = true
+        } else {
+          this.showCata = false
+        }
+      },
+      immediate: true
+    }
   },
   methods: {
     clickDay (data) {

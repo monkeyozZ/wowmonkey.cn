@@ -124,3 +124,17 @@
     -webkit-box-orient: vertical;
   }
 }
+
+@mixin catalogRound($mrl, $w:4px) {
+  &::before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: $mrl;
+    margin-top: -2px;
+    width: $w;
+    height: $w;
+    background-color: currentColor;
+  border-radius: 50%;
+  }
+}

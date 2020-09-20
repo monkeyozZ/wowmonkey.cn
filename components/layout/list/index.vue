@@ -2,19 +2,19 @@
   <div class="art-item">
     <div v-for="(item, index) in listArr" :key="index" class="item-box">
       <div class="thumb-box">
-        <nuxt-link :to="'/article/' + item.id">
+        <nuxt-link :to="'/article/' + item._id">
           <img :src="IMG_URL + item.imageUrl" alt="">
         </nuxt-link>
       </div>
       <div class="right-box">
         <h1 class="title">
-          <nuxt-link :to="'/article/' + item.id">
+          <nuxt-link :to="'/article/' + item._id">
             {{ item.title }}
           </nuxt-link>
         </h1>
         <div class="desc">
-          <nuxt-link :to="'/article/' + item.id">
-            {{ item.des }}
+          <nuxt-link :to="'/article/' + item._id">
+            {{ item.desc }}
           </nuxt-link>
         </div>
         <div class="bottom-panel">

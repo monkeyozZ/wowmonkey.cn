@@ -3,8 +3,8 @@ const apiConfig = require('~/config/api.config')
 const service = axios.create({
   baseURL: apiConfig.baseUrl,
   timeout: 5000, // request timeout
-  headers: { 'Content-Type': 'application/json' },
-  withCredentials: true
+  headers: { 'Content-Type': 'application/json' }
+  // withCredentials: true
 })
 
 service.interceptors.request.use((config) => {
@@ -16,7 +16,11 @@ service.interceptors.request.use((config) => {
 })
 
 service.interceptors.response.use(
-  response => response,
+  (response) => {
+    if (response.data.code === 200) {
+      return response.data.data
+    }
+  },
   // 对响应数据做点什么
   (error) => {
     console.log('err' + error)// for debug

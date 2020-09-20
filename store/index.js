@@ -11,15 +11,15 @@ export const actions = {
     store.commit('globalStatus/SET_MOBILE_LAYOUT', isMobile)
     return Promise.all([
       // store.dispatch('getArticleList', { page: 1, limit: 2, cate: null, tag: null}),
-      store.dispatch('getTagList'),
-      store.dispatch('getHotArticleList', { page: 1, limit: 8, hot: true })
+      store.dispatch('getTagList')
+      // store.dispatch('getHotArticleList', { page: 1, limit: 8, hot: true })
     ])
   },
   // 加载文章列表
-  getArticleList ({ commit }, obj) {
-    return articleApi.getArticleList(obj).then((res) => {
-      if (res.data.code === 0) {
-        commit('article/SET_LIST_DATA', res.data.articleList)
+  getArticleList ({ commit }, params) {
+    return articleApi.getArticleList(params).then((res) => {
+      if (res) {
+        commit('article/SET_LIST_DATA', res.data)
       }
     }).catch((err) => {
       console.log(err)
@@ -29,9 +29,9 @@ export const actions = {
   // 加载标签列表
   getTagList ({ commit }) {
     return indexApi.getTagList().then((res) => {
-      if (res.data.code === 0) {
+      if (res) {
         // console.log(res.data.tagList)
-        commit('tag/SET_LIST_DATA', res.data.tagList)
+        commit('tag/SET_LIST_DATA', res)
       }
     })
   },
@@ -39,8 +39,8 @@ export const actions = {
   // 加载文章详情
   getArticleDetails ({ commit }, id) {
     return articleApi.getArticleDetails(id).then((res) => {
-      if (res.data.code === 0) {
-        commit('article/SET_DETAILS_DATA', res.data.articleDetails)
+      if (res) {
+        commit('article/SET_DETAILS_DATA', res)
       }
     })
   },
