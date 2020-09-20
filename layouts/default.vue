@@ -83,8 +83,8 @@ export default {
   .wrapper_box{
     display: flex;
     flex: 1;
-    max-width: 1200px;
-    width: 80%;
+    max-width: 1000px;
+    width: 100%;
     margin: 0 auto;
     padding-top: 80px;
     box-sizing: border-box;

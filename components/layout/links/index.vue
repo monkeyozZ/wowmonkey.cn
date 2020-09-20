@@ -120,47 +120,56 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-.link_box
-  max-width 100%
-  width 100%
-  overflow hidden
-  margin-top 10px
-  padding 0 10px 5px
-  box-sizing border-box
-  background-color rgba(255,255,255,.3)
-  .tag_title
-    font-size 16px
-    line-height 40px
-    border-bottom 1px solid #eee
-    i
-      margin-right 10px
-      font-size 18px
-  ul
-    .tag_item
-      float left
-      margin 0 10px
-      font-size 14px
-      margin-top 8px
-      text-align center
-      a
-        position relative
-        display inline-block
-        padding 3px 7px
-        cursor pointer
-        &::before
+<style lang="scss" scoped>
+.link_box{
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 10px;
+  padding: 0 10px 5px;
+  box-sizing: border-box;
+  background-color: rgba(255,255,255,.6);
+  .tag_title{
+    font-size: 16px;
+    line-height: 40px;
+    border-bottom: 1px solid #eee;
+    i{
+      margin-right: 10px;
+      font-size: 18px;
+    }
+  }
+  ul{
+    .tag_item{
+      float: left;
+      margin: 0 10px;
+      font-size: 14px;
+      margin-top: 8px;
+      text-align: center;
+      a{
+        position: relative;
+        display: inline-block;
+        padding: 3px 7px;
+        cursor: pointer;
+        &::before{
           content: "";
           position: absolute;
-          width 100%
-          height 2px
-          bottom 0
-          left 0
-          background-color #0b7df2
-          visibility hidden
-          transform scaleX(0)
-          transition transform .4s ease-in-out
-        &:hover
-          &::before
-            transform: scaleX(1)
-            visibility inherit
+          width: 100%;
+          height: 2px;
+          bottom: 0;
+          left: 0;
+          background-color: #0b7df2;
+          visibility: hidden;
+          transform: scaleX(0);
+          transition: transform .4s ease-in-out;
+        }
+        &:hover{
+          &::before{
+            transform: scaleX(1);
+            visibility: inherit;
+          }
+        }
+      }
+    }
+  }
+}
 </style>

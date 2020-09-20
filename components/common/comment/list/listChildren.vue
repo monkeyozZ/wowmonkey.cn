@@ -388,7 +388,7 @@ export default {
     position: relative;
     margin-top: 10px;
     background: #ddd;
-    ul{
+    >ul{
       width: 95%;
       overflow: hidden;
       margin: 0 auto;
