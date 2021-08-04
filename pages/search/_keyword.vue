@@ -16,9 +16,9 @@ export default {
   // layout: this.ismoible?'mobile':'default',
   fetch ({ store, params }) {
     const obj = {
-      page: 1,
-      limit: 8,
-      keyWord: params.keyword
+      pageNum: 1,
+      pageSize: 8,
+      keywords: params.keyword
     }
     return store.dispatch('searchArticleList', obj)
   },

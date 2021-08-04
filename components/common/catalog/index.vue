@@ -87,6 +87,9 @@ export default {
     this.treeDom = Array.prototype.slice.call(document.querySelectorAll('.mk-title'))
     this.linkedCataTreeActive()
   },
+  destroyed () {
+    document.removeEventListener('scroll', this.scroll, false)
+  },
   methods: {
     scroll () {
       if (this.treeDom.length === 0) {
@@ -129,6 +132,9 @@ export default {
           if (scrollTop + distance > this.treeDom[index].mkTop && scrollTop + distance < this.treeDom[index].mkBottom) {
             document.querySelector(`.mk-link-${index}`).classList.add('active')
           } else {
+            if (scrollTop + distance > this.treeDom[index].mkBottom && index === this.treeDom.length - 1) {
+              return
+            }
             const domArr = Array.prototype.slice.call(document.querySelectorAll(`.mk-link-${index}`))
             domArr.map((treeItem) => {
               treeItem.classList.remove('active')

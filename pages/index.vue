@@ -19,7 +19,7 @@ export default {
   },
   fetch ({ store, params, error }) {
     // eslint-disable-next-line handle-callback-err
-    return store.dispatch('getArticleList', { pageNum: 1, pageSize: 8 }).catch((err) => {
+    return store.dispatch('getArticleList', { pageNum: 1, pageSize: 8, beginTime: params.time }).catch((err) => {
       error({ statusCode: 404 })
     })
   },

@@ -2,24 +2,24 @@ import request from '~/utils/request'
 
 const saveMsg = (obj) => {
   return request({
-    url: '/siteComment/saveMsg',
+    url: '/webComment/save',
     method: 'post',
     data: obj
   })
 }
 
-const getCommentList = (obj) => {
+const getCommentList = (params) => {
   return request({
-    url: '/siteComment/getCommentList',
-    method: 'post',
-    data: obj
+    url: '/webComment/list',
+    method: 'get',
+    params
   })
 }
-const like = (obj) => {
+const like = (params) => {
   return request({
-    url: '/siteComment/like',
-    method: 'post',
-    data: obj
+    url: '/webComment/like',
+    method: 'get',
+    params
   })
 }
 

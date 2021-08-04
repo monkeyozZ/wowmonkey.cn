@@ -6,7 +6,7 @@
     <div class="list_box">
       <ul>
         <li v-for="(item,index) in arr" :key="item.id">
-          <span>{{ index+1 }}</span><nuxt-link :to="`/article/${item.id}`">
+          <span>{{ index+1 }}</span><nuxt-link :to="`/article/${item._id}`">
             {{ item.title }}
           </nuxt-link>
         </li>

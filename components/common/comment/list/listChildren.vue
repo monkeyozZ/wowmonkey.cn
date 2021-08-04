@@ -1,23 +1,23 @@
 <template>
   <div class="list-children-box">
     <ul v-if="childList.length !=0 ">
-      <li v-for="(item, listIndex) in list" :key="listIndex">
+      <li v-for="(item, listIndex) in childList" :key="listIndex">
         <div class="child-comment-content">
           <div class="gravatar">
-            <img :src="gravatar('1316438321@qq.com')" alt="">
+            <img :src="item.email | getGravatar" alt="">
           </div>
           <div class="list-children-content">
             <h1>{{ item.name }}</h1>
             <div class="comment-text">
-              <span v-if="item.replay_name">回复<b style="margin:0 4px">{{ item.replay_name }}</b>:</span>
+              <span v-if="item.replayName">回复<b style="margin:0 4px">{{ item.replayName }}</b>:</span>
               <!-- eslint-disable-next-line vue/no-v-html -->
               <div class="markdown-body" v-html="marked(item.content)" />
             </div>
             <p class="list-children-footer">
               <span>
-                <i class="iconfont icon-time">&nbsp;{{ item.creat_time | timefilter }}</i>
+                <i class="iconfont icon-time">&nbsp;{{ item.creatTime | timefilter }}</i>
               </span>
-              <span @click="getreplyfocus(item.name, item.id)">
+              <span @click="getreplyfocus(item.name, item._id)">
                 <i class="iconfont icon-huifu">&nbsp;回复</i>
               </span>
             </p>
@@ -26,196 +26,64 @@
       </li>
     </ul>
     <div v-else class="empty">
-      <i class="iconfont icon-null" />
+      <!-- <i class="iconfont icon-null" /> -->
+      <svg-icon icon-class="empty" class-name="empty-icon" />
       <p class="empty-text">
         暂无评论，你来说两句？
       </p>
     </div>
-    <div class="children-comment-box">
-      <div class="markdown">
-        <div
-          ref="markdown"
-          class="markdown-editor"
-          contenteditable="true"
-          placeholder="输入评论"
-          @click="getfocus"
-          @keyup="editorkeyup"
-        />
-        <!-- eslint-disable-next-line vue/max-attributes-per-line eslint-disable-next-line vue/no-v-html -->
-        <div class="markdown-preview" :class="previewMode ? 'actived' : ''" v-html="previewContent" />
-      </div>
-      <div class="editor-tools">
-        <a href="" class="emoji" title="emoji" @click.stop.prevent>
-          <i class="iconfont icon-emoji" @click="emojisToggle" />
-        </a>
-        <a href="" class="image" title="image" @click.stop.prevent="insertContent('image')">
-          <i class="iconfont icon-image" />
-        </a>
-        <a href="" class="link" title="link" @click.stop.prevent="insertContent('link')">
-          <i class="iconfont icon-linkhorizontal" />
-        </a>
-        <a href="" class="code" title="code" @click.stop.prevent="insertContent('code')">
-          <i class="iconfont icon-code" />
-        </a>
-        <a href="" class="preview" title="preview" @click.stop.prevent="togglePreviewMode">
-          <i class="iconfont icon-eye" />
-        </a>
-      </div>
-      <div v-show="showEmojis" class="emoji-box">
-        <div v-swiper:mySwiper="swiperOption" class="swiper">
-          <div class="swiper-wrapper">
-            <div v-for="(item, emojisIndex) in emojis" :key="emojisIndex" class="swiper-slide item">
-              <ul class="emoji-list">
-                <li v-for="(e, itemIndex) in item" :key="itemIndex" class="item" @click="insertEmoji(e)">
-                  {{ e }}
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="swiper-pagination" />
-        </div>
-      </div>
-      <button v-if="!replayChildComment" type="button" class="submit" @click="submit">
-        评论
-      </button>
-      <button v-else type="button" class="submit" @click="reset">
-        取消
-      </button>
-    </div>
+    <field
+      ref="mdComponents"
+      :aid="aid"
+      :pid="replayChild ? replayPid : pid"
+      :top-list-pid="pid"
+      :replay-child-comment="replayChildComment"
+      :replay-child="replayChild"
+      :show-login="false"
+      :child-index="childIndex"
+      @setChildListData="setChildListData"
+      @getreplyfocus="getreplyfocus"
+    />
   </div>
 </template>
 
 <script>
+import Field from '../field'
 import marked from '~/plugins/marked'
 import gravatar from '~/plugins/gravatar'
-import commentApi from '~/api/comment'
 /* eslint-disable vue/require-default-prop */
 export default {
+  components: {
+    Field
+  },
   props: {
-    childList: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
     pid: {
-      type: Number
+      type: String
     },
     aid: {
-      type: Number
+      type: String
     },
-    index: {
+    childIndex: {
       type: Number
     }
   },
   data () {
     return {
-      regexs: {
-        email: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/
-        // url: /^((https|http):\/\/)+[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/
-      },
-      // 编辑器相关
-      comemntContentHtml: '',
-      comemntContentText: '',
-      previewContent: '',
-      previewMode: false,
-      showEmojis: false,
-      lastEditRange: null,
-      selection: null,
-      swiperOption: {
-        height: '250',
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        },
-        slidesPerView: 1,
-        setWrapperSize: true
-      },
-      emojis: [['😁', '😄', '😇', '😯', '😕', '😊', '😂', '😅', '😈', '😐', '😠', '😀', '😃', '😆', '😉', '😑', '😬', '😡', '😮', '😥', '😨'], ['😟', '😳', '😢', '😣', '😦', '😩', '😱', '😵', '😴', '😤', '😧', '😰', '😲', '😶', '😷', '😍', '😝', '😙', '😎', '😖', '😞'], ['😛', '😋', '😘', '😭', '😔', '😒', '😜', '😗', '😚', '😌', '😪', '😏', '🙋', '🙅', '🙎', '😼', '😻', '😓', '🙌', '🙆', '🙏'], ['😸', '😽', '😫', '🙍', '🙇', '😺', '😹', '😿', '😾', '🙉', '👶', '👨', '👵', '🙀', '🙊', '👦', '👩', '💏', '🙈', '💩', '👧'], ['👴', '💑', '👪', '👫', '👬', '👭', '👮', '💂', '👸', '👱', '💃', '👤', '👷', '👯', '🎅', '👲', '💆', '👥', '💁', '👰', '👼'], ['👳', '💇', '💅', '👺', '👿', '👀', '👣', '💋', '👻', '👽', '💀', '👄', '❤', '💪', '💙', '👍', '✊', '💛', '💔', '👎', '✌'], ['☝', '👈', '👏', '👆', '👉']],
-      Form: {
-        name: '',
-        email: '',
-        gravatar: null
-      },
-      islogin: false,
-      default_avt: require('~/assets/img/avt.jpg'),
       replayChildComment: false,
-      isClear: false,
-      isReplayChild: false,
-      replayPid: null
+      replayChild: false,
+      replayPid: null,
+      childList: []
     }
-  },
-  computed: {
-    list () {
-      const childarr = this.childList.concat()
-      for (let i = 0; i < childarr.length; i++) {
-        if (childarr[i].reply_comment.length !== 0) {
-          for (let j = 0; j < childarr[i].reply_comment.length; j++) {
-            if (childarr[i].id === parseInt(childarr[i].reply_comment[j].pid)) {
-              childarr[i].reply_comment[j].replay_name = childarr[i].name
-            }
-            childarr.push(childarr[i].reply_comment[j])
-          }
-        }
-      }
-      childarr.sort(this.compare('creat_time')) // 数组排序
-      this.$store.commit('article/SET_COMMENT_DATA_COMMENTNUM', { i: this.index, num: childarr.length })
-      return childarr
-    },
-    currentUrl () {
-      return `http://wowmonkey.cn${this.$route.fullPath}#comment`
-    }
-  },
-  watch: {
-    comemntContentText: {
-      handler () {
-        if (this.comemntContentText.length !== 0) {
-          if (this.replayChildComment) {
-            this.replayChildComment = false
-            this.isClear = true
-          }
-        } else if (this.isClear) {
-          this.replayChildComment = true
-        }
-      }
-    }
-  },
-  mounted () {
-    this.initUser()
   },
   methods: {
-    emojisToggle () {
-      this.showEmojis = !this.showEmojis
-      if (this.lastEditRange) {
-        // 存在最后光标对象，选定对象清除所有光标并添加最后光标还原之前的状态
-        this.selection.removeAllRanges()
-        this.selection.addRange(this.lastEditRange)
-      }
-      const num = this.$refs.markdown.childNodes.length
-      // alert(num)
-      if (num === 0) {
-        this.$refs.markdown.focus()
-        // IE or DOM
-        this.selection = window.getSelection ? window.getSelection() : document.selection
-        // IE or DOM
-        this.lastEditRange = this.selection.createRange ? this.selection.createRange() : this.selection.getRangeAt(0)
-      }
-    },
-    // 切换预览模式
-    togglePreviewMode () {
-      this.previewContent = this.marked(this.comemntContentText)
-      this.previewMode = !this.previewMode
-    },
-    getfocus () {
-      // IE or DOM
-      this.selection = window.getSelection ? window.getSelection() : document.selection
-      // IE or DOM
-      this.lastEditRange = this.selection.createRange ? this.selection.createRange() : this.selection.getRangeAt(0)
+    setChildListData (arr) {
+      this.childList = arr
     },
     marked (content) {
       return marked(content, false)
     },
     gravatar (email) {
+      if (!email) { return }
       if (!this.regexs.email.test(email)) { return null }
       const gravatarUrl = gravatar.url(email, {
         // size: '96',
@@ -225,159 +93,18 @@ export default {
       })
       return gravatarUrl
     },
-    // 编辑器相关
-    commentContentChange () {
-      const html = this.$refs.markdown.innerHTML
-      const text = this.$refs.markdown.textContent
-      if (!Object.is(html, this.comemntContentHtml)) {
-        this.comemntContentHtml = html
-      }
-      if (!Object.is(text, this.comemntContentText)) {
-        this.comemntContentText = text
-      }
-    },
-    updateCommentContent ({ start = '', end = '' }) {
-      if (!start && !end) { return false }
-      // 如果选中了内容，则把选中的内容替换，否则在光标位置插入新内容
-      const selectedText = (window.getSelection || document.getSelection)().toString()
-      const currentText = this.$refs.markdown.textContent
-      if (selectedText) {
-        const newText = currentText.replace(selectedText, start + selectedText + end)
-        this.$refs.markdown.textContent = newText
-      } else {
-        this.$refs.markdown.textContent = this.$refs.markdown.textContent += (start + end)
-        this.$refs.markdown.scrollTop = this.$refs.markdown.scrollHeight
-      }
-      this.commentContentChange()
-    },
-    insertContent (type) {
-      const contents = {
-        image: {
-          start: '![',
-          end: '](https://)'
-        },
-        link: {
-          start: '[',
-          end: '](https://)'
-        },
-        code: {
-          start: '\n```javascript\n',
-          end: '\n```'
-        }
-      }
-      this.updateCommentContent(contents[type])
-    },
-    insertEmoji (emoji) {
-      this.confirmemoji(emoji)
-    },
-    confirmemoji (emoji) {
-      if (!window.getSelection) {
-        this.$refs.markdown.focus()
-        this.lastEditRange.innerHTML(emoji)
-        this.lastEditRange.collapse(false)
-        this.lastEditRange.select()
-        this.commentContentChange()
-      } else {
-        this.$refs.markdown.focus()
-        this.lastEditRange.collapse(false)
-        console.log(window.getSelection)
-        const hasR = this.lastEditRange.createContextualFragment(emoji)
-        let hasRlastChild = hasR.lastChild
-        while (hasRlastChild && hasRlastChild.nodeName.toLowerCase() === 'br' && hasRlastChild.previousSibling && hasRlastChild.previousSibling.nodeName.toLowerCase() === 'br') {
-          const e = hasRlastChild
-          hasRlastChild = hasRlastChild.previousSibling
-          hasR.removeChild(e)
-        }
-        this.lastEditRange.insertNode(hasR)
-        if (hasRlastChild) {
-          this.lastEditRange.setEndAfter(hasRlastChild)
-          this.lastEditRange.setStartAfter(hasRlastChild)
-        }
-        this.selection.removeAllRanges()
-        this.selection.addRange(this.lastEditRange)
-        this.commentContentChange()
-      }
-    },
-    editorkeyup () {
-      // 编辑框按键弹起事件
-      // 获取选定对象
-      this.selection = window.getSelection ? window.getSelection() : document.selection
-      // 设置最后光标对象
-      this.lastEditRange = this.selection.getRangeAt(0)
-      this.commentContentChange()
-    },
     getreplyfocus (name, pid) {
       if (name !== undefined) {
         this.replayPid = pid
+        this.replayChild = true
         this.replayChildComment = true
-        this.isReplayChild = true
-        this.$refs.markdown.setAttribute('placeholder', '回复 ' + name + ':')
+        this.$refs.mdComponents.$refs.markdown.setAttribute('placeholder', '回复 ' + name + ':')
       } else {
-        this.$refs.markdown.setAttribute('placeholder', '输入评论')
+        this.replayChildComment = true
+        this.replayChild = false
+        this.$refs.mdComponents.$refs.markdown.setAttribute('placeholder', '输入评论')
       }
-      this.$refs.markdown.focus()
-    },
-    // 初始化用户信息
-    initUser () {
-      const user = localStorage.getItem('user')
-      if (user) {
-        this.Form = JSON.parse(user)
-        // 获取头像并设置头像
-        this.Form.gravatar = this.gravatar(`${this.Form.email}`)
-        this.islogin = true
-      }
-    },
-    submit () {
-      const user = localStorage.getItem('user')
-      if (user) {
-        if (this.comemntContentText.length !== 0) {
-          const obj = {
-            aid: this.aid,
-            pid: this.isReplayChild ? this.replayPid : this.pid,
-            name: this.Form.name,
-            email: this.Form.email,
-            content: this.comemntContentText,
-            currentUrl: this.currentUrl
-          }
-          commentApi.saveMsg(obj).then((res) => {
-            if (res.data.code === 0) {
-              this.$refs.markdown.innerHTML = ''
-              this.comemntContentText = ''
-              this.$store.dispatch('getCommentList', this.aid)
-              this.isReplayChild = false // 重置回复评论里的回复的Pid
-            }
-          })
-        } else {
-          alert('你倒是吐槽啊...')
-          this.$refs.markdown.focus()
-        }
-      } else {
-        alert('登录后方可放肆喔...')
-        this.$emit('getnamefocus')
-      }
-    },
-    reset () {
-      this.isReplayChild = false // 重置回复评论里的回复的Pid
-      this.replayChildComment = false
-      this.$refs.markdown.setAttribute('placeholder', '输入评论')
-      this.$refs.markdown.focus()
-    },
-    compare (prop) {
-      return (obj1, obj2) => {
-        let val1 = obj1[prop]
-        let val2 = obj2[prop]
-        if (!isNaN(Number(val1)) && !isNaN(Number(val2))) {
-          val1 = Number(val1)
-          val2 = Number(val2)
-        }
-        if (val1 < val2) {
-          return -1
-        } else if (val1 > val2) {
-          return 1
-        } else {
-          return 0
-        }
-      }
+      // this.$refs.mdComponents.$refs.markdown.focus()
     }
   }
 }
@@ -388,6 +115,7 @@ export default {
     position: relative;
     margin-top: 10px;
     background: #ddd;
+    border-radius: 8px;
     >ul{
       width: 95%;
       overflow: hidden;
@@ -411,12 +139,22 @@ export default {
             flex: 1;
             h1{
               padding: 8px 0;
-              font-size: 16px;
-              color: #333;
-              font-weight: 600;
+              font-size: 14px;
+              color: #2d2f33;
             }
             .comment-text{
               margin: 5px 0;
+              font-size: 13px;
+              .markdown-body{
+                p{
+                  font-size: 13px;
+                  color: #737373;
+                }
+              }
+              b{
+                font-weight: normal;
+                color: #2d2f33;
+              }
             }
             .list-children-footer{
               text-align: right;
@@ -427,7 +165,7 @@ export default {
                 font-size: 14px;
                 i{
                   cursor: pointer;
-                  font-size: 14px;
+                  font-size: 12px;
                 }
               }
             }
@@ -438,12 +176,14 @@ export default {
     .empty{
       text-align: center;
       margin: 15px;
-      .icon-null{
         font-size: 40px;
+      .empty-icon{
+        font-size: 90px;
       }
       .empty-text{
         font-size: 14px;
         padding: 8px 0;
+        color: #737373;
       }
     }
     .children-comment-box{

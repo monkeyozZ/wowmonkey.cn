@@ -3,8 +3,8 @@
     <div v-swiper:mySwiper="swiperOption" class="swiper">
       <div class="swiper-wrapper">
         <div v-for="(item, index) in listArr" :key="index" class="swiper-slide item">
-          <nuxt-link :to="`/article/${item.id}`" class="link">
-            <img :src="baseUrl + item.imageUrl" :alt="item.title">
+          <nuxt-link :to="`/article/${item._id}`" class="link">
+            <img :src="item.thumb" :alt="item.title">
           </nuxt-link>
         </div>
       </div>
@@ -24,7 +24,6 @@ export default {
   },
   data () {
     return {
-      baseUrl: 'http://api.wowmonkey.cn'
     }
   },
   computed: {

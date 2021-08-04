@@ -1,12 +1,12 @@
 <template>
   <div class="aside-box">
-    <a href="javascript:;" @click="like(obj.id)">
+    <a href="javascript:;" @click="like(obj._id)">
       <vue-star ref="like" color="#f05654" :isactive="haslike" :istoggle-color="haslike">
-        <i slot="icon" class="iconfont icon-heart" :data-num="obj.like" :class="{active: likeactive,rest_bg: obj.like?false:true}" />
+        <i slot="icon" class="iconfont icon-heart" :data-num="obj.like" :class="obj.like ? '' : 'rest_bg'" />
       </vue-star>
     </a>
     <a href="#comment">
-      <i class="iconfont icon-comment" :data-num="obj.comment_num" :class="{rest_bg: obj.comment_num?false:true}" />
+      <i class="iconfont icon-comment" :data-num="obj.comment_count" :class="obj.comment_count ? '' : 'rest_bg'" />
     </a>
   </div>
 </template>
@@ -48,13 +48,9 @@ export default {
     like (id) {
       this.$refs.like.toggle()
       if (!this.haslike) {
-        const data = {
-          id: this.obj.id,
-          like: parseInt(this.obj.like) + 1
-        }
         console.log(this.obj.id)
-        articleApi.like(data).then((res) => {
-          if (res.data.code === 0) {
+        articleApi.like({ id }).then((res) => {
+          if (res) {
             this.haslike = true
             console.log(this.$store)
             this.$store.commit('article/SET_DETAILS_DATA_LIKE', parseInt(this.obj.like) + 1)
@@ -73,7 +69,7 @@ export default {
       const likeHistory = JSON.parse(localStorage.getItem('article_like_history'))
       if (likeHistory) {
         likeHistory.map((item) => {
-          if (item === this.obj.id) {
+          if (item === this.obj._id) {
             this.haslike = true
           }
         })

@@ -4,14 +4,14 @@
       <transition v-for="item in list" :key="item.id" appear appear-class="rotate-enter" appear-active-class="rotate-leave-active">
         <li class="time_list">
           <div class="date_box">
-            {{ item.creat_time|parseTimeSub }}
+            {{ item.createTime | parseTime('{y}-{m}-{d}') }}
           </div>
           <div class="text_box">
             <div class="avt_tit">
               <img src="./avt.jpg">
               <h2>Monkey</h2>
             </div>
-            <img v-if="item.imageUrl" :src="baseUrl + item.imageUrl" alt="">
+            <img v-if="item.imageUrl" :src="item.imageUrl" alt="">
             <p class="a_con">
               {{ item.content }}
             </p>
@@ -33,7 +33,6 @@ export default {
   },
   data () {
     return {
-      baseUrl: 'http://api.wowmonkey.cn'
     }
   }
 }

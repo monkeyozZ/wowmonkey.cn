@@ -29,8 +29,8 @@ export default {
   data () {
     return {
       limitQuery: {
-        page: 1,
-        limit: 8
+        pageNum: 1,
+        pageSize: 8
       },
       loadingText: '',
       loading: true
@@ -39,57 +39,60 @@ export default {
   mounted () {
     document.addEventListener('scroll', this.scroll, false)
   },
+  destroyed () {
+    document.removeEventListener('scroll', this.scroll, false)
+  },
   methods: {
     scroll () {
       const clientHeight = document.documentElement.clientHeight
       const scrollHeight = document.body.scrollHeight
       const scrollTop = document.documentElement.scrollTop
       const triggerDistance = 80
-      console.log((scrollTop + clientHeight) >= (scrollHeight - triggerDistance) && this.loading)
+      // console.log((scrollTop + clientHeight) >= (scrollHeight - triggerDistance) && this.loading)
       if ((scrollTop + clientHeight) >= (scrollHeight - triggerDistance) && this.loading) {
         this.loading = false
         this.getMore()
       }
     },
     getMore () {
-      this.limitQuery.page += 1
+      this.limitQuery.pageNum += 1
       let obj = {}
       if (this.type === 'article') {
         if (this.keyWord) {
           obj = {
-            page: this.limitQuery.page,
-            limit: this.limitQuery.limit,
+            pageNum: this.limitQuery.pageNum,
+            pageSize: this.limitQuery.pageSize,
             keyWord: this.keyWord
           }
         } else {
           obj = {
-            page: this.limitQuery.page,
-            limit: this.limitQuery.limit,
+            pageNum: this.limitQuery.pageNum,
+            pageSize: this.limitQuery.pageSize,
             cate: this.category ? this.category : null
           }
         }
 
         if (this.tag) {
           obj = {
-            page: this.limitQuery.page,
-            limit: this.limitQuery.limit,
+            pageNum: this.limitQuery.pageNum,
+            pageSize: this.limitQuery.pageSize,
             tag: this.tag ? this.tag : null
           }
         }
         articleApi.getArticleList(obj).then((res) => {
-          if (res.data.code === 0) {
+          if (res) {
             this.loading = false
-            const l = res.data.articleList.length
+            const l = res.data.length
             if (l !== 0) {
-              this.$emit('changeListArr', res.data.articleList)
-              if (l < this.limitQuery.limit) {
+              this.$emit('changeListArr', res.data)
+              if (l < this.limitQuery.pageSize) {
                 this.loading = true
                 this.loadingText = '吖，没有更多了'
               }
             } else {
               this.loading = false
               this.loadingText = '吖，没有更多了'
-              this.limitQuery.page -= 1
+              this.limitQuery.pageNum -= 1
             }
           }
         }).catch((error) => {
@@ -99,22 +102,22 @@ export default {
 
       if (this.type === 'timeLine') {
         obj = {
-          page: this.limitQuery.page,
-          limit: this.limitQuery.limit
+          pageNum: this.limitQuery.pageNum,
+          pageSize: this.limitQuery.pageSize
         }
         timeApi.getTimeList(obj).then((res) => {
           if (res.data.code === 0) {
             const l = res.data.timeLineList.length
             if (l !== 0) {
               this.$emit('changeListArr', res.data.timeLineList)
-              if (l < this.limitQuery.limit) {
+              if (l < this.limitQuery.pageSize) {
                 this.loading = false
                 this.loadingText = '吖，没有更多了'
               }
             } else {
               this.loading = false
               this.loadingText = '吖，没有更多了'
-              this.limitQuery.page -= 1
+              this.limitQuery.pageNum -= 1
             }
           }
         }).catch((error) => {

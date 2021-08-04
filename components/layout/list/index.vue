@@ -3,7 +3,7 @@
     <div v-for="(item, index) in listArr" :key="index" class="item-box">
       <div class="thumb-box">
         <nuxt-link :to="'/article/' + item._id">
-          <img :src="IMG_URL + item.imageUrl" alt="">
+          <img :src="item.thumb" :alt="item.title">
         </nuxt-link>
       </div>
       <div class="right-box">
@@ -21,7 +21,7 @@
           <ul>
             <li>
               <svg-icon icon-class="time" class-name="icon" />
-              <span>{{ item.creat_time | parseTime }}</span>
+              <span>{{ item.creatTime | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
             </li>
             <li>
               <svg-icon icon-class="view" class-name="icon" />
@@ -29,7 +29,7 @@
             </li>
             <li>
               <svg-icon icon-class="comment" class-name="icon" />
-              <span>{{ item.comment_num }}</span>
+              <span>{{ item.commentCount }}</span>
             </li>
             <li>
               <svg-icon icon-class="like" class-name="icon" />
@@ -37,7 +37,7 @@
             </li>
             <li>
               <svg-icon icon-class="listTag" class-name="icon" />
-              <span>{{ item.tag | tagName }}</span>
+              <span v-for="(tagItem, i) in item.tag" :key="i">{{ tagItem }}{{ item.tag.length -1 == i ? '' : '，' }}</span>
             </li>
           </ul>
         </div>

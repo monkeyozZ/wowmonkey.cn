@@ -10,9 +10,8 @@ export const actions = {
     const { isMobile } = uaParse(userAgent)
     store.commit('globalStatus/SET_MOBILE_LAYOUT', isMobile)
     return Promise.all([
-      // store.dispatch('getArticleList', { page: 1, limit: 2, cate: null, tag: null}),
-      store.dispatch('getTagList')
-      // store.dispatch('getHotArticleList', { page: 1, limit: 8, hot: true })
+      store.dispatch('getTagList'),
+      store.dispatch('getHotArticleList', { pageNum: 1, pageSize: 8, hot: true })
     ])
   },
   // 加载文章列表
@@ -46,10 +45,11 @@ export const actions = {
   },
 
   // 初始化评论
-  getCommentList ({ commit }, id) {
-    return commentApi.getCommentList({ id }).then((res) => {
-      if (res.data.code === 0) {
-        commit('article/SET_COMMENT_DATA', res.data.commentList)
+  getCommentList ({ commit }, params) {
+    return commentApi.getCommentList(params).then((res) => {
+      if (res) {
+        commit('article/SET_COMMENT_DATA', res.data)
+        commit('article/SET_COMMENT_DATA_COMMENTCOUNT', res.count)
       }
     })
   },
@@ -57,8 +57,8 @@ export const actions = {
   // 加载热门文章列表
   getHotArticleList ({ commit }, obj) {
     return articleApi.getArticleList(obj).then((res) => {
-      if (res.data.code === 0) {
-        commit('article/SET_HOST_LIST_DATA', res.data.articleList)
+      if (res) {
+        commit('article/SET_HOST_LIST_DATA', res.data)
       }
     }).catch((err) => {
       console.log(err)
@@ -68,8 +68,8 @@ export const actions = {
   // 搜索文章列表
   searchArticleList ({ commit }, obj) {
     return articleApi.getArticleList(obj).then((res) => {
-      if (res.data.code === 0) {
-        commit('article/SET_SEARCH_LIST_DATA', res.data.articleList)
+      if (res) {
+        commit('article/SET_SEARCH_LIST_DATA', res.data)
       }
     }).catch((err) => {
       console.log(err)
@@ -79,9 +79,8 @@ export const actions = {
   // 加载时间轴列表
   getTimeList ({ commit }) {
     return timeApi.getTimeList().then((res) => {
-      if (res.data.code === 0) {
-        // console.log(res.data.tagList)
-        commit('time/SET_LIST_DATA', res.data.timeLineList)
+      if (res) {
+        commit('time/SET_LIST_DATA', res.data)
       }
     })
   }

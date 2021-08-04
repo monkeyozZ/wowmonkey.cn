@@ -16,11 +16,11 @@ const getArticleDetails = (params) => {
   })
 }
 
-const like = (obj) => {
+const like = (params) => {
   return request({
-    url: '/siteArticle/likeArticle',
-    method: 'post',
-    data: obj
+    url: '/webArticle/like',
+    method: 'get',
+    params
   })
 }
 

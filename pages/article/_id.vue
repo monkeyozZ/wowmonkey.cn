@@ -12,19 +12,16 @@
         <my-like :obj="details" />
         <my-share :info="info" />
         <div class="attr_box">
-          <p>本文发布于：{{ details.creat_time|parseTime }}</p>
+          <p>本文发布于：{{ details.creatTime | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</p>
           <p>
             文章标签：
-            <span v-for="(item, index) in details.tag" :key="index">
-              <span v-if="index !== details.tag.length - 1">{{ item + ',' }}</span>
-              <span v-else>{{ item }}</span>
-            </span>
+            <span v-for="(item, index) in details.tag" :key="index">{{ item }}{{ details.tag.length -1 == index ? '' : '，' }}</span>
           </p>
           <p>版权声明：{{ details.origin | transfornOrigin }}文章，如需转载，请注明原出处，避免错误及误导，以便溯源</p>
           <p>本文地址：<a :href="articleUrl">{{ articleUrl }}</a></p>
         </div>
 
-        <my-comment id="comment" :aid="details.id" />
+        <my-comment id="comment" :aid="details._id" />
       </div>
     </div>
   </transition>
@@ -43,13 +40,21 @@ export default {
     MyLike
   },
   fetch ({ store, params, error }) {
+    store.commit('article/RESET_COMMENT_DATA', []) // 重置评论
     const id = params.id
+    const query = {
+      aid: params.id,
+      pid: 0,
+      isTopLevel: true,
+      pageSize: 5,
+      pageNum: 1
+    }
     return Promise.all([
       store.dispatch('getArticleDetails', { id }).catch((err) => {
         error({ statusCode: 404 })
         console.log(err)
-      })
-      // store.dispatch('getCommentList', { id })
+      }),
+      store.dispatch('getCommentList', query)
     ])
   },
   data () {
@@ -74,10 +79,11 @@ export default {
   },
   computed: {
     url () {
-      return process.env.host + this.$route.fullPath
+      return process.env.host + this.$route.path
     },
     ...mapGetters({
-      details: 'article/details'
+      details: 'article/details',
+      comment_count: 'article/comment_count'
     }),
     articleContent () {
       const content = this.details.content
@@ -85,7 +91,7 @@ export default {
       // return marked(this.details.content, true)
     },
     articleUrl () {
-      return process.env.host + this.$route.fullPath
+      return process.env.host + this.$route.path
     }
   },
   mounted () {
@@ -99,7 +105,7 @@ export default {
       infoObj.url = encodeURIComponent(_this.url)
       infoObj.title = encodeURIComponent(_this.details.title)
       infoObj.content = encodeURIComponent(_this.details.des)
-      infoObj.pic = encodeURIComponent(_this.baseUrl + _this.details.imageUrl)
+      infoObj.pic = encodeURIComponent(_this.baseUrl + _this.details.thumb)
       this.info = infoObj
     },
     filterTag (content) {

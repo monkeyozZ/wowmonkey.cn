@@ -1,10 +1,10 @@
 import request from '~/utils/request'
 
-const getTimeList = (obj) => {
+const getTimeList = (params) => {
   return request({
-    url: '/siteTime/getTimeList',
-    method: 'post',
-    data: obj
+    url: '/time/list',
+    method: 'get',
+    params
   })
 }
 

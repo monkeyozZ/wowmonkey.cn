@@ -1,5 +1,6 @@
-const apiConfig = require('./config/api.config')
-const path = require('path')
+// const path = require('path')
+import * as path from 'path'
+const apiConfig = import('./config/api.config')
 export default {
   /*
   ** Nuxt rendering mode
@@ -43,7 +44,7 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    { src: '@/plugins/icon' },
+    { src: '@/plugins/icon', ssr: false },
     { src: '@/plugins/swiper.js', ssr: false },
     { src: '@/plugins/marked.js' },
     { src: '@/plugins/image-popup.js', ssr: false },
@@ -98,6 +99,6 @@ export default {
           symbolId: 'icon-[name]'
         }
       })
-    },
+    }
   }
 }
