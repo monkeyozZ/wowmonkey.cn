@@ -1,9 +1,11 @@
+// reset default css
 html,
 body {
   font-family: 'PingFang SC', 'Microsoft Yahei', sans-serif;
   min-height: 100%;
   font-size: 16px;
   color: #2d2f33;
+  @include customScroll()
 }
 body,
 h1,
@@ -62,7 +64,8 @@ li,a,button{
   outline: none;
   -webkit-tap-highlight-color: transparent;
 }
-/*旧浏览器html新增的标签无法识别块状显示*/
+
+// 旧浏览器html新增的标签无法识别块状显示
 article,
 aside,
 details,
@@ -76,11 +79,14 @@ nav,
 section {
   display: block;
 }
+
+// 全局过渡
 *,
 :hover {
   transition: background-color 0.25s linear, color 0.05s linear, margin 0.25s linear, opacity 0.25s linear, filter 0.25s linear, visibility 0.25s linear, transform 0.25s linear;
 }
-/* 页面过渡 */
+
+// 页面过渡
 .page-enter-active, .page-leave-active {
   transition: opacity .5s;
 }
@@ -88,15 +94,17 @@ section {
   opacity: 0;
 }
 
-/* 侧边栏过渡 */
+// 侧边栏过渡
 .aside-enter-active,.aside-leave-active {
   transition: opacity .5s;
 }
 .aside-enter, .aside-leave-active {
   opacity: 0
 }
-/* emoji swiper reset */
-.emoji-box .swiper-pagination-bullet{
+
+// 评论表情 swiper css reset
+.emoji-box{
+  .swiper-pagination-bullet{
     margin: 0 4px;
     width: 8px;
     height: 8px;
@@ -105,13 +113,14 @@ section {
     background: #000;
     opacity: 0.2;
     cursor: pointer
-}
-
-.emoji-box .swiper-pagination-bullet-active {
+  }
+  .swiper-pagination-bullet-active {
     opacity: 1;
     background: #007aff
+  }
 }
 
+// 其他
 .code-lines li {
   padding-right: 5px;
   border-right: 1px solid #ddd;
@@ -161,38 +170,3 @@ blockquote {
     padding: .5em 1em;
     padding-left: 1.5em;
 }
-
-/* scroll */
-
-::-webkit-scrollbar {  /* 滚动条整体部分 */
-        width:8px;
-        margin-right:2px;
-        background-color:#eee
-      }
-::-webkit-scrollbar-button { /* 滚动条两端的按钮 */
-  display: none;
-}
-::-webkit-scrollbar:horizontal {
-  height:10px;
-  margin-bottom:2px
-}
-::-webkit-scrollbar-track {  /* 外层轨道 */
-  border-radius: 10px;
-}
-::-webkit-scrollbar-track-piece {  /*内层轨道，滚动条中间部分 */
-  background-color: #eee;
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb {  /* 滑块 */
-  width:10px;
-  border-radius: 5px;
-  background: #CBCBCB;
-}
-::-webkit-scrollbar-corner { /* 边角 */
-  width: 10px;
-  background-color: #fff;
-}
-::-webkit-scrollbar-thumb:hover { /* 鼠标移入滑块 */
-  background: #909090;
-}
-

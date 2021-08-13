@@ -21,7 +21,7 @@
           <ul>
             <li>
               <svg-icon icon-class="time" class-name="icon" />
-              <span>{{ item.creatTime | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
+              <span>{{ item.creatTime | parseTime('{y}-{m}-{d}') }}</span>
             </li>
             <li>
               <svg-icon icon-class="view" class-name="icon" />

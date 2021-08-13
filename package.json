@@ -13,7 +13,7 @@
   },
   "config": {
     "nuxt": {
-      "host": "192.168.88.1",
+      "host": "192.168.1.2",
       "port": "80"
     }
   },
@@ -29,6 +29,7 @@
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
+    "@nuxtjs/style-resources": "^1.2.1",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.2.0",
     "eslint-plugin-nuxt": "^1.0.0",

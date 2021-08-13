@@ -34,10 +34,11 @@ export default {
   */
   css: [
     'swiper/dist/css/swiper.css',
-    '~/assets/css/style.css',
+    // '~/assets/css/style.css',
+    '@/assets/css/common.scss',
     // 'highlight.js/styles/dracula.css',
-    '~/assets/css/iconfont/iconfont.css',
-    '~/assets/css/github-markdown.css'
+    '@/assets/css/iconfont/iconfont.css',
+    '@/assets/css/github-markdown.css'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -67,7 +68,8 @@ export default {
   */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources'
   ],
   /*
   ** Nuxt.js modules
@@ -86,6 +88,11 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+    styleResources: {
+      scss: [
+        '@/assets/scss/index.scss'
+      ]
+    },
     extend (config, ctx) {
       const svgRule = config.module.rules.find(rule => rule.test.test('.svg'))
       svgRule.exclude = [path.resolve(__dirname, 'assets/icons/svg')]
