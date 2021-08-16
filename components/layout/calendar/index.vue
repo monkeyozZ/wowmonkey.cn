@@ -1,27 +1,27 @@
 <template>
-  <section class="wh_container">
-    <div class="wh_content_all">
-      <div class="wh_top_changge">
-        <li @click="PreMonth(myDate,false)">
-          <div class="wh_jiantou1" />
+  <section class="container">
+    <div class="main">
+      <div class="top_changge">
+        <li @click="PreMonth(myDate,false)" class="prev-box">
+          <!-- <span class="icon icon-prev" /> -->
         </li>
-        <li class="wh_content_li">
+        <li class="date-title">
           {{ dateTop }}
         </li>
-        <li @click="NextMonth(myDate,false)">
-          <div class="wh_jiantou2" />
+        <li @click="NextMonth(myDate,false)" class="next-box">
+          <!-- <span class="icon icon-next" /> -->
         </li>
       </div>
-      <div class="wh_content week">
-        <div v-for="(tag, index) in textTop" :key="index" class="wh_content_item">
-          <div class="wh_top_tag">
+      <div class="main_content">
+        <div v-for="(tag, index) in textTop" :key="index" class="content_item">
+          <div class="top_tag">
             {{ tag }}
           </div>
         </div>
       </div>
-      <div class="wh_content">
-        <div v-for="(item,index) in list" :key="index" class="wh_content_item" @click="clickDay(item,index)">
-          <div class="wh_item_date" :class="[{ wh_isMark: item.isMark},{wh_other_dayhide:item.otherMonth!=='nowMonth'},{wh_want_dayhide:item.dayHide},{wh_isToday:item.isToday},{wh_chose_day:item.chooseDay},setClass(item)]">
+      <div class="main_content">
+        <div v-for="(item,index) in list" :key="index" class="content_item" @click="clickDay(item,index)">
+          <div class="item_date" :class="[{ isMark: item.isMark},{other_dayhide:item.otherMonth!=='nowMonth'},{want_dayhide:item.dayHide},{isToday:item.isToday},{chose_day:item.chooseDay},setClass(item)]">
             {{ item.id }}
           </div>
         </div>
@@ -200,181 +200,149 @@ export default {
 </script>
 <style lang="scss" scoped>
 @media screen and (min-width: 460px) {
-  .wh_item_date:hover {
+  .item_date:hover {
     background-color: rgba(196, 196, 196, .4);
     border-radius: 50%;
     cursor: pointer;
   }
 }
 
-.wh_container {
+.container {
   position: relative;
   max-width: 410px;
   margin: auto;
   margin-top: 10px;
   border-radius: 2px;
   background-color: rgba(255,255,255,0.6);
-}
-.loading-container{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  background:hsla(0,0%,100%,.9);
-}
-
-li {
-  list-style-type: none;
-}
-.wh_top_changge {
-  display: flex;
-}
-
-.wh_top_changge li {
-  cursor: pointer;
-  display: flex;
-  color: #333;
-  font-size: 16px;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  height: 47px;
-}
-
-.wh_top_changge .wh_content_li {
-  cursor: auto;
-  flex: 2.5;
-}
-.wh_content_all {
-  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
-    "Helvetica Neue", STHeiti, "Microsoft Yahei", Tahoma, Simsun, sans-serif;
-  width: 100%;
-  overflow: hidden;
-  padding-bottom: 8px;
-}
-
-.wh_content {
-  display: flex;
-  max-width: 288px;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-  width: 100%;
-  margin: 0 auto;
-  &.week{
-    /* justify-content: space-around; */
+  .main {
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 8px;
+    .top_changge {
+      display: flex;
+      li {
+        cursor: pointer;
+        display: flex;
+        font-size: 16px;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        height: 47px;
+        &.date-title {
+          cursor: auto;
+          flex: 2.5;
+        }
+        &.prev-box,&.next-box{
+          &::before{
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-top: 2px solid #333;
+            border-left: 2px solid #333;
+          }
+          &:active{
+            background-color: rgba(196, 196, 196, .4);
+          }
+        }
+        &.prev-box{
+           &::before{
+             transform: rotate(-45deg);
+           }
+        }
+        &.next-box{
+           &::before{
+             transform: rotate(135deg);
+           }
+        }
+      }
+    }
+    .main_content{
+      display: flex;
+      max-width: 288px;
+      flex-wrap: wrap;
+      box-sizing: border-box;
+      width: 100%;
+      margin: 0 auto;
+      .content_item {
+        cursor: pointer;
+        color: $text-color;
+        width: 37px;
+        height: 37px;
+        line-height: 37px;
+        margin: 0 2px;
+        .top_tag {
+          width: 37px;
+          height: 37px;
+          line-height: 35px;
+          margin: auto;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .item_date {
+          width: 35px;
+          height: 35px;
+          line-height: 40px;
+          margin: auto;
+          display: flex;
+          border-radius: 50%;
+          justify-content: center;
+          align-items: center;
+          &.isMark {
+            margin: auto;
+            border-radius: 100px;
+            background: $theme-color;
+            z-index: 2;
+          }
+          &.chose_day {
+            background-color: $theme-color;
+            color: #fff;
+            border-radius:50%;
+          }
+          &.isToday {
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            margin: auto;
+            background-color: $theme-color;
+            color: #fff;
+            border-radius: 100px;
+            text-align: center;
+          }
+          &.other_dayhide,
+          &.want_dayhide {
+            color: $text-color-grey;
+          }
+        }
+      }
+    }
+    .loading-container{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      background:hsla(0,0%,100%,.9);
+      .box{
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        .spinner {
+          width: 100%;
+          height: 100%;
+          background-color: $theme-color;
+          border-radius: 100%;
+          -webkit-animation: scaleout 1.0s infinite ease-in-out;
+          animation: scaleout 1.0s infinite ease-in-out;
+        }
+      }
+    }
   }
 }
-
-.wh_content:first-child .wh_content_item_tag,
-.wh_content:first-child .wh_content_item {
-  color: #ddd;
-  font-size: 16px;
-}
-
-.wh_content_item,
-wh_content_item_tag {
-  font-size: 15px;
-  width: 13.4%;
-  text-align: center;
-  color: #fff;
-  position: relative;
-}
-.wh_content_item {
-  cursor: pointer;
-  color: #333;
-  width: 37px;
-  height: 37px;
-  line-height: 37px;
-  margin: 0 2px;
-}
-
-.wh_top_tag {
-  width: 37px;
-  height: 37px;
-  line-height: 35px;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.wh_item_date {
-  width: 35px;
-  height: 35px;
-  line-height: 40px;
-  margin: auto;
-  display: flex;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-}
-
-.wh_jiantou1 {
-  width: 12px;
-  height: 12px;
-  border-top: 2px solid #333;
-  border-left: 2px solid #333;
-  transform: rotate(-45deg);
-}
-
-.wh_jiantou1:active,
-.wh_jiantou2:active {
-  border-color: #ddd;
-}
-
-.wh_jiantou2 {
-  width: 12px;
-  height: 12px;
-  border-top: 2px solid #333;
-  border-right: 2px solid #333;
-  transform: rotate(45deg);
-}
-.wh_content_item > .wh_isMark {
-  margin: auto;
-  border-radius: 100px;
-  background: blue;
-  z-index: 2;
-}
-.wh_content_item .wh_other_dayhide {
-  color: #bfbfbf;
-}
-.wh_content_item .wh_want_dayhide {
-  color: #bfbfbf;
-}
-.wh_content_item .wh_isToday {
-  width: 35px;
-  height: 35px;
-  line-height: 35px;
-  margin: auto;
-  background-color: #007fff;
-  color: #fff;
-  border-radius: 100px;
-  text-align: center;
-}
-.wh_content_item .wh_chose_day {
-  background-color: #007fff;
-  color: #fff;
-  border-radius:50%;
-}
-.box{
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.spinner {
-  width: 100%;
-  height: 100%;
-  background-color: #007fff;
-  border-radius: 100%;
-  -webkit-animation: scaleout 1.0s infinite ease-in-out;
-  animation: scaleout 1.0s infinite ease-in-out;
-}
-
 @-webkit-keyframes scaleout {
   0% { -webkit-transform: scale(0.0) }
   100% {

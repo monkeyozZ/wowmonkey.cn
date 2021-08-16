@@ -127,7 +127,7 @@ export default {
         line-height: 60px;
         letter-spacing: 2px;
         cursor: pointer;
-        color: #007fff;
+        color: $theme-color;
         padding-left: 2px;
         text-decoration: none;
       }
@@ -143,9 +143,9 @@ export default {
             display: inline-block;
             margin: 0 5px;
             box-sizing: border-box;
-            font-size: 16px;
+            font-size: $font-size-md;
             line-height: 60px;
-            color: #656973;
+            color: $text-color-nav;
             &::before{
               content: "";
               position: absolute;
@@ -154,13 +154,13 @@ export default {
               bottom: 0;
               left: 0;
               border-radius: 2px;
-              background-color: #0b7df2;
+              background-color: $theme-color;
               visibility: hidden;
               transform: scaleX(0);
               transition: transform .4s ease-in-out;
             }
             &.nuxt-link-active{
-              color: #0088f5;
+              color: $theme-color;
               &::before{
                 transform: scaleX(1);
                 visibility: inherit;

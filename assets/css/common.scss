@@ -4,7 +4,7 @@ body {
   font-family: 'PingFang SC', 'Microsoft Yahei', sans-serif;
   min-height: 100%;
   font-size: 16px;
-  color: #2d2f33;
+  color: $text-color;
   @include customScroll()
 }
 body,

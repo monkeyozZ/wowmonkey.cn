@@ -48,13 +48,6 @@ export default {
     clickDay (data) {
       const time = Date.parse(new Date(data))
       const timestring = time
-      // var timeend = timestring + 86400
-      /* this.axios.post('home/index', {
-          params: {
-            startime: timestring,
-            endtime: timeend
-          }
-        }) */
       this.$router.push(`/date/${timestring}`)
     }
   }

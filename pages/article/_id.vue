@@ -155,7 +155,7 @@ export default {
       padding: 20px 10px;
       background: rgba(255,255,255,0.6);
       line-height: 1.25;
-      color: #2b2b2b;
+      color: $text-color;
       font-family: Optima-Regular, Optima, PingFangTC-Light, PingFangSC-light, PingFangTC-light;
       letter-spacing: 2px;
       background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.04) 3%, rgba(0, 0, 0, 0) 3%), linear-gradient(360deg, rgba(50, 0, 0, 0.04) 3%, rgba(0, 0, 0, 0) 3%);
@@ -171,7 +171,7 @@ export default {
       .markdown-body{
         padding: 10px 15px;
         font-size: 16px;
-        color: black;
+        color: $text-color;
         padding: 0 10px;
         line-height: 1.6;
         word-spacing: 0px;
@@ -183,12 +183,11 @@ export default {
         /* margin-top: -10px; 解决开头空隙过大问题*/
         /*段落*/
          p {
-          font-size: 16px;
-          padding-top: 8px;
-          padding-bottom: 8px;
+          font-size: $font-size-md;
+          padding: 8px 0;
           margin: 0;
-          line-height: 26px;
-          color: black;
+          line-height: 28px;
+          color: $text-color;
         }
         /*标题*/
          h1,
@@ -201,7 +200,7 @@ export default {
           margin-bottom: 15px;
           padding: 0px;
           font-weight: bold;
-          color: black;
+          color: $text-color;
         }
          h1 {
           font-size: 24px;
@@ -243,7 +242,7 @@ export default {
           margin-top: 8px;
           margin-bottom: 8px;
           padding-left: 25px;
-          color: black;
+          color: $text-color;
         }
          ul {
           list-style-type: disc;
@@ -267,7 +266,7 @@ export default {
           display: block;
           font-size: 0.9em;
           overflow: auto;
-          overflow-scrolling: touch;
+          -webkit-overflow-scrolling: touch;
           border-left: 3px solid rgba(0, 0, 0, 0.4);
           background: rgba(0, 0, 0, 0.05);
           color: #6a737d;
@@ -280,12 +279,12 @@ export default {
         }
          blockquote p {
           margin: 0px;
-          color: black;
+          color: $text-color;
           line-height: 26px;
         }
          .table-of-contents a {
           border: none;
-          color: black;
+          color: $text-color;
           font-weight: normal;
         }
         /*链接*/
@@ -299,22 +298,22 @@ export default {
         /*加粗*/
          strong {
           font-weight: bold;
-          color: black;
+          color: $text-color;
         }
         /*斜体*/
          em {
           font-style: italic;
-          color: black;
+          color: $text-color;
         }
         /*加粗斜体*/
          em strong {
           font-weight: bold;
-          color: black;
+          color: $text-color;
         }
         /*删除线*/
          del {
           font-style: italic;
-          color: black;
+          color: $text-color;
         }
         /*分隔线*/
          hr {
@@ -323,7 +322,7 @@ export default {
           margin-top: 10px;
           margin-bottom: 10px;
           border: none;
-          border-top: 1px solid black;
+          border-top: 1px solid $text-color;
         }
         /*代码块*/
          pre {
@@ -334,7 +333,7 @@ export default {
           display: -webkit-box;
           font-family: Operator Mono, Consolas, Monaco, Menlo, monospace;
           border-radius: 0px;
-          font-size: 12px;
+          font-size: 13px;
           -webkit-overflow-scrolling: touch;
         }
          pre code span {
@@ -343,7 +342,7 @@ export default {
         /*行内代码*/
          p code,
          li code {
-          font-size: 14px;
+          font-size: $font-size-md;
           word-wrap: break-word;
           padding: 2px 4px;
           border-radius: 4px;
@@ -436,7 +435,7 @@ export default {
           padding: 0px;
           margin: 0;
           line-height: 26px;
-          color: black;
+          color: $text-color;
           word-break:break-all;
           width: calc(100%-50)
         }

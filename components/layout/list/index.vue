@@ -130,18 +130,18 @@ export default {
           a{
             padding: 2px 0;
             box-sizing: border-box;
-            font-size: 18px;
-            font-weight: 500;
+            font-size: $font-size-md;
+            font-weight: 700;
           }
         }
         .desc{
           flex: 1;
           margin-top: 6px;
-          font-size: 14px;
+          font-size: $font-size-base;
           a{
             line-height: 21px;
             height: 63px;
-            color: #a8abb3;
+            color: $text-color;
             @include ellipsis(3);
           }
         }
@@ -151,24 +151,21 @@ export default {
             align-items: center;
             li{
               margin-right: 15px;
-              font-size: 12px;
-              color: #a8abb3;
-              cursor: pointer;
-              &:first-child{
-                .icon{
-                  margin-top: -1px;
-                }
-              }
+              font-size: $font-size-base;
+              color: $text-color-grey;
+              line-height: 20px;
+              white-space: nowrap;
               &:last-child{
                 @include ellipsis(1);
-                .icon{
-                  font-size: 14px;
-                }
+                margin-right: 0
               }
               .icon{
-                font-size: 13px;
+                font-size: $font-size-base;
                 margin-right: 2px;
-                fill: #707070;
+                fill: $text-color-grey;
+              }
+              span{
+                font-size: $font-size-sm;
               }
             }
           }
