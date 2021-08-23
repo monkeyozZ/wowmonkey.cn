@@ -111,9 +111,9 @@ export default {
     gravatar (email) {
       if (!this.regexs.email.test(email)) { return null }
       const gravatarUrl = gravatar.url(email, {
-        protocol: 'http'
+        protocol: 'https'
       })
-      return gravatarUrl
+      return gravatarUrl.replace('s.gravatar.com', 'avatar.wowmonkey.cn')
     },
     showChildren (index, id) {
       this.childIndex = index
