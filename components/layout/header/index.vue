@@ -101,6 +101,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import url('https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap');
   .header{
     position: fixed;
     width: 100%;
@@ -122,8 +123,9 @@ export default {
       overflow: hidden;
       .logo{
         display: inline-block;
-        font-size: 20px;
-        font-family: logofont;
+        font-size: 28px;
+        // font-family: logofont;
+        font-family: 'Zhi Mang Xing', cursive;
         line-height: 60px;
         letter-spacing: 2px;
         cursor: pointer;
@@ -190,11 +192,11 @@ export default {
       transition: transform .5s ease-in-out;
     }
   }
-  @font-face{
-    font-family: 'logofont';
-    src: url('./font/Lobster.ttf');
-    src: url('./font/Lobster.eot?#iefix') format('embedded-opentype') /* IE6-IE8 */
-        url('./font/Lobster.woff') format('woff') /* Modern Browsers */
-        url('./font/Lobster.ttf') format('truetype') /* Safari, Android, iOS */
-  }
+  // @font-face{
+  //   font-family: 'logofont';
+  //   src: url('./font/Lobster.ttf');
+  //   src: url('./font/Lobster.eot?#iefix') format('embedded-opentype') /* IE6-IE8 */
+  //       url('./font/Lobster.woff') format('woff') /* Modern Browsers */
+  //       url('./font/Lobster.ttf') format('truetype') /* Safari, Android, iOS */
+  // }
 </style>

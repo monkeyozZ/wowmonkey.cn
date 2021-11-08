@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <div class="header-box">
+    <!-- <div class="header-box">
       <div class="sky-box">
           <div class="background be-2" data-v-9a1bfe42="">
             <img draggable="false" src="https://images.wowmonkey.cn/background-be-2.jpg" class="image" alt="background" data-v-9a1bfe42="">
@@ -15,7 +15,7 @@
             <img draggable="false" src="https://images.wowmonkey.cn/background-star-2.png" class="image" alt="background-star" data-v-9a1bfe42="">
           </div>
       </div>
-    </div>
+    </div> -->
     <div class="content">
       <div class="user-info">
         <div class="avatar">
@@ -28,13 +28,9 @@
       </div>
       <div class="desc">
         <p>
-          一名本来是phper的切图崽，为什么这么说呢，最开始实习的一家公司本来是实习php岗位的，后面因为
-          公司主要业务线是java，后面有一些前端的事就丢给搞，后来慢慢感觉前端还蛮有趣的，自己写的东西即时可见，
-          有种成就感，后来慢慢的就研究前端方向的知识点，发现JavaScript真的强，啥都可以干，搭博客的初衷是为了记笔记，
-          其次是学习前端方面的知识拿来练手，以至于后面不管学啥都拿博客练手，最开始本来用传统的前端写页面的方式，后台用thinkphp，
-          后来接触了node之后，果断又用express搞一边，前台换成了vue单页面，后面学习ssr的时候，又拿nuxt.js实现一遍，
-          后面学习typescript的时候，又把后台用nest.js实现了一遍，总之接触新东西之后老是先拿博客来练手，最开始用来记笔记的想法好像忘了，哈哈哈，
-          都记在了有道云笔记里面
+          一名本来是phper的切图崽，机遇巧合下成了一名切图崽，酷爱前端技术，喜欢折腾，建此站的初衷也是为了学习和巩固感兴趣的技术，
+          欢迎你来到这里，^_^。
+          此站就当自己记笔记的地方了吧，不定期更新文章和一些鸡汤。<!-- <a href="mailto:my@wowmonkey.cn">点击联系我</a> -->
         </p>
       </div>
     </div>
@@ -74,7 +70,7 @@ export default {
 .about{
   position: relative;
   padding-bottom: 110px;
-  height: 100%;
+  // height: 100%;
   box-sizing: border-box;
   .header-box{
     position: relative;
@@ -146,6 +142,12 @@ export default {
         width: 100%;
         height: auto;
       }
+    }
+  }
+  .desc{
+    p{
+      line-height: 24px;
+      text-indent: 2em;
     }
   }
   .user-cover{

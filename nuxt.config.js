@@ -33,7 +33,8 @@ export default {
   ** Global CSS
   */
   css: [
-    'swiper/dist/css/swiper.css',
+    // 'swiper/dist/css/swiper.css',
+    { src: 'swiper/css/swiper.css', lang: 'css' },
     // '~/assets/css/style.css',
     '@/assets/css/common.scss',
     // 'highlight.js/styles/dracula.css',
@@ -46,7 +47,8 @@ export default {
   */
   plugins: [
     { src: '@/plugins/icon', ssr: false },
-    { src: '@/plugins/swiper.js', ssr: false },
+    // { src: '@/plugins/swiper.js', ssr: false },
+    { src: '@/plugins/swiper', ssr: false },
     { src: '@/plugins/marked.js' },
     { src: '@/plugins/image-popup.js', ssr: false },
     { src: '@/plugins/gravatar.js' },
