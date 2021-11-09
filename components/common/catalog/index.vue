@@ -26,7 +26,8 @@ export default {
     }),
     cataList () {
       const content = this.details.content
-      return content.match(/<[Hh][1-6]>.*?(<\/[Hh][1-6]>)/g)
+      const res = content.match(/<[Hh][1-6]>.*?(<\/[Hh][1-6]>)/g)
+      return res || []
     },
     cataTree () {
       const levelStack = []
