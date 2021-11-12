@@ -63,6 +63,7 @@ export default {
   .music-box{
     display: flex;
     flex-direction: column;
+    min-width: 205px;
     .panel{
       display: flex;
       justify-content: space-between;

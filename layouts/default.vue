@@ -17,14 +17,14 @@
       :click-effect="false"
       click-mode="push"
     />
-    <my-header v-if="!ismoible" />
-    <m-header v-if="ismoible" ref="mobile" @changeopen="changeopen" @searchsildedown="searchsildedown" />
-    <div class="wrapper_box" :class="{open: isopen, sildedown: sildedown}" @click="closemobilenav">
+    <my-header />
+    <!-- <m-header v-if="ismoible" ref="mobile" @changeopen="changeopen" @searchsildedown="searchsildedown" /> -->
+    <div class="wrapper-box" :class="{open: isopen, sildedown: sildedown}" @click="closemobilenav">
       <main class="main" :class="{full: fullColumn}">
         <nuxt />
       </main>
       <transition name="aside">
-        <aside v-if="!ismoible && !fullColumn" class="slide">
+        <aside v-if="!fullColumn" class="slide">
           <my-aside />
         </aside>
       </transition>
@@ -35,12 +35,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { BackGround, MyHeader, MHeader, MyAside, MyFooter } from '~/components/layout'
+import { BackGround, MyHeader, /* MHeader */ MyAside, MyFooter } from '~/components/layout'
 export default {
   components: {
     BackGround,
     MyHeader,
-    MHeader,
+    // MHeader,
     MyAside,
     MyFooter
   },
@@ -80,7 +80,7 @@ export default {
   flex-direction: column;
   overflow-x: hidden;
   position: relative;
-  .wrapper_box{
+  .wrapper-box{
     display: flex;
     flex: 1;
     max-width: 1000px;
@@ -103,10 +103,10 @@ export default {
     }
   }
 }
-@media (max-width: 414px){
+@media (max-width: 414px) {
   .wrapper{
-    .wrapper_box{
-      margin: 70px auto 0;
+    .wrapper-box{
+      margin: 0 auto;
       .main{
         width: 100%;
       }
@@ -117,6 +117,15 @@ export default {
       &.sildedown{
         margin: 120px auto 0;
         transition: all .25s ease-in-out;
+      }
+    }
+  }
+}
+@media (max-width: 992px) {
+  .wrapper{
+    .wrapper-box{
+      .slide{
+        display: none;
       }
     }
   }

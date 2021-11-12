@@ -32,6 +32,7 @@ export default {
       p{
         font-size: 14px;
         color: inherit;
+        text-align: center;
       }
     }
   }

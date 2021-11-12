@@ -55,12 +55,12 @@ export default {
 
 <style lang="scss" scoped>
   .search_box{
+    display: flex;
+    align-items: center;
     padding: 5px;
     box-sizing: border-box;
     overflow: hidden;
-    vertical-align: middle;
     input{
-        float: left;
         height: 30px;
         border: none;
         outline: none;
@@ -74,7 +74,6 @@ export default {
         }
       }
       button{
-        float: left;
         height: 30px;
         padding: 0 10px;
         border: none;

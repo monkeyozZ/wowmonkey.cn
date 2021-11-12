@@ -75,7 +75,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~assets/scss/mixins.scss';
+// @import '~assets/scss/mixins.scss';
   .art-item{
     .item-box{
       display: flex;
@@ -140,7 +140,7 @@ export default {
           font-size: $font-size-base;
           a{
             line-height: 21px;
-            height: 63px;
+            // height: 63px;
             color: $text-color;
             @include ellipsis(3);
           }
@@ -167,6 +167,27 @@ export default {
               span{
                 font-size: $font-size-sm;
               }
+            }
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 414px) {
+    .art-item{
+      .item-box{
+        .thumb-box{
+          a{
+            width: 120px;
+            height: 80px;
+          }
+        }
+        .right-box{
+          .desc{
+            // @include ellipsis(1);
+            a{
+              display: block;
+              @include ellipsis(1);
             }
           }
         }

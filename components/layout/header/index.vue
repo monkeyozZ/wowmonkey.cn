@@ -74,7 +74,7 @@ export default {
   methods: {
     sliderHeader () {
       const bodyHeight = document.documentElement.clientHeight
-      const containerHeight = document.getElementsByClassName('wrapper_box')[0].clientHeight
+      const containerHeight = document.getElementsByClassName('wrapper-box')[0].clientHeight
       const scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
       const diffTop = scrollTop - this.scrollTop
       this.scrollTop = scrollTop
@@ -124,8 +124,7 @@ export default {
       .logo{
         display: inline-block;
         font-size: 28px;
-        // font-family: logofont;
-        font-family: 'Zhi Mang Xing', cursive;
+        font-family: 'Zhi Mang Xing', logofont, cursive;
         line-height: 60px;
         letter-spacing: 2px;
         cursor: pointer;
@@ -192,11 +191,22 @@ export default {
       transition: transform .5s ease-in-out;
     }
   }
-  // @font-face{
-  //   font-family: 'logofont';
-  //   src: url('./font/Lobster.ttf');
-  //   src: url('./font/Lobster.eot?#iefix') format('embedded-opentype') /* IE6-IE8 */
-  //       url('./font/Lobster.woff') format('woff') /* Modern Browsers */
-  //       url('./font/Lobster.ttf') format('truetype') /* Safari, Android, iOS */
-  // }
+  @font-face{
+    font-family: 'logofont';
+    src: url('./font/Lobster.ttf');
+    src: url('./font/Lobster.eot?#iefix') format('embedded-opentype') /* IE6-IE8 */
+        url('./font/Lobster.woff') format('woff') /* Modern Browsers */
+        url('./font/Lobster.ttf') format('truetype') /* Safari, Android, iOS */
+  }
+  @media (min-width: 992px) and (max-width: 1100px) {
+    .header{
+      .header-box{
+        .nav{
+          li{
+            padding: 0 6px;
+          }
+        }
+      }
+    }
+  }
 </style>
