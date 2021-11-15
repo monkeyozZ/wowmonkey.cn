@@ -2,38 +2,44 @@
   <div class="header" :class="{ sliderup: sliderup, sliderdown: sliderdown , fillBg: fillColor}">
     <section class="header-box">
       <nuxt-link to="/" class="logo" v-text="logotext" />
-      <ul class="nav">
-        <li>
-          <nuxt-link to="/" exact>
-            首页
-          </nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/learn" exact>
-            学无止境
-          </nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/note" exact>
-            个人归档
-          </nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/life" exact>
-            慢生活
-          </nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/time" exact>
-            时间轴
-          </nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/about" exact>
-            关于
-          </nuxt-link>
-        </li>
-      </ul>
+      <div class="nav-box" :class="meunOpen ? 'open' : ''">
+        <a class="m-menu" href="javascript:;" @click="toggleMenu">
+          <span />
+        </a>
+        <div class="mask" />
+        <ul class="nav-list">
+          <li>
+            <nuxt-link to="/" exact>
+              首页
+            </nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/learn" exact>
+              学无止境
+            </nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/note" exact>
+              个人归档
+            </nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/life" exact>
+              慢生活
+            </nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/time" exact>
+              时间轴
+            </nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/about" exact>
+              关于
+            </nuxt-link>
+          </li>
+        </ul>
+      </div>
       <div class="header-right-box">
         <my-search />
         <my-music />
@@ -56,12 +62,14 @@ export default {
       sliderup: false,
       sliderdown: false,
       fillColor: false,
+      meunOpen: false,
       scrollTop: 0
     }
   },
   watch: {
     $route: {
       handler () {
+        this.meunOpen = false
         this.sliderup = false
         this.sliderdown = true
         this.fillColor = false
@@ -72,6 +80,9 @@ export default {
     this.watchscroll()
   },
   methods: {
+    toggleMenu () {
+      this.meunOpen = !this.meunOpen
+    },
     sliderHeader () {
       const bodyHeight = document.documentElement.clientHeight
       const containerHeight = document.getElementsByClassName('wrapper-box')[0].clientHeight
@@ -116,6 +127,7 @@ export default {
     .header-box{
       display: flex;
       align-items: center;
+      justify-content: space-between;
       max-width: 1200px;
       width: 100%;
       height: 60px;
@@ -132,45 +144,97 @@ export default {
         padding-left: 2px;
         text-decoration: none;
       }
-      .nav{
-        display: flex;
+      .nav-box{
         margin-left: 20px;
-        align-items: center;
         flex: 1;
-        li{
-          padding: 0 15px;
-          a{
-            position: relative;
-            display: inline-block;
-            margin: 0 5px;
-            box-sizing: border-box;
-            font-size: $font-size-md;
-            line-height: 60px;
-            color: $text-color-nav;
+        .m-menu{
+          position: relative;
+          display: none;
+          width: 30px;
+          height: 30px;
+          span{
+            position: absolute;
+            top: 50%;
+            left: 0;
+            display: block;
+            width: 100%;
+            height: 4px;
+            margin-top: -2px;
+            background-color: #a8abb3;
+            font-size: 0px;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-transition: background-color 0.3s;
+            transition: background-color 0.3s;
             &::before{
-              content: "";
               position: absolute;
-              width: 100%;
-              height: 2px;
-              bottom: 0;
               left: 0;
-              border-radius: 2px;
-              background-color: $theme-color;
-              visibility: hidden;
-              transform: scaleX(0);
-              transition: transform .4s ease-in-out;
+              width: 100%;
+              height: 100%;
+              background: #a8abb3;
+              content: '';
+              -webkit-transition: -webkit-transform 0.3s;
+              transition: transform 0.3s;
+              transform: translateY(-250%);
             }
-            &.nuxt-link-active{
-              color: $theme-color;
+            &::after{
+              position: absolute;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: #a8abb3;
+              content: '';
+              -webkit-transition: -webkit-transform 0.3s;
+              transition: transform 0.3s;
+              transform: translateY(250%);
+            }
+          }
+        }
+        .mask{
+          display: none;
+        }
+        .nav-list{
+          display: flex;
+          align-items: center;
+          li{
+            padding: 0 15px;
+            a{
+              position: relative;
+              display: inline-block;
+              margin: 0 5px;
+              box-sizing: border-box;
+              font-size: $font-size-md;
+              line-height: 60px;
+              color: $text-color-nav;
               &::before{
-                transform: scaleX(1);
-                visibility: inherit;
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                bottom: 0;
+                left: 0;
+                border-radius: 2px;
+                background-color: $theme-color;
+                visibility: hidden;
+                transform: scaleX(0);
+                transition: transform .4s ease-in-out;
               }
-            }
-            &:hover{
-              &::before{
-                transform: scaleX(1);
-                visibility: inherit;
+              &.nuxt-link-active{
+                color: $theme-color;
+                &::before{
+                  transform: scaleX(1);
+                  visibility: inherit;
+                }
+              }
+              &:hover{
+                &::before{
+                  transform: scaleX(1);
+                  visibility: inherit;
+                }
               }
             }
           }
@@ -201,10 +265,83 @@ export default {
   @media (min-width: 992px) and (max-width: 1100px) {
     .header{
       .header-box{
-        .nav{
-          li{
-            padding: 0 6px;
+        .nav-box{
+          .nav-list{
+            li{
+              padding: 0 6px;
+            }
           }
+        }
+      }
+    }
+  }
+  @media (max-width: 769px){
+    .header{
+      .header-box{
+        padding: 0 15px;
+        box-sizing: border-box;
+        .nav-box{
+          flex: unset;
+          margin: 0;
+          &.open{
+            .m-menu{
+              span{
+                background: transparent;
+                &::before{
+                  transform: translateY(0) rotate(45deg);
+                }
+                &::after{
+                  transform: translateY(0) rotate(-45deg);
+                }
+              }
+            }
+            .mask{
+              width: 45%;
+            }
+            .nav-list{
+              width: 55%;
+              li{
+                display: block;
+              }
+            }
+          }
+          .m-menu{
+            display: block;
+            z-index: 99;
+          }
+          .mask{
+              position: fixed;
+              display: block;
+              top: 0;
+              left: 0;
+              width: 0;
+              height: 100vh;
+              background: rgba(255, 255, 255, 0.5);
+              backdrop-filter: blur(3px);
+              transition: width .2s ease-in-out;
+            }
+          .nav-list{
+            position: fixed;
+            display: block;
+            width: 0;
+            top: 0;
+            height: 100vh;
+            padding-top: 60px;
+            box-sizing: border-box;
+            right: 0;
+            background: #34393d;
+            transition: width .2s ease-in-out;
+            li{
+              display: none;
+              a{
+                line-height: 50px;
+                color: #fff;
+              }
+            }
+          }
+        }
+        .header-right-box{
+          display: none;
         }
       }
     }

@@ -103,10 +103,11 @@ export default {
     }
   }
 }
-@media (max-width: 414px) {
+@media (max-width: 415px) {
   .wrapper{
     .wrapper-box{
       margin: 0 auto;
+      padding-top: 60px;
       .main{
         width: 100%;
       }
