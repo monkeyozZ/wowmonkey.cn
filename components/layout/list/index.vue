@@ -1,45 +1,53 @@
 <template>
   <div class="art-item">
     <div v-for="(item, index) in listArr" :key="index" class="item-box">
-      <div class="thumb-box">
-        <nuxt-link :to="'/article/' + item._id">
-          <img :src="item.thumb" :alt="item.title">
-        </nuxt-link>
+      <div class="top-pancel">
+        <p class="creat-time">{{ item.creatTime | parseTime('{y}-{m}-{d}') }}</p>
+        <p class="tag-box"><spam class="tag-item" v-for="(tagItem, i) in item.tag" :key="i">{{ tagItem }}</spam></p>
       </div>
-      <div class="right-box">
-        <h1 class="title">
-          <nuxt-link :to="'/article/' + item._id">
-            {{ item.title }}
-          </nuxt-link>
-        </h1>
-        <div class="desc">
-          <nuxt-link :to="'/article/' + item._id">
-            {{ item.desc }}
-          </nuxt-link>
+      <div class="item-content">
+        <div class="left-box">
+          <h1 class="title">
+            <nuxt-link :to="'/article/' + item._id">
+              {{ item.title }}
+            </nuxt-link>
+          </h1>
+          <div class="desc">
+            <nuxt-link :to="'/article/' + item._id">
+              {{ item.desc }}
+            </nuxt-link>
+          </div>
+          <div class="bottom-pancel">
+            <ul>
+              <li class="creat-time">
+                <svg-icon icon-class="time" class-name="icon" />
+                <span>{{ item.creatTime | parseTime('{y}-{m}-{d}') }}</span>
+              </li>
+              <li>
+                <svg-icon icon-class="view" class-name="icon" />
+                <span>{{ item.view }}</span>
+              </li>
+              <li>
+                <svg-icon icon-class="comment" class-name="icon" />
+                <span>{{ item.commentCount }}</span>
+              </li>
+              <li>
+                <svg-icon icon-class="like" class-name="icon" />
+                <span>{{ item.like }}</span>
+              </li>
+              <li class="tag-box">
+                <svg-icon icon-class="listTag" class-name="icon" />
+                <span>
+                  <span class="tag-item" v-for="(tagItem, i) in item.tag" :key="i">{{ tagItem }}</span>
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="bottom-panel">
-          <ul>
-            <li>
-              <svg-icon icon-class="time" class-name="icon" />
-              <span>{{ item.creatTime | parseTime('{y}-{m}-{d}') }}</span>
-            </li>
-            <li>
-              <svg-icon icon-class="view" class-name="icon" />
-              <span>{{ item.view }}</span>
-            </li>
-            <li>
-              <svg-icon icon-class="comment" class-name="icon" />
-              <span>{{ item.commentCount }}</span>
-            </li>
-            <li>
-              <svg-icon icon-class="like" class-name="icon" />
-              <span>{{ item.like }}</span>
-            </li>
-            <li>
-              <svg-icon icon-class="listTag" class-name="icon" />
-              <span v-for="(tagItem, i) in item.tag" :key="i">{{ tagItem }}{{ item.tag.length -1 == i ? '' : '，' }}</span>
-            </li>
-          </ul>
+        <div class="thumb-box">
+          <nuxt-link :to="'/article/' + item._id">
+            <img :src="item.thumb" :alt="item.title">
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -78,7 +86,6 @@ export default {
 // @import '~assets/scss/mixins.scss';
   .art-item{
     .item-box{
-      display: flex;
       padding: 15px;
       margin-top: 10px;
       box-sizing: border-box;
@@ -94,6 +101,50 @@ export default {
             }
           }
         }
+      }
+      .top-pancel{
+        display: none;
+        line-height: 20px;
+        p{
+          &:not(:last-child){
+            position: relative;
+            padding-right: 5px;
+            &::after{
+              position: absolute;
+              content: '';
+              top: 5px;
+              bottom: 5px;
+              right: 0;
+              border-left: 1px solid $text-color-grey;
+            }
+          }
+        }
+        .tag-box{
+          padding-left: 5px;
+          .tag-item{
+            position: relative;
+            padding: 0 5px;
+            &:first-child{
+              padding-left: 0;
+            }
+            &:not(:last-child){
+              &::after{
+                position: absolute;
+                top: 10px;
+                right: -1px;
+                display: block;
+                content: " ";
+                width: 2px;
+                height: 2px;
+                border-radius: 50%;
+                background: $text-color-grey;
+              }
+            }
+          }
+        }
+      }
+      .item-content{
+        display: flex;
       }
       .thumb-box{
         a{
@@ -119,11 +170,11 @@ export default {
           }
         }
       }
-      .right-box{
+      .left-box{
         flex: 1;
         display: flex;
         flex-direction: column;;
-        margin-left: 16px;
+        margin-right: 16px;
         overflow: hidden;
         .title{
           @include ellipsis();
@@ -145,7 +196,7 @@ export default {
             @include ellipsis(3);
           }
         }
-        .bottom-panel{
+        .bottom-pancel{
           ul{
             display: flex;
             align-items: center;
@@ -166,6 +217,26 @@ export default {
               }
               span{
                 font-size: $font-size-sm;
+                &.tag-item{
+                  position: relative;
+                  padding: 0 5px;
+                  &:first-child{
+                    padding-left: 0;
+                  }
+                  &:not(:last-child){
+                    &::after{
+                      position: absolute;
+                      top: 10px;
+                      right: -1px;
+                      display: block;
+                      content: " ";
+                      width: 2px;
+                      height: 2px;
+                      border-radius: 50%;
+                      background: $text-color-grey;
+                    }
+                  }
+                }
               }
             }
           }
@@ -173,7 +244,7 @@ export default {
       }
     }
   }
-  @media (max-width: 414px) {
+  @media (max-width: 415px) {
     .art-item{
       .item-box{
         .thumb-box{
@@ -182,12 +253,22 @@ export default {
             height: 80px;
           }
         }
-        .right-box{
+        .top-pancel{
+          display: flex;
+          align-items: center;
+          font-size: $font-size-base;
+          color: $text-color-grey;
+        }
+        .left-box{
           .desc{
-            // @include ellipsis(1);
             a{
               display: block;
               @include ellipsis(1);
+            }
+          }
+          .bottom-pancel{
+            .creat-time,.tag-box{
+              display: none;
             }
           }
         }
