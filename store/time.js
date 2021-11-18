@@ -11,7 +11,7 @@ export const getters = {
 }
 
 export const mutations = {
-  SET_LIST_DATA (state, action) {
+  SET_LIST_DATA(state, action) {
     console.log(action)
     state.list.data = action
   }

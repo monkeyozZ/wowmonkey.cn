@@ -13,13 +13,13 @@ export default {
     MyTime,
     MyGetMore
   },
-  fetch ({ store, params, error }) {
+  fetch({ store, params, error }) {
     // eslint-disable-next-line handle-callback-err
     return store.dispatch('getTimeList', { pageNum: 1, pageSize: 8 }).catch((err) => {
       error({ statusCode: 404 })
     })
   },
-  data () {
+  data() {
     return {
       arr: [
         {
@@ -33,27 +33,27 @@ export default {
       timeListArr: []
     }
   },
-  head () {
-    return {
-      title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: '这是一个基于nuxt.js案例，基于nuxt.js服务端渲染项目' },
-        { hid: 'keywords', name: 'keywords', content: 'nuxt.js的个人博客' }
-      ]
-    }
-  },
   computed: {
     ...mapGetters({
       ismoible: 'globalStatus/mobileLayout',
       timeList: 'time/list'
     })
   },
-  created () {
+  created() {
     this.timeListArr = this.timeList
   },
   methods: {
-    changeListArr (arr) {
+    changeListArr(arr) {
       this.timeListArr = this.timeListArr.concat(arr)
+    }
+  },
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        { hid: 'description', name: 'description', content: '这是一个基于nuxt.js案例，基于nuxt.js服务端渲染项目' },
+        { hid: 'keywords', name: 'keywords', content: 'nuxt.js的个人博客' }
+      ]
     }
   }
 }

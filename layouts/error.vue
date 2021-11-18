@@ -26,7 +26,7 @@ import errGif from '~/assets/img/401.gif'
 
 export default {
   layout: 'errorlayout',
-  data () {
+  data() {
     return {
       errGif: errGif + '?' + +new Date()
     }

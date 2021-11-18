@@ -22,7 +22,7 @@ export default {
       default: () => []
     }
   },
-  data () {
+  data() {
     return {
     }
   },
@@ -30,7 +30,7 @@ export default {
     ...mapGetters({
       ismoible: 'globalStatus/mobileLayout'
     }),
-    swiperOption () {
+    swiperOption() {
       return {
         autoplay: {
           delay: 5000,
@@ -53,11 +53,11 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.change()
   },
   methods: {
-    change () {
+    change() {
       if (this.ismoible) {
         // this.swiperOption.slidesPerView = 1
       }

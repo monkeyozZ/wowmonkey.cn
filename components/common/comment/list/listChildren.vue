@@ -67,7 +67,7 @@ export default {
       type: Number
     }
   },
-  data () {
+  data() {
     return {
       replayChildComment: false,
       replayChild: false,
@@ -76,13 +76,13 @@ export default {
     }
   },
   methods: {
-    setChildListData (arr) {
+    setChildListData(arr) {
       this.childList = arr
     },
-    marked (content) {
+    marked(content) {
       return marked(content, false)
     },
-    gravatar (email) {
+    gravatar(email) {
       if (!email) { return }
       if (!this.regexs.email.test(email)) { return null }
       const gravatarUrl = gravatar.url(email, {
@@ -93,7 +93,7 @@ export default {
       })
       return gravatarUrl
     },
-    getreplyfocus (name, pid) {
+    getreplyfocus(name, pid) {
       if (name !== undefined) {
         this.replayPid = pid
         this.replayChild = true

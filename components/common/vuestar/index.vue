@@ -26,7 +26,7 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       active: false,
       toggleAnimate: false,
@@ -34,29 +34,29 @@ export default {
     }
   },
   computed: {
-    AnimateClass () {
+    AnimateClass() {
       return this.toggleAnimate ? this.animate : ''
     },
-    ColorValue () {
+    ColorValue() {
       return this.toggleColor ? this.color : ''
     }
   },
   watch: {
     isactive: {
-      handler () {
+      handler() {
         this.active = this.isactive
       },
       immediate: true
     },
     istoggleColor: {
-      handler () {
+      handler() {
         this.toggleColor = this.istoggleColor
       },
       immediate: true
     },
     deep: true
   },
-  mounted () {
+  mounted() {
     if (this.color) {
       if (isColors(this.color)) {
 
@@ -68,7 +68,7 @@ export default {
     }
   },
   methods: {
-    toggle () {
+    toggle() {
       this.active = true
       // this.toggleAnimate = !this.toggleAnimate
       this.toggleColor = true

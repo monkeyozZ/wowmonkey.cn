@@ -39,7 +39,7 @@ export default {
     MyComment,
     MyLike
   },
-  fetch ({ store, params, error }) {
+  fetch({ store, params, error }) {
     store.commit('article/RESET_COMMENT_DATA', []) // 重置评论
     const id = params.id
     const query = {
@@ -57,7 +57,7 @@ export default {
       store.dispatch('getCommentList', query)
     ])
   },
-  data () {
+  data() {
     return {
       arr: [
         {
@@ -78,28 +78,28 @@ export default {
     }
   },
   computed: {
-    url () {
+    url() {
       return process.env.host + this.$route.path
     },
     ...mapGetters({
       details: 'article/details',
       comment_count: 'article/comment_count'
     }),
-    articleContent () {
+    articleContent() {
       const content = this.details.content
       return this.filterTag(content)
       // return marked(this.details.content, true)
     },
-    articleUrl () {
+    articleUrl() {
       return process.env.host + this.$route.path
     }
   },
-  mounted () {
+  mounted() {
     this.setinfo()
     // Api.getlist()
   },
   methods: {
-    setinfo () {
+    setinfo() {
       const _this = this
       const infoObj = {}
       infoObj.url = encodeURIComponent(_this.url)
@@ -108,7 +108,7 @@ export default {
       infoObj.pic = encodeURIComponent(_this.baseUrl + _this.details.thumb)
       this.info = infoObj
     },
-    filterTag (content) {
+    filterTag(content) {
       const catalogList = content.match(/<[Hh][1-6]>.*?(<\/[Hh][1-6]>)/g)
       if (catalogList) {
         catalogList.forEach((item, index) => {
@@ -119,7 +119,7 @@ export default {
       return content
     }
   },
-  head () {
+  head() {
     return {
       title: this.details.title,
       meta: [

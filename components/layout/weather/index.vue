@@ -6,11 +6,11 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
     }
   },
-  mounted () {
+  mounted() {
     window.WIDGET = {
       CONFIG: {
         layout: 2,

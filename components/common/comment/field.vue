@@ -105,7 +105,7 @@ export default {
       type: Number
     }
   },
-  data () {
+  data() {
     return {
       // 编辑器相关
       comemntContentHtml: '',
@@ -140,13 +140,13 @@ export default {
     }
   },
   computed: {
-    currentUrl () {
+    currentUrl() {
       return `http://wowmonkey.cn${this.$route.fullPath}#comment`
     }
   },
   watch: {
     comemntContentText: {
-      handler (n, l) {
+      handler(n, l) {
         if (this.replayChild) {
           if (n.length !== 0) {
             this.authSubmit = true
@@ -157,13 +157,13 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.initUser()
     // console.log(this.$refs.commentList)
   },
   methods: {
     // 表情
-    emojisToggle () {
+    emojisToggle() {
       this.showEmojis = !this.showEmojis
       if (this.lastEditRange) {
         // 存在最后光标对象，选定对象清除所有光标并添加最后光标还原之前的状态
@@ -181,23 +181,23 @@ export default {
       }
     },
     // 切换预览模式
-    togglePreviewMode () {
+    togglePreviewMode() {
       this.previewContent = this.marked(this.comemntContentText)
       this.previewMode = !this.previewMode
     },
     // 获取焦点是设置光标位置
-    getfocus () {
+    getfocus() {
       // IE or DOM
       this.selection = window.getSelection ? window.getSelection() : document.selection
       // IE or DOM
       this.lastEditRange = this.selection.createRange ? this.selection.createRange() : this.selection.getRangeAt(0)
     },
     // marked 解析
-    marked (content) {
+    marked(content) {
       return marked(content, false)
     },
     // 头像服务
-    gravatar (email) {
+    gravatar(email) {
       if (!this.regexs.email.test(email)) { return null }
       const gravatarUrl = gravatar.url(email, {
         protocol: 'https'
@@ -205,7 +205,7 @@ export default {
       return gravatarUrl.replace('s.gravatar.com', 'avatar.wowmonkey.cn')
     },
     // 编辑器相关
-    commentContentChange () {
+    commentContentChange() {
       const html = this.$refs.markdown.innerHTML
       const text = this.$refs.markdown.textContent
       if (!Object.is(html, this.comemntContentHtml)) {
@@ -215,7 +215,7 @@ export default {
         this.comemntContentText = text
       }
     },
-    updateCommentContent ({ start = '', end = '' }) {
+    updateCommentContent({ start = '', end = '' }) {
       if (!start && !end) { return false }
       // 如果选中了内容，则把选中的内容替换，否则在光标位置插入新内容
       const selectedText = (window.getSelection || document.getSelection)().toString()
@@ -229,7 +229,7 @@ export default {
       }
       this.commentContentChange()
     },
-    insertContent (type) {
+    insertContent(type) {
       const contents = {
         image: {
           start: '![',
@@ -246,10 +246,10 @@ export default {
       }
       this.updateCommentContent(contents[type])
     },
-    insertEmoji (emoji) {
+    insertEmoji(emoji) {
       this.confirmemoji(emoji)
     },
-    confirmemoji (emoji) {
+    confirmemoji(emoji) {
       if (!window.getSelection) {
         this.$refs.markdown.focus()
         this.lastEditRange.innerHTML(emoji)
@@ -276,7 +276,7 @@ export default {
         this.commentContentChange()
       }
     },
-    editorkeyup () {
+    editorkeyup() {
       // 编辑框按键弹起事件
       // 获取选定对象
       this.selection = window.getSelection ? window.getSelection() : document.selection
@@ -285,7 +285,7 @@ export default {
       this.commentContentChange()
     },
     // 初始化用户信息
-    initUser () {
+    initUser() {
       const user = localStorage.getItem('user')
       if (user) {
         this.Form = JSON.parse(user)
@@ -295,7 +295,7 @@ export default {
       }
     },
     // 设置用户信息
-    save () {
+    save() {
       const name = this.Form.name
       const email = this.Form.email
       if (name.length === 0) {
@@ -319,7 +319,7 @@ export default {
       this.islogin = true
     },
     // 退出登录
-    clear () {
+    clear() {
       localStorage.removeItem('user')
       this.islogin = false
       Object.keys(this.Form).forEach((key) => {
@@ -330,10 +330,10 @@ export default {
       })
     },
     // 登录获取焦点
-    getnamefocus () {
+    getnamefocus() {
       this.$refs.name.focus()
     },
-    resetPid () {
+    resetPid() {
       if (this.authSubmit) {
         this.submit()
       } else {
@@ -341,7 +341,7 @@ export default {
       }
     },
     // 提交
-    submit () {
+    submit() {
       if (this.islogin) {
         if (this.comemntContentText.length !== 0) {
           const obj = {

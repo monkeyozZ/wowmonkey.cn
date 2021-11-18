@@ -14,7 +14,7 @@ import { mapGetters } from 'vuex'
 // import marked from '~/plugins/marked'
 export default {
   components: {},
-  data () {
+  data() {
     return {
       fixed: false,
       treeDom: null
@@ -24,18 +24,18 @@ export default {
     ...mapGetters({
       details: 'article/details'
     }),
-    cataList () {
+    cataList() {
       const content = this.details.content
       const res = content.match(/<[Hh][1-6]>.*?(<\/[Hh][1-6]>)/g)
       return res || []
     },
-    cataTree () {
+    cataTree() {
       const levelStack = []
       let result = ''
       const addStartUL = () => { result += '<ul class="catalog-list">' }
       const addEndUL = () => { result += '</ul>\n' }
       const addLI = (index, itemText) => { result += '<li><a class="mk-link-' + index + '" href="#mkTitle-' + index + '">' + itemText + '</a></li>\n' }
-      this.cataList.forEach(function (item, index) {
+      this.cataList.forEach(function(item, index) {
         const itemText = item.replace(/<[^>]+>/g, '') // 匹配h标签的文字
         const itemLabel = item.match(/<\w+.*?>/)[0] // 匹配h?标签<h?>
         let levelIndex = levelStack.indexOf(itemLabel) // 判断数组里有无<h?>
@@ -64,12 +64,12 @@ export default {
   },
   watch: {
     cataTree: {
-      handler (n, l) {
+      handler(n, l) {
         this.treeDom = [] // 初始化dom数组
       }
     },
     $route: {
-      handler (n, l) {
+      handler(n, l) {
         const hash = n.hash
         if (hash.includes('mkTitle')) {
           const select = '.' + hash.split('#')[1]
@@ -82,24 +82,24 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.stickyCataTree()
     document.addEventListener('scroll', this.scroll, false)
     this.treeDom = Array.prototype.slice.call(document.querySelectorAll('.mk-title'))
     this.linkedCataTreeActive()
   },
-  destroyed () {
+  destroyed() {
     document.removeEventListener('scroll', this.scroll, false)
   },
   methods: {
-    scroll () {
+    scroll() {
       if (this.treeDom.length === 0) {
         this.treeDom = Array.prototype.slice.call(document.querySelectorAll('.mk-title'))
       }
       this.stickyCataTree()
       this.linkedCataTreeActive()
     },
-    stickyCataTree () {
+    stickyCataTree() {
       const ele = document.querySelector('.link_box')
       const cataOffsetTop = ele.offsetTop + ele.offsetHeight
       const scrollTop = document.documentElement.scrollTop
@@ -110,7 +110,7 @@ export default {
         this.fixed = false
       }
     },
-    linkedCataTreeActive () {
+    linkedCataTreeActive() {
       const distance = 180
       const scrollTop = document.documentElement.scrollTop
       if (this.treeDom && this.treeDom.length !== 0) {

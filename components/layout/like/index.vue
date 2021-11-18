@@ -26,7 +26,7 @@ export default {
       }
     }
   },
-  data () {
+  data() {
     return {
       likeactive: false,
       haslike: false
@@ -34,18 +34,18 @@ export default {
   },
   watch: {
     obj: {
-      handler () {
+      handler() {
         // this.likeactive = this.arr
       },
       immediate: true
     },
     deep: true
   },
-  mounted () {
+  mounted() {
     this.setlikestatus()
   },
   methods: {
-    like (id) {
+    like(id) {
       this.$refs.like.toggle()
       if (!this.haslike) {
         console.log(this.obj.id)
@@ -65,7 +65,7 @@ export default {
         })
       }
     },
-    setlikestatus () {
+    setlikestatus() {
       const likeHistory = JSON.parse(localStorage.getItem('article_like_history'))
       if (likeHistory) {
         likeHistory.map((item) => {

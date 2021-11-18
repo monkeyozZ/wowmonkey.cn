@@ -2,13 +2,13 @@
   <section class="container">
     <div class="main">
       <div class="top_changge">
-        <li @click="PreMonth(myDate,false)" class="prev-box">
+        <li class="prev-box" @click="PreMonth(myDate,false)">
           <!-- <span class="icon icon-prev" /> -->
         </li>
         <li class="date-title">
           {{ dateTop }}
         </li>
-        <li @click="NextMonth(myDate,false)" class="next-box">
+        <li class="next-box" @click="NextMonth(myDate,false)">
           <!-- <span class="icon icon-next" /> -->
         </li>
       </div>
@@ -53,7 +53,7 @@ export default {
     agoDayHide: { type: String, default: '0' },
     futureDayHide: { type: String, default: '2554387200' }
   },
-  data () {
+  data() {
     return {
       loading: false,
       textTop: ['一', '二', '三', '四', '五', '六', '日'],
@@ -64,34 +64,34 @@ export default {
     }
   },
   watch: {
-    markDate (val, oldVal) {
+    markDate(val, oldVal) {
       this.getList(this.myDate)
     },
-    markDateMore (val, oldVal) {
+    markDateMore(val, oldVal) {
       this.getList(this.myDate)
     },
-    agoDayHide (val, oldVal) {
+    agoDayHide(val, oldVal) {
       this.agoDayHide = parseInt(val)
       this.getList(this.myDate)
     },
-    futureDayHide (val, oldVal) {
+    futureDayHide(val, oldVal) {
       this.futureDayHide = parseInt(val)
       this.getList(this.myDate)
     },
-    sundayStart (val, oldVal) {
+    sundayStart(val, oldVal) {
       this.intStart()
       this.getList(this.myDate)
     }
   },
-  created () {
+  created() {
     this.intStart()
     this.myDate = new Date()
   },
-  mounted () {
+  mounted() {
     this.getList(this.myDate)
   },
   methods: {
-    intStart () {
+    intStart() {
       if (this.sundayStart) {
         this.textTop = ['日', '一', '二', '三', '四', '五', '六']
       } else {
@@ -99,12 +99,12 @@ export default {
       }
       timeUtil.sundayStart = this.sundayStart
     },
-    setClass (data) {
+    setClass(data) {
       const obj = {}
       obj[data.markClassName] = data.markClassName
       return obj
     },
-    clickDay (item, index) {
+    clickDay(item, index) {
       if (item.otherMonth === 'nowMonth' && !item.dayHide) {
         this.getList(this.myDate, item.date)
       }
@@ -114,7 +114,7 @@ export default {
           : this.NextMonth(item.date)
       }
     },
-    ChoseMonth (date, isChosedDay = true) {
+    ChoseMonth(date, isChosedDay = true) {
       date = timeUtil.dateFormat(date)
       this.myDate = new Date(date)
       this.$emit('changeMonth', timeUtil.dateFormat(this.myDate))
@@ -124,7 +124,7 @@ export default {
         this.getList(this.myDate)
       }
     },
-    PreMonth (date, isChosedDay = true) {
+    PreMonth(date, isChosedDay = true) {
       date = timeUtil.dateFormat(date)
       this.myDate = timeUtil.getOtherMonth(this.myDate, 'preMonth')
       this.$emit('changeMonth', timeUtil.dateFormat(this.myDate))
@@ -134,7 +134,7 @@ export default {
         this.getList(this.myDate)
       }
     },
-    NextMonth (date, isChosedDay = true) {
+    NextMonth(date, isChosedDay = true) {
       date = timeUtil.dateFormat(date)
       this.myDate = timeUtil.getOtherMonth(this.myDate, 'nextMonth')
       this.$emit('changeMonth', timeUtil.dateFormat(this.myDate))
@@ -144,7 +144,7 @@ export default {
         this.getList(this.myDate)
       }
     },
-    forMatArgs () {
+    forMatArgs() {
       let markDate = this.markDate
       let markDateMore = this.markDateMore
       markDate = markDate.map((k) => {
@@ -156,7 +156,7 @@ export default {
       })
       return [markDate, markDateMore]
     },
-    getList (date, chooseDay, isChosedDay = true) {
+    getList(date, chooseDay, isChosedDay = true) {
       this.loading = true
       const [markDate, markDateMore] = this.forMatArgs()
       this.dateTop = `${date.getFullYear()}年${date.getMonth() + 1}月`

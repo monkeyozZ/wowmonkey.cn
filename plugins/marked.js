@@ -17,7 +17,7 @@ marked.setOptions({
   sanitize: false,
   smartLists: true,
   smartypants: false,
-  highlight (code, lang) {
+  highlight(code, lang) {
     // eslint-disable-next-line no-undef
     if (lang && hljs.getLanguage(lang)) {
       return Hljs.highlight(lang, code, true).value

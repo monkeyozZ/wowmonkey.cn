@@ -13,7 +13,7 @@
   },
   "config": {
     "nuxt": {
-      "host": "192.168.1.2",
+      "host": "192.168.0.12",
       "port": "80"
     }
   },
@@ -25,6 +25,7 @@
     "nuxt": "^2.13.0",
     "particles.js": "^2.0.0",
     "swiper": "^5.4.5",
+    "vconsole": "^3.9.5",
     "vue-awesome-swiper": "^4.1.1"
   },
   "devDependencies": {

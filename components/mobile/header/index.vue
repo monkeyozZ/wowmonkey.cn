@@ -52,7 +52,7 @@ export default {
   components: {
     MySearch
   },
-  data () {
+  data() {
     return {
       logotext: 'Alert(monkey)',
       sliderup: false,
@@ -62,34 +62,34 @@ export default {
     }
   },
   watch: {
-    '$route' (newVel, oldVel) {
+    '$route'(newVel, oldVel) {
       this.search = false
       this.$emit('searchsildedown', this.search)
       this.isopen = false
       this.$emit('changeopen', this.isopen)
     }
   },
-  mounted () {
+  mounted() {
     // this.watchscroll()
   },
   methods: {
-    changeopen () {
+    changeopen() {
       this.isopen = !this.isopen
       this.$emit('changeopen', this.isopen)
       this.search = false
       // this.$refs.mysearch.clear()
       this.$emit('searchsildedown', false)
     },
-    showsearch () {
+    showsearch() {
       this.search = !this.search
       this.$emit('searchsildedown', this.search)
     },
-    closesearch () {
+    closesearch() {
       this.search = !this.search
       // this.$refs.mysearch.clear()
       this.$emit('searchsildedown', this.search)
     },
-    closenav () {
+    closenav() {
       this.isopen = false
       this.$emit('changeopen', this.isopen)
       this.search = false

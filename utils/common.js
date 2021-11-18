@@ -3,7 +3,7 @@
  * @param { Number } currentY 当前位置
  * @param { Number } targetY 目标位置
  */
-export function scrollAnimation (currentY, targetY) {
+export function scrollAnimation(currentY, targetY) {
   // 获取当前位置方法
   // const currentY = document.documentElement.scrollTop || document.body.scrollTop
 

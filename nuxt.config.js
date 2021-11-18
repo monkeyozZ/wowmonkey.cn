@@ -53,7 +53,8 @@ export default {
     { src: '@/plugins/image-popup.js', ssr: false },
     { src: '@/plugins/gravatar.js' },
     { src: '@/plugins/highlight.js' },
-    { src: '@/plugins/filters.js' }
+    { src: '@/plugins/filters.js' },
+    { src: '@/plugins/vConsole', ssr: false }
   ],
   /*
   ** Auto import components
@@ -95,7 +96,7 @@ export default {
         '@/assets/scss/index.scss'
       ]
     },
-    extend (config, ctx) {
+    extend(config, ctx) {
       const svgRule = config.module.rules.find(rule => rule.test.test('.svg'))
       svgRule.exclude = [path.resolve(__dirname, 'assets/icons/svg')]
 

@@ -16,7 +16,7 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       searchtext: ''
     }
@@ -27,7 +27,7 @@ export default {
 
     })
   },
-  mounted () {
+  mounted() {
     if (this.$route.name === 'search-keyword') {
       this.searchtext = this.$route.params.keyword
     }
@@ -36,17 +36,17 @@ export default {
     ...mapActions({
       searchKeyword: 'searchArticleList'
     }),
-    closesearch () {
+    closesearch() {
       this.$emit('showsearch')
     },
-    clear () {
+    clear() {
       this.searchtext = ''
     },
-    search () {
+    search() {
       const paramsKeyword = this.$route.params.keyword
       const isSearchPage = Object.is(this.$route.name, 'search-keyword')
       if (this.searchtext && (isSearchPage ? (paramsKeyword !== this.searchtext) : true)) {
-        this.$router.push({ name: 'search-keyword', params: { keyword: this.searchtext } })
+        this.$router.push({ name: 'search-keyword', params: { keyword: this.searchtext }})
       }
     }
   }

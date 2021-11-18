@@ -14,7 +14,7 @@ export default {
     MyGetMore
   },
   // layout: this.ismoible?'mobile':'default',
-  fetch ({ store, params }) {
+  fetch({ store, params }) {
     const obj = {
       pageNum: 1,
       pageSize: 8,
@@ -22,7 +22,7 @@ export default {
     }
     return store.dispatch('searchArticleList', obj)
   },
-  data () {
+  data() {
     return {
       articleArr: [],
       title: '搜索结果'
@@ -33,26 +33,26 @@ export default {
       ismoible: 'globalStatus/mobileLayout',
       listArr: 'article/search_list'
     }),
-    keyWord () {
+    keyWord() {
       return this.$route.params.keyword
     }
   },
   watch: {
     listArr: {
-      handler () {
+      handler() {
         this.articleArr = this.listArr
       }
     }
   },
-  mounted () {
+  mounted() {
     this.articleArr = this.listArr
   },
   methods: {
-    changeListArr (arr) {
+    changeListArr(arr) {
       this.articleArr = this.articleArr.concat(arr)
     }
   },
-  head () {
+  head() {
     return {
       title: this.title,
       meta: [

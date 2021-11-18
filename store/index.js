@@ -5,7 +5,7 @@ import commentApi from '~/api/comment'
 import timeApi from '~/api/time'
 
 export const actions = {
-  nuxtServerInit (store, { req }) {
+  nuxtServerInit(store, { req }) {
     const userAgent = process.server ? req.headers['user-agent'] : navigator.userAgent
     const { isMobile } = uaParse(userAgent)
     store.commit('globalStatus/SET_MOBILE_LAYOUT', isMobile)
@@ -15,7 +15,7 @@ export const actions = {
     ])
   },
   // 加载文章列表
-  getArticleList ({ commit }, params) {
+  getArticleList({ commit }, params) {
     return articleApi.getArticleList(params).then((res) => {
       if (res) {
         commit('article/SET_LIST_DATA', res.data)
@@ -26,7 +26,7 @@ export const actions = {
   },
 
   // 加载标签列表
-  getTagList ({ commit }) {
+  getTagList({ commit }) {
     return indexApi.getTagList().then((res) => {
       if (res) {
         // console.log(res.data.tagList)
@@ -36,7 +36,7 @@ export const actions = {
   },
 
   // 加载文章详情
-  getArticleDetails ({ commit }, id) {
+  getArticleDetails({ commit }, id) {
     return articleApi.getArticleDetails(id).then((res) => {
       if (res) {
         commit('article/SET_DETAILS_DATA', res)
@@ -45,7 +45,7 @@ export const actions = {
   },
 
   // 初始化评论
-  getCommentList ({ commit }, params) {
+  getCommentList({ commit }, params) {
     return commentApi.getCommentList(params).then((res) => {
       if (res) {
         commit('article/SET_COMMENT_DATA', res.data)
@@ -55,7 +55,7 @@ export const actions = {
   },
 
   // 加载热门文章列表
-  getHotArticleList ({ commit }, obj) {
+  getHotArticleList({ commit }, obj) {
     return articleApi.getArticleList(obj).then((res) => {
       if (res) {
         commit('article/SET_HOST_LIST_DATA', res.data)
@@ -66,7 +66,7 @@ export const actions = {
   },
 
   // 搜索文章列表
-  searchArticleList ({ commit }, obj) {
+  searchArticleList({ commit }, obj) {
     return articleApi.getArticleList(obj).then((res) => {
       if (res) {
         commit('article/SET_SEARCH_LIST_DATA', res.data)
@@ -77,7 +77,7 @@ export const actions = {
   },
 
   // 加载时间轴列表
-  getTimeList ({ commit }) {
+  getTimeList({ commit }) {
     return timeApi.getTimeList().then((res) => {
       if (res) {
         commit('time/SET_LIST_DATA', res.data)

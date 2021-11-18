@@ -30,22 +30,22 @@ export const getters = {
 }
 
 export const mutations = {
-  SET_LIST_DATA (state, action) {
+  SET_LIST_DATA(state, action) {
     state.list.data = action
   },
-  SET_HOST_LIST_DATA (state, action) {
+  SET_HOST_LIST_DATA(state, action) {
     state.hot_list.data = action
   },
-  SET_SEARCH_LIST_DATA (state, action) {
+  SET_SEARCH_LIST_DATA(state, action) {
     state.search_list.data = action
   },
-  SET_DETAILS_DATA (state, action) {
+  SET_DETAILS_DATA(state, action) {
     state.details.data = action
   },
-  SET_DETAILS_DATA_LIKE (state, num) {
+  SET_DETAILS_DATA_LIKE(state, num) {
     state.details.data.like = num
   },
-  SET_COMMENT_DATA (state, action) {
+  SET_COMMENT_DATA(state, action) {
     // state.commentList.data = action
     const obj = {}
     state.commentList.data = action.concat(state.commentList.data).reduce((item, next) => {
@@ -54,7 +54,7 @@ export const mutations = {
       return item
     }, [])
   },
-  SET_CONCAT_COMMENT_DATA (state, action) {
+  SET_CONCAT_COMMENT_DATA(state, action) {
     // state.commentList.data = action
     const obj = {}
     state.commentList.data = state.commentList.data.concat(action).reduce((item, next) => {
@@ -63,19 +63,19 @@ export const mutations = {
       return item
     }, [])
   },
-  RESET_COMMENT_DATA (state, action) {
+  RESET_COMMENT_DATA(state, action) {
     state.commentList.data = []
   },
-  SET_COMMENT_DATA_LIKE (state, obj) {
+  SET_COMMENT_DATA_LIKE(state, obj) {
     state.commentList.data[obj.i].like = obj.num
   },
-  SET_COMMENT_DATA_COMMENTCOUNT (state, count) {
+  SET_COMMENT_DATA_COMMENTCOUNT(state, count) {
     state.commentList.count = count
   },
-  SET_COMMENT_DATA_LIKESTATUS (state, obj) {
+  SET_COMMENT_DATA_LIKESTATUS(state, obj) {
     state.commentList.data[obj.i].userlike = obj.status
   },
-  SET_COMMENT_DATA_HASCHILDREN (state, obj) {
+  SET_COMMENT_DATA_HASCHILDREN(state, obj) {
     console.log(state.commentList.data[obj.i], obj.i)
     state.commentList.data[obj.i].openChild = obj.status
     state.commentList.data.map((item, index) => {
@@ -97,10 +97,10 @@ export const mutations = {
       }, 500)
     }
   },
-  SET_COMMENT_DATA_CHILDCOMMENTCOUNT (state, index) {
+  SET_COMMENT_DATA_CHILDCOMMENTCOUNT(state, index) {
     state.commentList.data[index].childCount += 1
   },
-  SET_COMMENT_DATA_REPLYCOMMENT (state, obj) {
+  SET_COMMENT_DATA_REPLYCOMMENT(state, obj) {
     state.commentList.data[obj.i].replyComment = obj.list
   }
 }

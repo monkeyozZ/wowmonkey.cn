@@ -18,7 +18,7 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  data () {
+  data() {
     return {
     }
   },

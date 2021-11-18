@@ -14,25 +14,16 @@ export default {
     ArticleList,
     MyGetMore
   },
-  fetch ({ store, params, error }) {
+  fetch({ store, params, error }) {
     // eslint-disable-next-line handle-callback-err
     return store.dispatch('getArticleList', { pageNum: 1, pageSize: 8, category: 'life' }).catch((err) => {
       error({ statusCode: 404 })
     })
   },
-  data () {
+  data() {
     return {
       articleArr: [],
       title: '慢生活'
-    }
-  },
-  head () {
-    return {
-      title: this.title,
-      meta: [
-        { hid: 'description', name: 'description', content: 'monkey，monkey的个人博客，基于的nuxt.js个人博客，vue的ssr框架，vue服务端渲染，慢生活' },
-        { hid: 'keywords', name: 'keywords', content: 'monkey的个人博客，个人博客，nuxt.js项目，慢生活' }
-      ]
     }
   },
   computed: {
@@ -41,12 +32,21 @@ export default {
       listArr: 'article/list'
     })
   },
-  created () {
+  created() {
     this.articleArr = this.listArr
   },
   methods: {
-    changeListArr (arr) {
+    changeListArr(arr) {
       this.articleArr = this.articleArr.concat(arr)
+    }
+  },
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        { hid: 'description', name: 'description', content: 'monkey，monkey的个人博客，基于的nuxt.js个人博客，vue的ssr框架，vue服务端渲染，慢生活' },
+        { hid: 'keywords', name: 'keywords', content: 'monkey的个人博客，个人博客，nuxt.js项目，慢生活' }
+      ]
     }
   }
 }

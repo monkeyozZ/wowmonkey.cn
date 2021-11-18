@@ -15,33 +15,33 @@ export default {
     ArticleList,
     MyGetMore
   },
-  fetch ({ store, params, error }) {
+  fetch({ store, params, error }) {
     // eslint-disable-next-line handle-callback-err
     return store.dispatch('getArticleList', { pageNum: 1, pageSize: 8, tag: params.tag }).catch((err) => {
       error({ statusCode: 404 })
     })
+  },
+  data() {
+    return {
+      articleArr: [],
+      title: '标签列表'
+    }
   },
   computed: {
     ...mapGetters({
       listArr: 'article/list'
     })
   },
-  data () {
-    return {
-      articleArr: [],
-      title: '标签列表'
-    }
-  },
-  created () {
+  created() {
     this.articleArr = this.listArr
     this.tag = this.$route.params.tag
   },
   methods: {
-    changeListArr (arr) {
+    changeListArr(arr) {
       this.articleArr = this.articleArr.concat(arr)
     }
   },
-  head () {
+  head() {
     return {
       title: this.title,
       meta: [

@@ -40,12 +40,22 @@
 <script>
 import gravatar from 'gravatar'
 export default {
-  data () {
+  data() {
     return {
       title: '关于'
     }
   },
-  head () {
+  computed: {
+    // 头像服务
+    gravatar() {
+      const gravatarUrl = gravatar.url('1316438321@qq.com', {
+        protocol: 'https'
+      })
+      return gravatarUrl.replace('s.gravatar.com', 'avatar.wowmonkey.cn')
+    }
+  },
+  methods: {},
+  head() {
     return {
       title: this.title,
       meta: [
@@ -53,17 +63,7 @@ export default {
         { hid: 'keywords', name: 'keywords', content: 'monkey的个人博客，个人博客，nuxt.js项目' }
       ]
     }
-  },
-  computed: {
-    // 头像服务
-    gravatar () {
-      const gravatarUrl = gravatar.url('1316438321@qq.com', {
-        protocol: 'https'
-      })
-      return gravatarUrl.replace('s.gravatar.com', 'avatar.wowmonkey.cn')
-    }
-  },
-  methods: {}
+  }
 }
 </script>
 <style lang="scss" scoped>

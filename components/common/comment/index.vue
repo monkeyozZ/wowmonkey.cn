@@ -21,12 +21,12 @@ export default {
       type: String
     }
   },
-  data () {
+  data() {
     return {}
   },
   methods: {
     // 登录获取焦点
-    getnamefocus () {
+    getnamefocus() {
       this.$refs.name.focus()
     }
   }

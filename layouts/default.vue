@@ -44,7 +44,7 @@ export default {
     MyAside,
     MyFooter
   },
-  data () {
+  data() {
     return {
       isopen: false,
       sildedown: false
@@ -57,13 +57,13 @@ export default {
     })
   },
   methods: {
-    changeopen (params) {
+    changeopen(params) {
       this.isopen = params
     },
-    searchsildedown (params) {
+    searchsildedown(params) {
       this.sildedown = params
     },
-    closemobilenav () {
+    closemobilenav() {
       const status = this.$refs.mobile
       if (status) {
         status.closenav()

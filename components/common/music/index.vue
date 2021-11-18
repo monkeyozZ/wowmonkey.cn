@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       stopStatus: true,
       timeInterval: null,
@@ -32,10 +32,10 @@ export default {
       durationed: 0
     }
   },
-  mounted () {
+  mounted() {
   },
   methods: {
-    play () {
+    play() {
       const music = document.getElementById('music')
       if (this.stopStatus) {
         music.play()

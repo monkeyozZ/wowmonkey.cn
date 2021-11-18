@@ -17,7 +17,7 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'Tag',
-  data () {
+  data() {
     return {
     }
   },

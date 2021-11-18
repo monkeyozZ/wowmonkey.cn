@@ -3,7 +3,7 @@
     <div v-for="(item, index) in listArr" :key="index" class="item-box">
       <div class="top-pancel">
         <p class="creat-time">{{ item.creatTime | parseTime('{y}-{m}-{d}') }}</p>
-        <p class="tag-box"><spam class="tag-item" v-for="(tagItem, i) in item.tag" :key="i">{{ tagItem }}</spam></p>
+        <p class="tag-box"><spam v-for="(tagItem, i) in item.tag" :key="i" class="tag-item">{{ tagItem }}</spam></p>
       </div>
       <div class="item-content">
         <div class="left-box">
@@ -38,7 +38,7 @@
               <li class="tag-box">
                 <svg-icon icon-class="listTag" class-name="icon" />
                 <span>
-                  <span class="tag-item" v-for="(tagItem, i) in item.tag" :key="i">{{ tagItem }}</span>
+                  <span v-for="(tagItem, i) in item.tag" :key="i" class="tag-item">{{ tagItem }}</span>
                 </span>
               </li>
             </ul>
@@ -64,7 +64,7 @@ export default {
       default: () => []
     }
   },
-  data () {
+  data() {
     return {
       IMG_URL
     }
@@ -75,7 +75,7 @@ export default {
     })
   },
   methods: {
-    goDetails (url) {
+    goDetails(url) {
       this.$router.push('/article/' + url)
     }
   }

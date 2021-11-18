@@ -27,14 +27,14 @@ export default {
     MyLink,
     CataLog
   },
-  data () {
+  data() {
     return {
       showCata: false
     }
   },
   watch: {
     $route: {
-      handler (n, l) {
+      handler(n, l) {
         if (n.name === 'article-id') {
           this.showCata = true
         } else {
@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    clickDay (data) {
+    clickDay(data) {
       const time = Date.parse(new Date(data))
       const timestring = time
       this.$router.push(`/date/${timestring}`)

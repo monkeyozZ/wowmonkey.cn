@@ -26,7 +26,7 @@ export default {
       default: null
     }
   },
-  data () {
+  data() {
     return {
       limitQuery: {
         pageNum: 1,
@@ -36,14 +36,14 @@ export default {
       loading: true
     }
   },
-  mounted () {
+  mounted() {
     document.addEventListener('scroll', this.scroll, false)
   },
-  destroyed () {
+  destroyed() {
     document.removeEventListener('scroll', this.scroll, false)
   },
   methods: {
-    scroll () {
+    scroll() {
       const clientHeight = document.documentElement.clientHeight
       const scrollHeight = document.body.scrollHeight
       const scrollTop = document.documentElement.scrollTop
@@ -54,7 +54,7 @@ export default {
         this.getMore()
       }
     },
-    getMore () {
+    getMore() {
       this.limitQuery.pageNum += 1
       let obj = {}
       if (this.type === 'article') {

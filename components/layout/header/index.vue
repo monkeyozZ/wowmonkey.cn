@@ -56,7 +56,7 @@ export default {
     mySearch,
     myMusic
   },
-  data () {
+  data() {
     return {
       logotext: 'Monkey',
       sliderup: false,
@@ -68,7 +68,7 @@ export default {
   },
   watch: {
     $route: {
-      handler () {
+      handler() {
         this.meunOpen = false
         this.sliderup = false
         this.sliderdown = true
@@ -76,14 +76,14 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.watchscroll()
   },
   methods: {
-    toggleMenu () {
+    toggleMenu() {
       this.meunOpen = !this.meunOpen
     },
-    sliderHeader () {
+    sliderHeader() {
       const bodyHeight = document.documentElement.clientHeight
       const containerHeight = document.getElementsByClassName('wrapper-box')[0].clientHeight
       const scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
@@ -104,7 +104,7 @@ export default {
         this.fillColor = false
       }
     },
-    watchscroll () {
+    watchscroll() {
       document.addEventListener('scroll', this.sliderHeader, false)
     }
   }

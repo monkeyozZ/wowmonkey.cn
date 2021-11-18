@@ -27,7 +27,7 @@ export default {
       default: () => {}
     }
   },
-  data () {
+  data() {
     return {
       qzone: 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={url}&title={title}&pics={pic}&summary={content}',
       weibo: 'http://service.weibo.com/share/share.php?url={url}&title={title}&pic={pic}&searchPic=false',
@@ -43,18 +43,18 @@ export default {
 
     }
   },
-  mounted () {
+  mounted() {
     // console.log(this.info)
   },
   methods: {
-    repl (str) {
+    repl(str) {
       str = str.replace('{url}', this.info.url)
       str = str.replace('{title}', this.info.title)
       str = str.replace('{content}', this.info.content)
       str = str.replace('{pic}', this.info.pic)
       return str
     },
-    Share (address) {
+    Share(address) {
       address = this.repl(address)
       const winName = 'newWin'
       // screen.availWidth 获得屏幕宽度
