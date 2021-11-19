@@ -2,8 +2,9 @@
   <div class="art-item">
     <div v-for="(item, index) in listArr" :key="index" class="item-box">
       <div class="top-pancel">
-        <p class="creat-time">{{ item.creatTime | parseTime('{y}-{m}-{d}') }}</p>
-        <p class="tag-box"><spam v-for="(tagItem, i) in item.tag" :key="i" class="tag-item">{{ tagItem }}</spam></p>
+        <p class="source">{{ item.source | transfornOrigin }}</p>
+        <p class="creat-time">{{ item.creatTime | parseTimeLag }}</p>
+        <p class="tag-box"><span v-for="(tagItem, i) in item.tag" :key="i" class="tag-item">{{ tagItem }}</span></p>
       </div>
       <div class="item-content">
         <div class="left-box">
@@ -105,10 +106,11 @@ export default {
       .top-pancel{
         display: none;
         line-height: 20px;
+        margin-bottom: 5px;
         p{
           &:not(:last-child){
             position: relative;
-            padding-right: 5px;
+            padding: 0 8px;
             &::after{
               position: absolute;
               content: '';
@@ -118,9 +120,12 @@ export default {
               border-left: 1px solid $text-color-grey;
             }
           }
+          &:first-child{
+            padding-left: 0;
+          }
         }
         .tag-box{
-          padding-left: 5px;
+          padding-left: 8px;
           .tag-item{
             position: relative;
             padding: 0 5px;

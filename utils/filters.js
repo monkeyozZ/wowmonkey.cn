@@ -49,10 +49,7 @@ export function parseTime(time, cFormat) {
   return time_str
 }
 
-const pluralize = (time, label) => {
-  return time + label + '前'
-}
-export function timefilter(time) {
+export function parseTimeLag(time) {
   let date
   if (typeof time === 'object') {
     date = time
@@ -69,64 +66,57 @@ export function timefilter(time) {
     }
     date = new Date(time)
   }
+
   const between = Date.now() / 1000 - (Number(date) / 1000)
-  if (between < 3600) {
-    if (Object.is(~~(between / 60), 0)) { return '刚刚' }
-    return pluralize(~~(between / 60), '分钟')
-  } else if (between < 86400) {
-    return pluralize(~~(between / 3600), '小时')
-  } else {
-    // return pluralize(~~(between / 86400), '天')
-    return parseTime(time, '{y}-{m}-{d} {h}:{i}:{s}')
+  const textMap = {
+    ago: '前',
+    just_now: '刚刚',
+    minutes: '分钟',
+    hours: '小时',
+    weeks: '周',
+    days: '天',
+    months: '个月',
+    years: '年'
   }
+  const hourS = 3600
+  const dayS = hourS * 24
+  const weekS = dayS * 7
+  const monthS = dayS * 30
+  const yearS = monthS * 12
+
+  const pluralize = (time, label) => {
+    return `${time} ${label}${textMap.ago}`
+  }
+
+  if (between < hourS) {
+    return ~~(between / 60) === 0
+      ? textMap.just_now
+      : pluralize(~~(between / 60), textMap.minutes)
+  }
+  if (between < dayS) {
+    return pluralize(~~(between / hourS), textMap.hours)
+  }
+  if (between < weekS) {
+    return pluralize(~~(between / dayS), textMap.days)
+  }
+  if (between < monthS) {
+    return pluralize(~~(between / weekS), textMap.weeks)
+  }
+  if (between < yearS) {
+    return pluralize(~~(between / monthS), textMap.months)
+  }
+  return pluralize(~~(between / yearS), textMap.years)
 }
 
-/* export function parseTimeLag(time) {
-  if (/^[0-9]+$/.test(time)) {
-    time = parseInt(time)
+export function transfornOrigin(n) {
+  if (n === 0) {
+    return '原创'
   }
-  const e = Date.now()
-  const t = e - time
-  // debugger
-  const r = 60 * (new Date()).getTimezoneOffset()
-  const n = ~~((e - r) / 86400)
-  const o = ~~((time - r) / 86400)
-  const c = new Date(e)
-  // const l = 1e3 * time
-  const f = new Date(time)
-  const d = c.getMonth()
-  const h = f.getMonth()
-  const v = c.getDate()
-  const m = f.getDate()
-  const _ = new Date(time)
-  _.setMonth(_.getMonth() + 1)
-  const y = new Date(time)
-  if (y.setFullYear(y.getFullYear() + 1),
-  t < 60) { return '刚刚' }
-  if (t < 3600) { return Math.floor(t / 60) + '分钟前' }
-  if (t < 86400) { return Math.floor(t / 60 / 60) + '小时前' }
-  if (n - o === 1) { return '昨天' }
-  if (n - o === 2) { return '前天' }
-  if (n - o <= 9) { return n - o + '天前' }
-  if (e < _.getTime() / 1e3) { return Math.floor((n - o) / 7) + '周前' }
-  if (e < y.getTime() / 1e3) { return (d < h ? 12 : 0) + d - h + (v < m ? -1 : 0) + '个月前' }
-  let w = c.getFullYear() - f.getFullYear()
-  // eslint-disable-next-line no-mixed-operators
-  return (d < h || d === h && v < m) && w--,
-  w + '年前'
-} */
-
-export function transfornOrigin(str) {
-  if (str) {
-    if (str === 0) {
-      return '原创'
-    }
-    if (str === 1) {
-      return '转载'
-    }
-    if (str === 2) {
-      return '混合'
-    }
+  if (n === 1) {
+    return '转载'
+  }
+  if (n === 2) {
+    return '混合'
   }
 }
 
