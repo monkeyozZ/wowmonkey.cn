@@ -77,23 +77,45 @@ export default {
     }
   },
   mounted() {
-    this.watchscroll()
+    document.addEventListener('scroll', this.sliderHeader, false)
+    document.body.addEventListener('touchmove', (e) => {
+      const availHeight = window.screen.availHeight
+      const scrollHeight = document.body.scrollHeight
+      const maxScrollTop = scrollHeight - availHeight
+      const scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+      console.log(scrollTop, scrollHeight, availHeight, maxScrollTop)
+      if (scrollTop < 0) { // 触顶时继续下拉时
+        e.preventDefault() // 阻止默认的处理方式(阻止上下拉滑动的效果)
+      }
+      if (scrollTop > 0 && scrollTop > maxScrollTop) { // 触底了继续上拉时
+        console.log('this.scrollTop:', this.scrollTop)
+        if (this.scrollTop > maxScrollTop && scrollTop > this.scrollTop) {
+          window.scrollTo(0, this.scrollTop)
+          e.preventDefault() // 阻止默认的处理方式(阻止上下拉滑动的效果)
+        }
+      }
+    }, { passive: false }) // passive 参数不能省略，用来兼容ios和android
   },
   methods: {
     toggleMenu() {
       this.meunOpen = !this.meunOpen
     },
     sliderHeader() {
-      const bodyHeight = document.documentElement.clientHeight
-      const containerHeight = document.getElementsByClassName('wrapper-box')[0].clientHeight
+      const availHeight = window.screen.availHeight
+      const scrollHeight = document.body.scrollHeight
+      const maxScrollTop = scrollHeight - availHeight
       const scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
       const diffTop = scrollTop - this.scrollTop
       this.scrollTop = scrollTop
-      if (containerHeight > bodyHeight && diffTop !== 0) {
-        if (diffTop > 0) {
+      console.log('scrollTop:', this.scrollTop)
+      if (scrollHeight > availHeight) {
+        if (diffTop > 0 && scrollTop > 0) {
           this.sliderup = true
           this.sliderdown = false
         } else {
+          if (scrollTop > maxScrollTop) { // ios惯性滚动
+            return
+          }
           this.sliderup = false
           this.sliderdown = true
         }
@@ -103,9 +125,6 @@ export default {
       } else {
         this.fillColor = false
       }
-    },
-    watchscroll() {
-      document.addEventListener('scroll', this.sliderHeader, false)
     }
   }
 }
