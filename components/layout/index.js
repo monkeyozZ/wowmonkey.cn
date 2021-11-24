@@ -2,7 +2,6 @@ import backgeound from '../common/background'
 import swiper from '../common/swiper'
 import comment from '../common/comment'
 import getmore from '../common/getmore'
-import mobileheader from '../mobile/header'
 import header from './header'
 import aside from './aside'
 import list from './list'
@@ -17,7 +16,6 @@ export const MyHeader = header
 export const MyAside = aside
 export const MySwiper = swiper
 export const ArticleList = list
-export const MHeader = mobileheader
 export const MyCalendar = calendar
 export const MyTime = time
 export const MyShare = share

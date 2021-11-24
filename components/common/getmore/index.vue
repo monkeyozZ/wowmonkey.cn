@@ -1,6 +1,7 @@
 <template>
   <div class="loading-text">
-    <span v-if="loadingText">--{{ loadingText }}--</span>
+    <span v-if="loadingText">-- {{ loadingText }} --</span>
+    <span v-else-if="limitQuery.pageNum !== 1">努力加载中...</span>
   </div>
 </template>
 
@@ -44,12 +45,12 @@ export default {
   },
   methods: {
     scroll() {
-      const clientHeight = document.documentElement.clientHeight
+      const innerHeight = window.innerHeight
       const scrollHeight = document.body.scrollHeight
       const scrollTop = document.documentElement.scrollTop
       const triggerDistance = 80
       // console.log((scrollTop + clientHeight) >= (scrollHeight - triggerDistance) && this.loading)
-      if ((scrollTop + clientHeight) >= (scrollHeight - triggerDistance) && this.loading) {
+      if (scrollTop > 0 && (scrollTop + innerHeight) >= (scrollHeight - triggerDistance) && this.loading) {
         this.loading = false
         this.getMore()
       }
@@ -136,5 +137,7 @@ export default {
     text-align: center;
     padding: 8px 0;
     overflow: hidden;
+    color: $text-color-grey;
+    font-size: $font-size-sm;
   }
 </style>

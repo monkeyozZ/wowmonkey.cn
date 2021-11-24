@@ -244,10 +244,10 @@ export default {
           padding-left: 25px;
           color: $text-color;
         }
-         ul {
+         ul li{
           list-style-type: disc;
         }
-         ul ul {
+         ul ul li {
           list-style-type: square;
         }
          ol {
